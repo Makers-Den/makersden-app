@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "ui";
 import React, { useState } from "react";
-import { REACT_APP_API_URL } from "@env";
+import Constants from "expo-constants";
 
 // @TODO validate envs (zod?) and move them somewhere
 const env = {
-  REACT_APP_API_URL: REACT_APP_API_URL,
+  API_URL: Constants.manifest?.extra?.API_URL,
 };
 
 // @TODO move all storyblok related types to one place (shared library?)
@@ -96,7 +96,7 @@ export default function Native() {
   const [storyResponse, setStoryResponse] = useState<StoryResponse | null>();
 
   const generateEstimation = async () => {
-    const res = await fetch(`${env.REACT_APP_API_URL}/estimations`, {
+    const res = await fetch(`${env.API_URL}/estimations`, {
       headers: { authorization: "temporary-secret-for-testing-purposes" },
     });
 
@@ -107,7 +107,7 @@ export default function Native() {
 
   const removeEstimation = () => {
     setStoryResponse(null);
-  }
+  };
 
   return (
     <SafeAreaView>

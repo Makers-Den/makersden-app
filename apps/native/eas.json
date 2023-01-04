@@ -8,6 +8,9 @@
       "distribution": "internal"
     },
     "preview": {
+      "env": {
+        "API_URL": "https://makers-den-app-7n99bmnm6-makers-den.vercel.app/api"
+      },
       "ios": {
         "simulator": true
       },
