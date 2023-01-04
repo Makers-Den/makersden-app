@@ -1,3 +1,5 @@
+@TODO Replace placeholder README. Add .env copy step (cp .env .env.local)
+
 # Turborepo react-native starter
 
 This is an official starter Turborepo.
