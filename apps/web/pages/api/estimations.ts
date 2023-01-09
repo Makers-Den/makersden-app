@@ -6,6 +6,7 @@ import type { EstimationContent } from "./storyTypes";
 // @TODO validate envs (zod?) and move them somewhere
 const env = {
   GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
+  GOOGLE_SHEETS_SPREADSHEET_ID: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
   STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
   STORYBLOK_ESTIMATIONS_FOLDER_ID: process.env.STORYBLOK_ESTIMATIONS_FOLDER_ID,
   STORYBLOK_OAUTH_TOKEN: process.env.STORYBLOK_OAUTH_TOKEN,
@@ -44,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const batchSpreadsheetRes = await sheets.spreadsheets.values.batchGet({
-    spreadsheetId: "1YGIZxikkkW6yopbFs5kwRk49A7jXQds8fYSfdcEotTk", // @TODO get this from request
+    spreadsheetId: env.GOOGLE_SHEETS_SPREADSHEET_ID, // @TODO get this from request
     ranges: ["A3:F3", "A4:F4", "A5:F5"], // @TODO do not hardcore this
     valueRenderOption: "UNFORMATTED_VALUE",
   }); // @TODO handle error (sheet not public/wrong api key and so on)
