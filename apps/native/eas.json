@@ -9,14 +9,18 @@
     },
     "preview": {
       "env": {
-        "API_URL": "https://makers-den-app-7n99bmnm6-makers-den.vercel.app/api"
+        "API_URL": "https://staging.app.makersden.io/api"
       },
       "ios": {
         "simulator": true
       },
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "API_URL": "https://app.makersden.io/api"
+      }
+    }
   },
   "submit": {
     "production": {}
