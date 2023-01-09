@@ -7,6 +7,7 @@ import type { EstimationContent } from "./storyTypes";
 const env = {
   GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
   STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
+  STORYBLOK_ENVIRONMENT_FOLDER_NAME: process.env.STORYBLOK_ENVIRONMENT_FOLDER_NAME,
   STORYBLOK_ESTIMATIONS_FOLDER_ID: process.env.STORYBLOK_ESTIMATIONS_FOLDER_ID,
   STORYBLOK_OAUTH_TOKEN: process.env.STORYBLOK_OAUTH_TOKEN,
   STORYBLOK_SPACE_ID: process.env.STORYBLOK_SPACE_ID,
@@ -120,10 +121,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     }
   ); // @TODO handle error
-
+  
   // @TODO check if we can skip this part and just return data from 'createEstimationRes' variable
   const storyblokEstimationRes = await ReadStoryblokClient.get(
-    `cdn/stories/estimations/${spreadsheetName}`,
+    `cdn/stories/${env.STORYBLOK_ENVIRONMENT_FOLDER_NAME}/estimations/${spreadsheetName}`,
     {
       version: "draft",
     }
