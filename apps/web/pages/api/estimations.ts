@@ -1,6 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
-import StoryblokClient from "storyblok-js-client";
+import StoryblokClient, { type ISbStoryData } from "storyblok-js-client";
+import type { EstimationContent } from "./storyTypes";
 
 // @TODO validate envs (zod?) and move them somewhere
 const env = {
@@ -14,85 +15,8 @@ const env = {
 export type SheetRow = [string, string, number, number, number, number];
 
 // @TODO move all storyblok related types to one place (shared library?)
-export interface Mark {
-  type: string;
-}
-
-export interface Content3 {
-  text: string;
-  type: string;
-  marks: Mark[];
-}
-
-export interface Content2 {
-  type: string;
-  content: Content3[];
-}
-
-export interface Description {
-  type: string;
-  content: Content2[];
-}
-
-export interface Task {
-  type: string;
-  content: Content2[];
-}
-
-export interface Row {
-  _uid: string;
-  task: Task;
-  component: string;
-  description: Description;
-  nominalDays: string;
-  optimisticDays: string;
-  pessimisticDays: string;
-  _editable: string;
-}
-
-export interface Section {
-  _uid: string;
-  rows: Row[];
-  title: string;
-  component: string;
-  _editable: string;
-}
-
-export interface Content {
-  _uid: string;
-  title: string;
-  sections: Section[];
-  component: string;
-  _editable: string;
-}
-
-export interface Story {
-  name: string;
-  created_at: Date;
-  published_at: Date;
-  id: number;
-  uuid: string;
-  content: Content;
-  slug: string;
-  full_slug: string;
-  sort_by_date?: any;
-  position: number;
-  tag_list: any[];
-  is_startpage: boolean;
-  parent_id: number;
-  meta_data?: any;
-  group_id: string;
-  first_published_at: Date;
-  release_id?: any;
-  lang: string;
-  path?: any;
-  alternates: any[];
-  default_full_slug?: any;
-  translated_slugs?: any;
-}
-
 export interface StoryResponse {
-  story: Story;
+  story: ISbStoryData<EstimationContent>;
 }
 
 const sheets = google.sheets({
