@@ -1,0 +1,34 @@
+name: expo-build
+on:
+  push:
+    branches:
+      - "main"
+      - "development"
+jobs:
+  expo-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: 45.0.6
+          eas-version: 3.1.1
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Build staging ios
+        if: github.ref == 'refs/heads/development'
+        working-directory: ./apps/native
+        run: eas build --platform ios --profile preview --non-interactive --no-wait
+      - name: Build staging android
+        if: github.ref == 'refs/heads/development'
+        working-directory: ./apps/native
+        run: eas build --platform android --profile preview --non-interactive --no-wait
+      - name: Build production ios
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./apps/native
+        run: eas build --platform ios --profile production --non-interactive --no-wait
+      - name: Build production android
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./apps/native
+        run: eas build --platform android --profile production --non-interactive --no-wait
