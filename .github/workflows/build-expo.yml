@@ -4,13 +4,31 @@ on:
     branches:
       - "main"
       - "development"
-      - "feat/expo-build-in-ci"
 jobs:
   expo-build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
         with:
-          node-version: '18'
-      - run: echo "Hello world"
+          expo-version: 45.0.6
+          eas-version: 3.1.1
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Build staging ios
+        if: github.ref == 'refs/heads/development'
+        working-directory: ./apps/native
+        run: eas build --platform ios --profile preview --non-interactive --no-wait
+      - name: Build staging android
+        if: github.ref == 'refs/heads/development'
+        working-directory: ./apps/native
+        run: eas build --platform android --profile preview --non-interactive --no-wait
+      - name: Build production ios
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./apps/native
+        run: eas build --platform ios --profile production --non-interactive --no-wait
+      - name: Build production android
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./apps/native
+        run: eas build --platform android --profile production --non-interactive --no-wait
