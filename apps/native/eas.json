@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    "preview": {
+    "staging": {
       "env": {
         "API_URL": "https://staging.app.makersden.io/api"
       },
@@ -15,6 +15,11 @@
         "simulator": true
       },
       "distribution": "internal"
+    },
+    "staging-store": {
+      "env": {
+        "API_URL": "https://staging.app.makersden.io/api"
+      }
     },
     "production": {
       "env": {

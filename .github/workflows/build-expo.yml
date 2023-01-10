@@ -25,11 +25,11 @@ jobs:
       - name: Build staging ios
         if: github.ref == 'refs/heads/development'
         working-directory: ./apps/native
-        run: eas build --platform ios --profile preview --non-interactive --no-wait
+        run: eas build --platform ios --profile staging-store --non-interactive --no-wait
       - name: Build staging android
         if: github.ref == 'refs/heads/development'
         working-directory: ./apps/native
-        run: eas build --platform android --profile preview --non-interactive --no-wait
+        run: eas build --platform android --profile staging-store --non-interactive --no-wait
       - name: Build production ios
         if: github.ref == 'refs/heads/main'
         working-directory: ./apps/native
