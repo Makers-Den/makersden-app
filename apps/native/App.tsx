@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { Button } from "ui";
 import React, { useState } from "react";
 import Constants from "expo-constants";
+import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
+import { Box } from "ui/node_modules/native-base";
 
 // @TODO validate envs (zod?) and move them somewhere
 const env = {
@@ -110,18 +112,20 @@ export default function Native() {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.header}>Native</Text>
-          <Button onClick={generateEstimation} text="Generate estimation" />
-          <View style={{ marginTop: 8 }} />
-          <Button onClick={removeEstimation} text="Remove estimation" />
-          {storyResponse && <Estimation estimation={storyResponse.story} />}
-          <StatusBar style="auto" />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ThemeProvider>
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.container}>
+            <Text style={styles.header}>Native</Text>
+            <Button onClick={generateEstimation} text="Generate estimation" />
+            <View style={{ marginTop: 8 }} />
+            <Button onClick={removeEstimation} text="Remove estimation" />
+            {storyResponse && <Estimation estimation={storyResponse.story} />}
+            <StatusBar style="auto" />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
 
