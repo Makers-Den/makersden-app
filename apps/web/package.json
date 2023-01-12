@@ -13,7 +13,8 @@
     "next": "latest",
     "react": "18.2",
     "react-dom": "18.1",
-    "storyblok-js-client": "^5.2.5"
+    "storyblok-js-client": "^5.2.5",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",
