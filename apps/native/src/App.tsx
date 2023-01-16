@@ -2,14 +2,10 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "ui";
 import React, { useState } from "react";
-import Constants from "expo-constants";
 import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
-import { Box } from "ui/node_modules/native-base";
-
-// @TODO validate envs (zod?) and move them somewhere
-const env = {
-  API_URL: Constants.manifest?.extra?.API_URL,
-};
+import { api, TRPCProvider } from "./utils/api";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { environment } from "./utils/environment";
 
 // @TODO move all storyblok related types to one place (shared library?)
 export interface Mark {
@@ -93,12 +89,14 @@ export interface StoryResponse {
   story: Story;
 }
 
-export default function Native() {
+function EstimationsView() {
+  const testQuery = api.estimations.testQuery.useQuery();
+
   // @TODO use something that uses react-query
   const [storyResponse, setStoryResponse] = useState<StoryResponse | null>();
 
   const generateEstimation = async () => {
-    const res = await fetch(`${env.API_URL}/estimations`, {
+    const res = await fetch(`${environment.API_URL}/estimations`, {
       headers: { authorization: "temporary-secret-for-testing-purposes" },
     });
 
@@ -117,6 +115,9 @@ export default function Native() {
         <ScrollView>
           <View style={styles.container}>
             <Text style={styles.header}>Native</Text>
+            <Text>
+              {testQuery.data?.data ? testQuery.data.data : "Loading..."}
+            </Text>
             <Button onClick={generateEstimation} text="Generate estimation" />
             <View style={{ marginTop: 8 }} />
             <Button onClick={removeEstimation} text="Remove estimation" />
@@ -204,3 +205,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
   },
 });
+
+export default function () {
+  return (
+    <TRPCProvider>
+      <SafeAreaProvider>
+        <EstimationsView />
+      </SafeAreaProvider>
+    </TRPCProvider>
+  );
+}
