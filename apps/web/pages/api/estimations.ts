@@ -2,13 +2,16 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { google } from "googleapis";
 import StoryblokClient, { type ISbStoryData } from "storyblok-js-client";
 import type { EstimationContent } from "./storyTypes";
+import { downloadEstimationSheet } from "../../lib/estimation-sheet/download/downloadEstimationSheet";
+import { parseEstimationSheet } from "../../lib/estimation-sheet/parse/parseEstimationSheet";
 
 // @TODO validate envs (zod?) and move them somewhere
 const env = {
   GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
   GOOGLE_SHEETS_SPREADSHEET_ID: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
   STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
-  STORYBLOK_ENVIRONMENT_FOLDER_NAME: process.env.STORYBLOK_ENVIRONMENT_FOLDER_NAME,
+  STORYBLOK_ENVIRONMENT_FOLDER_NAME:
+    process.env.STORYBLOK_ENVIRONMENT_FOLDER_NAME,
   STORYBLOK_ESTIMATIONS_FOLDER_ID: process.env.STORYBLOK_ESTIMATIONS_FOLDER_ID,
   STORYBLOK_OAUTH_TOKEN: process.env.STORYBLOK_OAUTH_TOKEN,
   STORYBLOK_SPACE_ID: process.env.STORYBLOK_SPACE_ID,
@@ -45,23 +48,45 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const batchSpreadsheetRes = await sheets.spreadsheets.values.batchGet({
-    spreadsheetId: env.GOOGLE_SHEETS_SPREADSHEET_ID, // @TODO get this from request
-    ranges: ["A3:F3", "A4:F4", "A5:F5"], // @TODO do not hardcore this
-    valueRenderOption: "UNFORMATTED_VALUE",
-  }); // @TODO handle error (sheet not public/wrong api key and so on)
-
-  const rows = batchSpreadsheetRes.data.valueRanges?.flatMap(
-    (valueRange) => valueRange.values
+  const estimationSheetDownloadResult = await downloadEstimationSheet(
+    sheets,
+    env.GOOGLE_SHEETS_SPREADSHEET_ID
   );
 
-  if (!rows || rows.length === 0) {
-    // @TODO return error
-    return null;
+  if (estimationSheetDownloadResult.isError === true) {
+    res
+      .status(500)
+      .json({ message: "Estimation sheet could not be downloaded" });
+
+    return;
   }
 
-  // @TODO validate rows content
-  // @TODO round to estimates to 1 place after comma
+  const estimationSheetParseResult = parseEstimationSheet(
+    estimationSheetDownloadResult.rows
+  );
+
+  if (estimationSheetParseResult.isError === true) {
+    const { error } = estimationSheetParseResult;
+
+    if (error.type === "EMPTY_SHEET") {
+      res.status(422).json({ message: "Estimation sheet is empty" });
+    } else if (error.type === "FIRST_ROW_IS_NOT_SECTION_HEADER") {
+      res
+        .status(422)
+        .json({ message: "Estimation sheet first row is not section header" });
+    } else if (error.type === "ROW_PARSE_FAILURE") {
+      res.status(422).json({
+        message: "Estimation sheet first row is not section header",
+        row: error.row,
+      });
+    } else {
+      res.status(500).json({
+        message: "Something went wrong",
+      });
+    }
+
+    return;
+  }
 
   const spreadsheetName = "example-project-" + randomBetween(0, 10000000); // @TODO figure out way to generate names
 
@@ -69,46 +94,48 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const content = {
     component: "Estimation",
     title: spreadsheetName,
-    sections: [
-      {
+    sections: estimationSheetParseResult.estimationSheet.sections.map(
+      (section) => ({
         component: "EstimationSection",
-        title: "authorization/authorization",
-        rows: rows.map(
-          ([
-            task,
-            description,
-            optimisticDays,
-            nominalDays,
-            pessimisticDays,
-          ]: any) => ({
-            component: "EstimationRow",
-            task: {
-              type: "doc",
-              content: task
-                .split("\n")
-                .filter((paragraph: string) => !!paragraph)
-                .map((paragraph: string) => ({
-                  type: "paragraph",
-                  content: [{ text: paragraph, type: "text" }],
-                })),
-            },
-            description: {
-              type: "doc",
-              content: description
-                .split("\n")
-                .filter((paragraph: string) => !!paragraph)
-                .map((paragraph: string) => ({
-                  type: "paragraph",
-                  content: [{ text: paragraph, type: "text" }],
-                })),
-            },
-            optimisticDays,
-            nominalDays,
-            pessimisticDays,
-          })
-        ),
-      },
-    ],
+        title: section.title,
+        description: {
+          type: "doc",
+          content: section.description
+            .split("\n")
+            .filter((paragraph: string) => !!paragraph)
+            .map((paragraph: string) => ({
+              type: "paragraph",
+              content: [{ text: paragraph, type: "text" }],
+            })),
+        },
+        rows: section.rows.map((row) => ({
+          component: "EstimationRow",
+          task: {
+            type: "doc",
+            content: row.task
+              .split("\n")
+              .filter((paragraph: string) => !!paragraph)
+              .map((paragraph: string) => ({
+                type: "paragraph",
+                content: [{ text: paragraph, type: "text" }],
+              })),
+          },
+          description: {
+            type: "doc",
+            content: row.description
+              .split("\n")
+              .filter((paragraph: string) => !!paragraph)
+              .map((paragraph: string) => ({
+                type: "paragraph",
+                content: [{ text: paragraph, type: "text" }],
+              })),
+          },
+          optimisticDays: row.optimisticDays ?? 0,
+          nominalDays: row.nominalDays ?? 0,
+          pessimisticDays: row.pessimisticDays ?? 0,
+        })),
+      })
+    ),
   };
 
   const createStoryblokEstimationRes = await WriteStoryblokClient.post(
@@ -122,7 +149,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     }
   ); // @TODO handle error
-  
+
   // @TODO check if we can skip this part and just return data from 'createEstimationRes' variable
   const storyblokEstimationRes = await ReadStoryblokClient.get(
     `cdn/stories/${env.STORYBLOK_ENVIRONMENT_FOLDER_NAME}/estimations/${spreadsheetName}`,

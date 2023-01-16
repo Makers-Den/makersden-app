@@ -4,6 +4,7 @@ export interface EstimationSectionContent {
   _uid: string;
   rows: EstimationSectionRowContent[];
   title: string;
+  description: StoryblockRichTextContent;
   component: "EstimationSection";
 }
 
