@@ -1,15 +1,12 @@
 import styles from "../styles/index.module.css";
-import { api, type RouterOutputs } from "../utils/api";
-
-console.log(api);
+import { api } from "../utils/api";
 
 export default function Web() {
-  const x = api.estimations.testQuery.useQuery();
-  console.log(x.data)
+  const testQuery = api.estimations.testQuery.useQuery();
 
   return (
     <div className={styles.container} onClick={() => console.log(api)}>
-      <h1>{x.data && x.data.data}</h1>
+      <h1>{testQuery.data && testQuery.data.data}</h1>
     </div>
   );
 }
