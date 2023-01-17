@@ -4,6 +4,7 @@ import { EstimationFindManyResult } from "./types";
 interface FindManyEstimationsQuery {
   client: StoryblokClient;
   environmentFolderName: string;
+  organization: string;
   version: "draft" | "published";
 }
 
@@ -16,6 +17,9 @@ export const findManyEstimations = async (
       per_page: 50,
       starts_with: `${query.environmentFolderName}/estimations`,
       page: 1,
+      filter_query: {
+        organization: { in: query.organization },
+      },
     });
 
     return { isError: false, estimations: estimations as any };
