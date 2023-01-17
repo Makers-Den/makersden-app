@@ -9,6 +9,8 @@ const uiPath = "packages/ui/node_modules";
 
 const config = getDefaultConfig(projectRoot);
 
+config.resolver.sourceExts.push("cjs");
+
 // 1. Watch all files within the monorepo
 config.watchFolders = [workspaceRoot];
 // 2. Let Metro know where to resolve packages, and in what order
