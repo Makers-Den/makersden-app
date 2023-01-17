@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "storyblok-types",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,14 +12,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@trpc/client": "^10.1.0",
-    "@trpc/server": "^10.1.0",
-    "googleapis": "^110.0.0",
-    "storyblok-js-client": "^5.2.5",
-    "storyblok-types": "*",
-    "superjson": "^1.9.1",
-    "tsconfig": "*",
-    "zod": "^3.18.0"
+    "storyblok-js-client": "^5.2.5"
   },
   "devDependencies": {
     "eslint": "^8.28.0",
