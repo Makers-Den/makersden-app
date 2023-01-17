@@ -61,6 +61,7 @@ export const createEstimationFromSheet = async (
     client: command.storyblokReadClient,
     environmentFolderName: command.storyblokEnvironmentFolderName,
     name: estimationName,
+    version: "draft",
   });
 
   if (findEstimationResult.isError === true) {

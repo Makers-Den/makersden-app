@@ -1,6 +1,7 @@
 import { sheets_v4 } from "googleapis";
 import StoryblokClient from "storyblok-js-client";
 import { createEstimationFromSheet } from "./services/createEstimationFromSheet";
+import { listEstimations } from "./services/listEstimations";
 
 export interface EstimationsModuleDeps {
   sheetsClient: sheets_v4.Sheets;
@@ -23,6 +24,11 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         storyblokEstimationsFolderId: deps.storyblokEstimationsFolderId,
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,
+      }),
+    listEstimations: () =>
+      listEstimations({
+        storyblokReadClient: deps.storyblokReadClient,
+        storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
       }),
   };
 };

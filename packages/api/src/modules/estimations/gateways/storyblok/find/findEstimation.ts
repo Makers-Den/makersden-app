@@ -6,6 +6,7 @@ interface FindEstimationQuery {
   client: StoryblokClient;
   environmentFolderName: string;
   name: string;
+  version: "draft" | "published";
 }
 
 interface GetEstimationResponseData {
@@ -19,7 +20,7 @@ export const findEstimation = async (
     const estimationResponse = await query.client.get(
       `cdn/stories/${query.environmentFolderName}/estimations/${query.name}`,
       {
-        version: "draft",
+        version: query.version,
       }
     );
 
