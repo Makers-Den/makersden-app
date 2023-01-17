@@ -1,7 +1,7 @@
 import type { StoryblockRichTextContent } from "./internalTypes";
 
 export interface EstimationSectionContent {
-  _uid: string;
+  _uid?: string;
   rows: EstimationSectionRowContent[];
   title: string;
   description: StoryblockRichTextContent;
@@ -9,11 +9,11 @@ export interface EstimationSectionContent {
 }
 
 export interface EstimationSectionRowContent {
-  _uid: string;
+  _uid?: string;
   task: StoryblockRichTextContent;
   component: "EstimationSectionRow";
   description: StoryblockRichTextContent;
-  nominalDays: string;
-  optimisticDays: string;
-  pessimisticDays: string;
+  nominalDays: number;
+  optimisticDays: number;
+  pessimisticDays: number;
 }

@@ -5,108 +5,34 @@ import React, { useState } from "react";
 import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
 import { api, TRPCProvider } from "./utils/api";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { environment } from "./utils/environment";
-
-// @TODO move all storyblok related types to one place (shared library?)
-export interface Mark {
-  type: string;
-}
-
-export interface Content3 {
-  text: string;
-  type: string;
-  marks: Mark[];
-}
-
-export interface Content2 {
-  type: string;
-  content: Content3[];
-}
-
-export interface Description {
-  type: string;
-  content: Content2[];
-}
-
-export interface Task {
-  type: string;
-  content: Content2[];
-}
-
-export interface Row {
-  _uid: string;
-  task: Task;
-  component: string;
-  description: Description;
-  nominalDays: string;
-  optimisticDays: string;
-  pessimisticDays: string;
-  _editable: string;
-}
-
-export interface Section {
-  _uid: string;
-  rows: Row[];
-  title: string;
-  component: string;
-  _editable: string;
-}
-
-export interface Content {
-  _uid: string;
-  title: string;
-  sections: Section[];
-  component: string;
-  _editable: string;
-}
-
-export interface Story {
-  name: string;
-  created_at: Date;
-  published_at: Date;
-  id: number;
-  uuid: string;
-  content: Content;
-  slug: string;
-  full_slug: string;
-  sort_by_date?: any;
-  position: number;
-  tag_list: any[];
-  is_startpage: boolean;
-  parent_id: number;
-  meta_data?: any;
-  group_id: string;
-  first_published_at: Date;
-  release_id?: any;
-  lang: string;
-  path?: any;
-  alternates: any[];
-  default_full_slug?: any;
-  translated_slugs?: any;
-}
-
-export interface StoryResponse {
-  story: Story;
-}
+import { ISbStoryData } from "storyblok-js-client";
+import {
+  EstimationContent,
+  EstimationSectionRowContent,
+} from "storyblok-types";
 
 function EstimationsView() {
-  const testQuery = api.estimations.testQuery.useQuery();
-
-  // @TODO use something that uses react-query
-  const [storyResponse, setStoryResponse] = useState<StoryResponse | null>();
+  const [estimation, setEstimation] =
+    useState<ISbStoryData<EstimationContent> | null>();
+  const { mutate: createEstimationFromSheet } =
+    api.estimations.createFromSheet.useMutation();
 
   const generateEstimation = async () => {
-    const res = await fetch(`${environment.API_URL}/estimations`, {
-      headers: { authorization: "temporary-secret-for-testing-purposes" },
+    createEstimationFromSheet(undefined, {
+      onSuccess: (data) => {
+        if (data.isError === true) {
+          // @TODO proper error handling;
+          console.log(data);
+          return;
+        }
+
+        setEstimation(data.estimation);
+      },
     });
-
-    const json = await res.json();
-
-    setStoryResponse(json);
   };
 
   const removeEstimation = () => {
-    setStoryResponse(null);
+    setEstimation(null);
   };
 
   return (
@@ -115,13 +41,10 @@ function EstimationsView() {
         <ScrollView>
           <View style={styles.container}>
             <Text style={styles.header}>Native</Text>
-            <Text>
-              {testQuery.data?.data ? testQuery.data.data : "Loading..."}
-            </Text>
             <Button onClick={generateEstimation} text="Generate estimation" />
             <View style={{ marginTop: 8 }} />
             <Button onClick={removeEstimation} text="Remove estimation" />
-            {storyResponse && <Estimation estimation={storyResponse.story} />}
+            {estimation && <Estimation estimation={estimation} />}
             <StatusBar style="auto" />
           </View>
         </ScrollView>
@@ -130,7 +53,9 @@ function EstimationsView() {
   );
 }
 
-const Estimation: React.FC<{ estimation: Story }> = ({ estimation }) => {
+const Estimation: React.FC<{ estimation: ISbStoryData<EstimationContent> }> = ({
+  estimation,
+}) => {
   return (
     <View style={{ marginTop: 16 }}>
       <Text style={{ fontWeight: "bold" }}>
@@ -152,7 +77,9 @@ const Estimation: React.FC<{ estimation: Story }> = ({ estimation }) => {
   );
 };
 
-const EstimationRow: React.FC<{ row: Row }> = ({ row }) => {
+const EstimationRow: React.FC<{ row: EstimationSectionRowContent }> = ({
+  row,
+}) => {
   const expectedDays =
     (+row.pessimisticDays + 4 * +row.nominalDays + +row.optimisticDays) / 6;
 

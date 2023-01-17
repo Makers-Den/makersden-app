@@ -1,3 +1,12 @@
+import {
+  estimationsModule,
+  EstimationsModuleDeps,
+} from "./modules/estimations/estimationsModule";
+
+interface ApiDeps {
+  estimations: EstimationsModuleDeps;
+}
+
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use
  * it, you can export it from here
@@ -7,8 +16,10 @@
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = () => {
-  return {};
+const createInnerTRPCContext = (deps: ApiDeps) => {
+  return {
+    estimationsModule: estimationsModule(deps.estimations),
+  };
 };
 
 /**
@@ -16,8 +27,8 @@ const createInnerTRPCContext = () => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async () => {
-  return createInnerTRPCContext();
+export const createTRPCContext = async (deps: ApiDeps) => {
+  return createInnerTRPCContext(deps);
 };
 
 /**
@@ -26,7 +37,7 @@ export const createTRPCContext = async () => {
  * This is where the trpc api is initialized, connecting the context and
  * transformer
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
@@ -57,3 +68,6 @@ export const createTRPCRouter = t.router;
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure;
+
+// @TODO add some auth middleware
+export const protectedProcedure = t.procedure;
