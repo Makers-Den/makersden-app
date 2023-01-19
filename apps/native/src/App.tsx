@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "ui";
+import { Button, EstimationDetails } from "ui";
 import React, { useState } from "react";
 import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
 import { api, TRPCProvider } from "./utils/api";
@@ -41,6 +41,7 @@ function EstimationsView() {
         <ScrollView>
           <View style={styles.container}>
             <Text style={styles.header}>Native</Text>
+            <EstimationDetails />
             <Button onClick={generateEstimation} text="Generate estimation" />
             <View style={{ marginTop: 8 }} />
             <Button onClick={removeEstimation} text="Remove estimation" />
