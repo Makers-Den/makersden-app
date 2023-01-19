@@ -1,10 +1,7 @@
-import {
-  estimationsModule,
-  EstimationsModuleDeps,
-} from "./modules/estimations/estimationsModule";
+import { estimationsModule } from "./modules/estimations/estimationsModule";
 
-interface ApiDeps {
-  estimations: EstimationsModuleDeps;
+export interface ApiModules {
+  estimations: ReturnType<typeof estimationsModule>;
 }
 
 /**
@@ -16,9 +13,9 @@ interface ApiDeps {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (deps: ApiDeps) => {
+const createInnerTRPCContext = (apiModules: ApiModules) => {
   return {
-    estimationsModule: estimationsModule(deps.estimations),
+    estimations: apiModules.estimations,
   };
 };
 
@@ -27,8 +24,8 @@ const createInnerTRPCContext = (deps: ApiDeps) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async (deps: ApiDeps) => {
-  return createInnerTRPCContext(deps);
+export const createTRPCContext = async (apiModules: ApiModules) => {
+  return createInnerTRPCContext(apiModules);
 };
 
 /**

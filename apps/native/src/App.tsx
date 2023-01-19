@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, EstimationDetails } from "ui";
+import { EstimationDetails } from "ui";
 import React, { useState } from "react";
 import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
-import { api, TRPCProvider } from "./utils/api";
+import { TRPCProvider } from "./utils/api";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ISbStoryData } from "storyblok-js-client";
 import {
@@ -14,26 +14,6 @@ import {
 function EstimationsView() {
   const [estimation, setEstimation] =
     useState<ISbStoryData<EstimationContent> | null>();
-  const { mutate: createEstimationFromSheet } =
-    api.estimations.createFromSheet.useMutation();
-
-  const generateEstimation = async () => {
-    createEstimationFromSheet(undefined, {
-      onSuccess: (data) => {
-        if (data.isError === true) {
-          // @TODO proper error handling;
-          console.log(data);
-          return;
-        }
-
-        setEstimation(data.estimation);
-      },
-    });
-  };
-
-  const removeEstimation = () => {
-    setEstimation(null);
-  };
 
   return (
     <ThemeProvider>
@@ -42,9 +22,7 @@ function EstimationsView() {
           <View style={styles.container}>
             <Text style={styles.header}>Native</Text>
             <EstimationDetails />
-            <Button onClick={generateEstimation} text="Generate estimation" />
             <View style={{ marginTop: 8 }} />
-            <Button onClick={removeEstimation} text="Remove estimation" />
             {estimation && <Estimation estimation={estimation} />}
             <StatusBar style="auto" />
           </View>

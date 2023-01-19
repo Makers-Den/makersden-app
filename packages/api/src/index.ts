@@ -1,2 +1,6 @@
 export { appRouter, type AppRouter } from "./root";
-export { createTRPCContext } from "./trpc";
+export { createTRPCContext, type ApiModules } from "./trpc";
+export {
+  estimationsModule,
+  type EstimationsModuleDeps,
+} from "./modules/estimations/estimationsModule";
