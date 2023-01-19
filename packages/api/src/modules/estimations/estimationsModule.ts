@@ -25,10 +25,11 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,
       }),
-    listEstimations: () =>
+    listEstimations: (organization: string) =>
       listEstimations({
         storyblokReadClient: deps.storyblokReadClient,
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
+        organization,
       }),
   };
 };
