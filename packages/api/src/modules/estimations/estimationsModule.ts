@@ -5,7 +5,6 @@ import { listEstimations } from "./services/listEstimations";
 
 export interface EstimationsModuleDeps {
   sheetsClient: sheets_v4.Sheets;
-  sheetId: string;
   storyblokReadClient: StoryblokClient;
   storyblokWriteClient: StoryblokClient;
   storyblokEstimationsFolderId: string;
@@ -15,12 +14,13 @@ export interface EstimationsModuleDeps {
 
 export const estimationsModule = (deps: EstimationsModuleDeps) => {
   return {
-    createEstimationFromSheet: () =>
+    createEstimationFromSheet: (spreadsheetId: string, sheetId: number) =>
       createEstimationFromSheet({
         storyblokReadClient: deps.storyblokReadClient,
         storyblokWriteClient: deps.storyblokWriteClient,
         sheetsClient: deps.sheetsClient,
-        sheetId: deps.sheetId,
+        spreadsheetId,
+        sheetId,
         storyblokEstimationsFolderId: deps.storyblokEstimationsFolderId,
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,

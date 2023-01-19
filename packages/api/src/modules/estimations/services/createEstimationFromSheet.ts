@@ -4,11 +4,11 @@ import { estimationFromSheet } from "../factories/estimationFromSheet";
 import { downloadEstimationSheet } from "../gateways/sheets/download/downloadEstimationSheet";
 import { parseEstimationSheet } from "../gateways/sheets/parse/parseEstimationSheet";
 import { createEstimation } from "../gateways/storyblok/create/createEstimation";
-import { findEstimation } from "../gateways/storyblok/find/findEstimation";
 
 interface CreateEstimationFromSheetCommand {
   sheetsClient: sheets_v4.Sheets;
-  sheetId: string;
+  spreadsheetId: string;
+  sheetId: number;
   storyblokReadClient: StoryblokClient;
   storyblokWriteClient: StoryblokClient;
   storyblokEnvironmentFolderName: string;
@@ -24,6 +24,7 @@ export const createEstimationFromSheet = async (
 ) => {
   const estimationSheetDownloadResult = await downloadEstimationSheet(
     command.sheetsClient,
+    command.spreadsheetId,
     command.sheetId
   );
 
@@ -57,16 +58,5 @@ export const createEstimationFromSheet = async (
     return createEstimationResult;
   }
 
-  const findEstimationResult = await findEstimation({
-    client: command.storyblokReadClient,
-    environmentFolderName: command.storyblokEnvironmentFolderName,
-    name: estimationName,
-    version: "draft",
-  });
-
-  if (findEstimationResult.isError === true) {
-    return findEstimationResult;
-  }
-
-  return { isError: false, estimation: findEstimationResult.estimation };
+  return { isError: false };
 };
