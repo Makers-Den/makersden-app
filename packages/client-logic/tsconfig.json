@@ -1,0 +1,8 @@
+{
+  "extends": "tsconfig/base",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "strict": true
+  }
+}

@@ -1,9 +1,13 @@
 import type { AppProps } from "next/app";
-import "../styles/global.css";
+import { ThemeProvider } from "ui";
 import { api } from "../utils/api";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider isSSR>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
 export default api.withTRPC(MyApp);

@@ -8074,6 +8074,11 @@ storyblok-js-client@^5.2.5:
   resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-5.2.5.tgz#407682ded56802ead9fecbecd43da0f46095c79c"
   integrity sha512-tNiNcPm3HltZtA1XaaNSkpZacNW4TxM4cgAkfj/AGBvPuv5FN2BZfALUpNKIozgYH3ynTPEzMQYGupZ7h00LHw==
 
+storyblok-js-client@^5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-5.3.3.tgz#d2f42719c2f4072d9f6551acea321d75cdef2d2a"
+  integrity sha512-HdRPqU3k7R2W+tQ2fr7J2KTgkxE6t2dyrdMGro9Lo/QHPCVNMvNdyiWexdyAai8XfjR+wNdZt31IeeHZKZJyqQ==
+
 stream-buffers@2.2.x:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
