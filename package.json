@@ -10,7 +10,7 @@
     "dev": "turbo run dev",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types"
+    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
   },
   "devDependencies": {
     "prettier": "^2.7.1",

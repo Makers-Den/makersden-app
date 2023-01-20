@@ -1,9 +1,10 @@
+import React from "react";
+import { EstimationScreen as UiEstimationScreen } from "ui";
+
 import { useEstimationScreen } from "client-logic";
-import dynamic from "next/dynamic";
-import { EstimationScreen } from "ui";
 import { api } from "../utils/api";
 
-function Index() {
+export function EstimationScreen() {
   const {
     estimation,
     estimationSecret,
@@ -14,17 +15,13 @@ function Index() {
   } = useEstimationScreen({ api: api });
 
   return (
-    <EstimationScreen
-      isInvalid={isSecretInvalid}
-      isLoading={isEstimationLoading}
+    <UiEstimationScreen
       estimation={estimation}
       estimationSecret={estimationSecret}
+      isInvalid={isSecretInvalid}
+      isLoading={isEstimationLoading}
       onEnter={handleEnter}
       onEstimationSecretChange={handleEstimationSecretChange}
     />
   );
 }
-
-export default dynamic(() => Promise.resolve(Index), {
-  ssr: false,
-});

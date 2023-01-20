@@ -11,6 +11,8 @@
   "devDependencies": {
     "@types/react": "^18.0.22",
     "@types/react-native": "^0.69.15",
+    "storyblok-js-client": "^5.3.3",
+    "storyblok-types": "*",
     "tsconfig": "*",
     "tsup": "^6.0.1",
     "typescript": "^4.7.4"
