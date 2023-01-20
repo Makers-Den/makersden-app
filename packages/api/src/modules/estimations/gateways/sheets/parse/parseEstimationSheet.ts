@@ -13,18 +13,14 @@ import {
 import { EstimationSheetParseResult, EstimationSheetSection } from "./types";
 
 const COLUMN_COUNT = 6;
-type NColumnRow = [unknown, unknown, unknown, unknown, unknown];
 
 export const parseEstimationSheet = (
   rows: unknown[][]
 ): EstimationSheetParseResult => {
-  const nColumnRows: NColumnRow[] = rows.map(
-    (row) =>
-      [
-        ...row,
-        ...new Array(Math.max(COLUMN_COUNT - row.length, 0)).fill(null),
-      ] as NColumnRow
-  );
+  const nColumnRows = rows.map((row) => [
+    ...row,
+    ...new Array(Math.max(COLUMN_COUNT - row.length, 0)).fill(null),
+  ]);
 
   const primaryHeaderRow = nColumnRows[0];
   const parsedPrimaryHeaderRow =
