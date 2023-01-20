@@ -1,7 +1,6 @@
 // @TODO validate envs (zod?) and move them somewhere
 export const environment = Object.freeze({
   GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
-  GOOGLE_SHEETS_SPREADSHEET_ID: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
   STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
   STORYBLOK_ENVIRONMENT_FOLDER_NAME:
     process.env.STORYBLOK_ENVIRONMENT_FOLDER_NAME,

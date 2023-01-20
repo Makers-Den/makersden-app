@@ -6,46 +6,65 @@ import {
 import {
   estimatedRowSchema,
   notEstimatedRowSchema,
+  primaryHeaderRowSchema,
+  secondaryHeaderRowSchema,
   sectionHeaderRowSchema,
 } from "./schemas";
 import { EstimationSheetParseResult, EstimationSheetSection } from "./types";
 
-type FiveColumnRow = [unknown, unknown, unknown, unknown, unknown];
+const COLUMN_COUNT = 6;
+type NColumnRow = [unknown, unknown, unknown, unknown, unknown];
 
 export const parseEstimationSheet = (
   rows: unknown[][]
 ): EstimationSheetParseResult => {
-  const rowsWithoutMetaRows = rows.slice(1, -1);
-  if (rowsWithoutMetaRows.length === 0) {
-    return { isError: true, error: { type: "EMPTY_SHEET" } };
-  }
-
-  const fiveColumnRows: FiveColumnRow[] = rowsWithoutMetaRows.map(
+  const nColumnRows: NColumnRow[] = rows.map(
     (row) =>
       [
         ...row,
-        ...new Array(Math.max(5 - row.length, 0)).fill(null),
-      ] as FiveColumnRow
+        ...new Array(Math.max(COLUMN_COUNT - row.length, 0)).fill(null),
+      ] as NColumnRow
   );
 
-  const firstRow = fiveColumnRows[0];
-  const parsedFirstRow = sectionHeaderRowSchema.safeParse(firstRow);
-  if (!parsedFirstRow.success) {
+  const primaryHeaderRow = nColumnRows[0];
+  const parsedPrimaryHeaderRow =
+    primaryHeaderRowSchema.safeParse(primaryHeaderRow);
+  if (!parsedPrimaryHeaderRow.success) {
     return {
       isError: true,
-      error: { type: "FIRST_ROW_IS_NOT_SECTION_HEADER" },
+      error: { type: "ROW_PARSE_FAILURE", row: primaryHeaderRow },
+    };
+  }
+
+  const secondaryHeaderRow = nColumnRows[1];
+  const parsedSecondaryHeaderRow =
+    secondaryHeaderRowSchema.safeParse(secondaryHeaderRow);
+  if (!parsedSecondaryHeaderRow.success) {
+    return {
+      isError: true,
+      error: { type: "ROW_PARSE_FAILURE", row: secondaryHeaderRow },
+    };
+  }
+
+  const firstSectionRow = nColumnRows[3];
+  const parsedFirstSectionRow =
+    sectionHeaderRowSchema.safeParse(firstSectionRow);
+  if (!parsedFirstSectionRow.success) {
+    return {
+      isError: true,
+      error: { type: "ROW_PARSE_FAILURE", row: firstSectionRow },
     };
   }
 
   const firstSection = sectionHeaderRowToEstimationSheetSection(
-    parsedFirstRow.data
+    parsedFirstSectionRow.data
   );
 
   const sections: EstimationSheetSection[] = [firstSection];
   let currentSection = firstSection;
 
-  for (let i = 1; i < fiveColumnRows.length; i += 1) {
-    const row = fiveColumnRows[i];
+  for (let i = 4; i < nColumnRows.length - 1; i += 1) {
+    const row = nColumnRows[i];
 
     const sectionHeaderRowParseResult = sectionHeaderRowSchema.safeParse(row);
     if (sectionHeaderRowParseResult.success) {
@@ -81,5 +100,13 @@ export const parseEstimationSheet = (
     };
   }
 
-  return { isError: false, estimationSheet: { sections } };
+  return {
+    isError: false,
+    estimationSheet: {
+      sections,
+      description: parsedSecondaryHeaderRow.data[0] || "",
+      organization: parsedPrimaryHeaderRow.data[1],
+      title: parsedPrimaryHeaderRow.data[0],
+    },
+  };
 };
