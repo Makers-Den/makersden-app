@@ -5,6 +5,10 @@ import { EstimationSheetDownloadResult } from "./types";
 const BATCH_SIZE = 40;
 const BATCH_ARRAY = Object.freeze(new Array(BATCH_SIZE).fill(0));
 
+const isRowEmpty = (
+  row: unknown[][] | undefined | null
+): row is undefined | null => !row;
+
 export const downloadEstimationSheet = async (
   sheetsClient: sheets_v4.Sheets,
   spreadsheetId: string
@@ -38,13 +42,36 @@ export const downloadEstimationSheet = async (
       };
     }
 
-    const batchRows = batchSpreadsheetResponse.data.valueRanges
-      .flatMap((valueRange) => valueRange.values)
-      .filter((batchRow) => batchRow !== undefined);
+    const batchRows = batchSpreadsheetResponse.data.valueRanges!.flatMap(
+      (valueRange) => valueRange.values
+    );
 
-    rows.push(...batchRows);
+    const processedBatchRows: unknown[][] = [];
 
-    if (batchRows.length === BATCH_SIZE) {
+    for (let i = 0; i < batchRows.length; i += 1) {
+      const currentBatchRow = batchRows[i];
+
+      if (isRowEmpty(currentBatchRow)) {
+        const nextBatchRowIndex = i + 1;
+        if (nextBatchRowIndex === batchRows.length) {
+          break;
+        }
+
+        const nextBatchRow = batchRows[nextBatchRowIndex];
+        if (isRowEmpty(nextBatchRow)) {
+          break;
+        }
+
+        processedBatchRows.push([]);
+        continue;
+      }
+
+      processedBatchRows.push(currentBatchRow);
+    }
+
+    rows.push(...processedBatchRows);
+
+    if (processedBatchRows.length === BATCH_SIZE) {
       rangeStart += BATCH_SIZE;
     } else {
       hasMoreRows = false;
