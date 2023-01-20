@@ -17,12 +17,12 @@ const COLUMN_COUNT = 6;
 export const parseEstimationSheet = (
   rows: unknown[][]
 ): EstimationSheetParseResult => {
-  const nColumnRows = rows.map((row) => [
+  const filledRows = rows.map((row) => [
     ...row,
     ...new Array(Math.max(COLUMN_COUNT - row.length, 0)).fill(null),
   ]);
 
-  const primaryHeaderRow = nColumnRows[0];
+  const primaryHeaderRow = filledRows[0];
   const parsedPrimaryHeaderRow =
     primaryHeaderRowSchema.safeParse(primaryHeaderRow);
   if (!parsedPrimaryHeaderRow.success) {
@@ -32,7 +32,7 @@ export const parseEstimationSheet = (
     };
   }
 
-  const secondaryHeaderRow = nColumnRows[1];
+  const secondaryHeaderRow = filledRows[1];
   const parsedSecondaryHeaderRow =
     secondaryHeaderRowSchema.safeParse(secondaryHeaderRow);
   if (!parsedSecondaryHeaderRow.success) {
@@ -42,7 +42,7 @@ export const parseEstimationSheet = (
     };
   }
 
-  const firstSectionRow = nColumnRows[3];
+  const firstSectionRow = filledRows[3];
   const parsedFirstSectionRow =
     sectionHeaderRowSchema.safeParse(firstSectionRow);
   if (!parsedFirstSectionRow.success) {
@@ -59,8 +59,8 @@ export const parseEstimationSheet = (
   const sections: EstimationSheetSection[] = [firstSection];
   let currentSection = firstSection;
 
-  for (let i = 4; i < nColumnRows.length - 1; i += 1) {
-    const row = nColumnRows[i];
+  for (let i = 4; i < filledRows.length - 1; i += 1) {
+    const row = filledRows[i];
 
     const sectionHeaderRowParseResult = sectionHeaderRowSchema.safeParse(row);
     if (sectionHeaderRowParseResult.success) {
