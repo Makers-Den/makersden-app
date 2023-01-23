@@ -13,17 +13,7 @@ export interface EstimationSheetParseSuccessResult {
 }
 
 export type EstimationSheetParseError =
-  | EstimationSheetParseEmptySheetError
-  | EstimationSheetParseFirstRowIsNotSectionHeaderError
-  | EstimationSheetParseRowParseFailureError;
-
-export interface EstimationSheetParseEmptySheetError {
-  type: "EMPTY_SHEET";
-}
-
-export interface EstimationSheetParseFirstRowIsNotSectionHeaderError {
-  type: "FIRST_ROW_IS_NOT_SECTION_HEADER";
-}
+  EstimationSheetParseRowParseFailureError;
 
 export interface EstimationSheetParseRowParseFailureError {
   type: "ROW_PARSE_FAILURE";
@@ -31,6 +21,9 @@ export interface EstimationSheetParseRowParseFailureError {
 }
 
 export interface EstimationSheet {
+  title: string;
+  description: string;
+  organization: string;
   sections: EstimationSheetSection[];
 }
 
@@ -43,6 +36,7 @@ export interface EstimationSheetSection {
 export interface EstimationSheetRow {
   task: string;
   description: string;
+  isIncluded: boolean;
   nominalDays: number | null;
   optimisticDays: number | null;
   pessimisticDays: number | null;

@@ -15,6 +15,7 @@
     "@trpc/client": "^10.1.0",
     "@trpc/server": "^10.1.0",
     "googleapis": "^110.0.0",
+    "randomstring": "^1.2.3",
     "storyblok-js-client": "^5.2.5",
     "storyblok-types": "*",
     "superjson": "^1.9.1",
@@ -22,6 +23,7 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@types/randomstring": "^1.1.8",
     "eslint": "^8.28.0",
     "tsup": "^6.5.0",
     "typescript": "^4.9.3"

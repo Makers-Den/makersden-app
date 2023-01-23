@@ -14,9 +14,10 @@ export const estimatedRowToEstimationSheetRow = (
 ): EstimationSheetRow => ({
   task: row[0],
   description: row[1] || "",
-  optimisticDays: row[2],
-  nominalDays: row[3],
-  pessimisticDays: row[4],
+  isIncluded: row[2] === "x",
+  optimisticDays: row[3],
+  nominalDays: row[4],
+  pessimisticDays: row[5],
 });
 
 export const notEstimatedRowToEstimationSheetRow = (
@@ -24,6 +25,7 @@ export const notEstimatedRowToEstimationSheetRow = (
 ): EstimationSheetRow => ({
   task: row[0],
   description: row[1] || "",
+  isIncluded: row[2] === "x",
   optimisticDays: null,
   nominalDays: null,
   pessimisticDays: null,

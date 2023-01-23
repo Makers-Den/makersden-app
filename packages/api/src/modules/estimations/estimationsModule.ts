@@ -1,7 +1,7 @@
 import { sheets_v4 } from "googleapis";
 import StoryblokClient from "storyblok-js-client";
+import { findEstimation } from "./gateways/storyblok/find/findEstimation";
 import { createEstimationFromSheet } from "./services/createEstimationFromSheet";
-import { listEstimations } from "./services/listEstimations";
 
 export interface EstimationsModuleDeps {
   sheetsClient: sheets_v4.Sheets;
@@ -14,22 +14,21 @@ export interface EstimationsModuleDeps {
 
 export const estimationsModule = (deps: EstimationsModuleDeps) => {
   return {
-    createEstimationFromSheet: (spreadsheetId: string, sheetId: number) =>
+    createEstimationFromSheet: (spreadsheetId: string) =>
       createEstimationFromSheet({
         storyblokReadClient: deps.storyblokReadClient,
         storyblokWriteClient: deps.storyblokWriteClient,
         sheetsClient: deps.sheetsClient,
         spreadsheetId,
-        sheetId,
         storyblokEstimationsFolderId: deps.storyblokEstimationsFolderId,
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,
       }),
-    listEstimations: (organization: string) =>
-      listEstimations({
-        storyblokReadClient: deps.storyblokReadClient,
-        storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
-        organization,
+    findEstimation: (secret: string) =>
+      findEstimation({
+        client: deps.storyblokReadClient,
+        environmentFolderName: deps.storyblokEnvironmentFolderName,
+        secret,
       }),
   };
 };

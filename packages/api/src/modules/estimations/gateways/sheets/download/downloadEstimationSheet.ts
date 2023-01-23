@@ -5,66 +5,21 @@ import { EstimationSheetDownloadResult } from "./types";
 const BATCH_SIZE = 40;
 const BATCH_ARRAY = Object.freeze(new Array(BATCH_SIZE).fill(0));
 
-const getSheetTitle = async (
-  sheetsClient: sheets_v4.Sheets,
-  spreadsheetId: string,
-  sheetId: number
-) => {
-  try {
-    const spreadsheet = await sheetsClient.spreadsheets.get({
-      spreadsheetId: spreadsheetId,
-    });
-
-    const sheet = spreadsheet.data.sheets?.find(
-      (sheet) => sheet?.properties?.sheetId === sheetId
-    );
-
-    if (!sheet) {
-      return {
-        isError: true,
-        error: {
-          type: "SHEET_NOT_FOUND",
-        },
-      } as const;
-    }
-
-    return {
-      isError: false,
-      sheetTitle: sheet.properties?.title || "",
-    } as const;
-  } catch (e) {
-    return {
-      isError: true,
-      error: {
-        type: "FETCH_SHEET_FAILURE",
-      },
-    } as const;
-  }
-};
+const isRowEmpty = (
+  row: unknown[][] | undefined | null
+): row is undefined | null => !row;
 
 export const downloadEstimationSheet = async (
   sheetsClient: sheets_v4.Sheets,
-  spreadsheetId: string,
-  sheetId: number
+  spreadsheetId: string
 ): Promise<EstimationSheetDownloadResult> => {
-  const getSheetTitleResult = await getSheetTitle(
-    sheetsClient,
-    spreadsheetId,
-    sheetId
-  );
-
-  if (getSheetTitleResult.isError === true) {
-    return getSheetTitleResult;
-  }
-
   let hasMoreRows = true;
   let rows: unknown[][] = [];
   let rangeStart = 1;
 
   while (hasMoreRows) {
     const ranges = BATCH_ARRAY.map((_, index) => rangeStart + index).map(
-      (rowIndex) =>
-        `${getSheetTitleResult.sheetTitle}!A${rowIndex}:E${rowIndex}`
+      (rowIndex) => `A${rowIndex}:F${rowIndex}`
     );
 
     let batchSpreadsheetResponse: GaxiosResponse<sheets_v4.Schema$BatchGetValuesResponse>;
@@ -87,13 +42,36 @@ export const downloadEstimationSheet = async (
       };
     }
 
-    const batchRows = batchSpreadsheetResponse.data.valueRanges
-      .flatMap((valueRange) => valueRange.values)
-      .filter((batchRow) => batchRow !== undefined);
+    const batchRows = batchSpreadsheetResponse.data.valueRanges!.flatMap(
+      (valueRange) => valueRange.values
+    );
 
-    rows.push(...batchRows);
+    const processedBatchRows: unknown[][] = [];
 
-    if (batchRows.length === BATCH_SIZE) {
+    for (let i = 0; i < batchRows.length; i += 1) {
+      const currentBatchRow = batchRows[i];
+
+      if (isRowEmpty(currentBatchRow)) {
+        const nextBatchRowIndex = i + 1;
+        if (nextBatchRowIndex === batchRows.length) {
+          break;
+        }
+
+        const nextBatchRow = batchRows[nextBatchRowIndex];
+        if (isRowEmpty(nextBatchRow)) {
+          break;
+        }
+
+        processedBatchRows.push([]);
+        continue;
+      }
+
+      processedBatchRows.push(currentBatchRow);
+    }
+
+    rows.push(...processedBatchRows);
+
+    if (processedBatchRows.length === BATCH_SIZE) {
       rangeStart += BATCH_SIZE;
     } else {
       hasMoreRows = false;

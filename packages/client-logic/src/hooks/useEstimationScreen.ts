@@ -24,13 +24,13 @@ export const useEstimationScreen = ({ api }: UseEstimationScreenDeps) => {
     setEstimationSecret(organizationSecret);
   };
 
-  const estimationListQuery = api.estimations.list.useQuery(
-    { organization: enteredEstimationSecret },
+  const estimationListQuery = api.estimations.findOne.useQuery(
+    { secret: enteredEstimationSecret },
     {
       enabled: !!enteredEstimationSecret,
       onError: handleEstimationListQueryError,
       onSuccess: (data) => {
-        if (data.isError === true || data.estimations.length === 0) {
+        if (data.isError === true || !data.estimation) {
           handleEstimationListQueryError();
         }
       },
@@ -38,10 +38,8 @@ export const useEstimationScreen = ({ api }: UseEstimationScreenDeps) => {
   );
 
   const estimation =
-    estimationListQuery.data &&
-    !estimationListQuery.data.isError &&
-    estimationListQuery.data.estimations.length > 0
-      ? estimationListQuery.data.estimations[0]
+    estimationListQuery.data && !estimationListQuery.data.isError
+      ? estimationListQuery.data.estimation
       : null;
 
   return {
