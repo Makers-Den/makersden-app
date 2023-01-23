@@ -12,7 +12,7 @@ export function EstimationScreen() {
     isSecretInvalid,
     handleEnter,
     handleEstimationSecretChange,
-  } = useEstimationScreen({ api: api });
+  } = useEstimationScreen({ api });
 
   return (
     <UiEstimationScreen

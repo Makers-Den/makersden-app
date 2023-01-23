@@ -11,7 +11,7 @@ function Index() {
     isSecretInvalid,
     handleEnter,
     handleEstimationSecretChange,
-  } = useEstimationScreen({ api: api });
+  } = useEstimationScreen({ api });
 
   return (
     <EstimationScreen
