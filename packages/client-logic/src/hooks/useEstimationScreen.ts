@@ -3,9 +3,13 @@ import { Api } from "../types/api";
 
 interface UseEstimationScreenDeps {
   api: Api;
+  exampleEstimationSecret: string;
 }
 
-export const useEstimationScreen = ({ api }: UseEstimationScreenDeps) => {
+export const useEstimationScreen = ({
+  api,
+  exampleEstimationSecret,
+}: UseEstimationScreenDeps) => {
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
   const [enteredEstimationSecret, setEnteredEstimationSecret] = useState("");
@@ -20,8 +24,14 @@ export const useEstimationScreen = ({ api }: UseEstimationScreenDeps) => {
     setEnteredEstimationSecret(estimationSecret);
   };
 
-  const handleEstimationSecretChange = (organizationSecret: string) => {
-    setEstimationSecret(organizationSecret);
+  const handleEstimationSecretChange = (estimationSecret: string) => {
+    setEstimationSecret(estimationSecret);
+  };
+
+  const handleShowExampleEstimation = () => {
+    setEstimationSecret(exampleEstimationSecret);
+    setIsSecretInvalid(false);
+    setEnteredEstimationSecret(exampleEstimationSecret);
   };
 
   const estimationListQuery = api.estimations.findOne.useQuery(
@@ -49,5 +59,6 @@ export const useEstimationScreen = ({ api }: UseEstimationScreenDeps) => {
     estimationSecret,
     handleEnter,
     handleEstimationSecretChange,
+    handleShowExampleEstimation,
   };
 };

@@ -15,6 +15,7 @@ export interface EstimationGateProps {
   estimationSecret: string;
   onEnter: () => void;
   onEstimationSecretChange: (estimationSecret: string) => void;
+  onShowExampleEstimation: () => void;
 }
 
 export const EstimationGate: React.FC<EstimationGateProps> = ({
@@ -23,6 +24,7 @@ export const EstimationGate: React.FC<EstimationGateProps> = ({
   estimationSecret,
   onEnter,
   onEstimationSecretChange,
+  onShowExampleEstimation,
 }) => {
   return (
     <View pt={48} justifyContent="center" alignItems="center">
@@ -55,6 +57,15 @@ export const EstimationGate: React.FC<EstimationGateProps> = ({
             onPress={onEnter}
           >
             Enter
+          </Button>
+
+          <Button
+            variant="Link"
+            textDecoration="underline"
+            onPress={onShowExampleEstimation}
+            isDisabled={isLoading}
+          >
+            or see example estimation
           </Button>
         </VStack>
       </VStack>

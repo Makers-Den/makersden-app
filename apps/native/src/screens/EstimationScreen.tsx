@@ -3,6 +3,7 @@ import { EstimationScreen as UiEstimationScreen } from "ui";
 
 import { useEstimationScreen } from "client-logic";
 import { api } from "../utils/api";
+import { environment } from "../utils/environment";
 
 export function EstimationScreen() {
   const {
@@ -12,7 +13,11 @@ export function EstimationScreen() {
     isSecretInvalid,
     handleEnter,
     handleEstimationSecretChange,
-  } = useEstimationScreen({ api });
+    handleShowExampleEstimation,
+  } = useEstimationScreen({
+    api,
+    exampleEstimationSecret: environment.EXAMPLE_ESTIMATION_SECRET,
+  });
 
   return (
     <UiEstimationScreen
@@ -22,6 +27,7 @@ export function EstimationScreen() {
       isLoading={isEstimationLoading}
       onEnter={handleEnter}
       onEstimationSecretChange={handleEstimationSecretChange}
+      onShowExampleEstimation={handleShowExampleEstimation}
     />
   );
 }
