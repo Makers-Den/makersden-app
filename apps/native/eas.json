@@ -10,7 +10,8 @@
     },
     "staging": {
       "env": {
-        "API_URL": "https://staging.app.makersden.io/api"
+        "API_URL": "https://staging.app.makersden.io/api",
+        "EXAMPLE_ESTIMATION_SECRET": "marketing-comp-ntt8"
       },
       "ios": {
         "simulator": true
@@ -20,13 +21,15 @@
     "staging-store": {
       "autoIncrement": true,
       "env": {
-        "API_URL": "https://staging.app.makersden.io/api"
+        "API_URL": "https://staging.app.makersden.io/api",
+        "EXAMPLE_ESTIMATION_SECRET": "marketing-comp-ntt8"
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "API_URL": "https://app.makersden.io/api"
+        "API_URL": "https://app.makersden.io/api",
+        "EXAMPLE_ESTIMATION_SECRET": "marketing-comp-ttpp"
       }
     }
   },
