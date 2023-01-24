@@ -4,32 +4,13 @@
     "packages": [
       "apps/*",
       "packages/*"
-    ],
-    "nohoist": [
-      "**/react-native",
-      "**/react-native/**",
-      "**/@react-native-*",
-      "**/@react-native-*/**",
-      "**/react-native-*",
-      "**/react-native-*/**",
-      "**/*react-navigation/native*",
-      "**/*react-navigation/native*/**",
-      "**/expo",
-      "**/expo/**",
-      "**/@expo",
-      "**/@expo/**",
-      "**/expo-*",
-      "**/expo-*/**",
-      "**/metro-*",
-      "**/metro-*/**"
     ]
   },
   "scripts": {
     "dev": "turbo run dev",
-    "build:ui": "turbo run build --filter ui",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "postinstall": "yarn build:ui"
+    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
