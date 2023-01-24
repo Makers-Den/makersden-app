@@ -9,7 +9,7 @@ export default {
     splash: {
       image: "./assets/splash.png",
       resizeMode: "contain",
-      backgroundColor: "#ffffff",
+      backgroundColor: "#131825",
     },
     updates: {
       fallbackToCacheTimeout: 0,
@@ -22,12 +22,9 @@ export default {
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#131825",
       },
       package: "io.makersden.app",
-    },
-    web: {
-      favicon: "./assets/favicon.png",
     },
     extra: {
       API_URL: process.env.API_URL,
