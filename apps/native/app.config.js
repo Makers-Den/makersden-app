@@ -31,6 +31,7 @@ export default {
     },
     extra: {
       API_URL: process.env.API_URL,
+      EXAMPLE_ESTIMATION_SECRET: process.env.EXAMPLE_ESTIMATION_SECRET,
       eas: {
         projectId: "83d2d396-105f-48c9-aa90-973cb4170235",
       },
