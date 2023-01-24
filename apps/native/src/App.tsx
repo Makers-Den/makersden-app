@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
 import { TRPCProvider } from "./utils/api";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { EstimationScreen } from "./screens/EstimationScreen";
 
 export default function () {
@@ -9,7 +9,9 @@ export default function () {
     <TRPCProvider>
       <ThemeProvider>
         <SafeAreaProvider>
-          <EstimationScreen />
+          <SafeAreaView>
+            <EstimationScreen />
+          </SafeAreaView>
         </SafeAreaProvider>
       </ThemeProvider>
     </TRPCProvider>
