@@ -1,15 +1,8 @@
-import {
-  Box,
-  HStack,
-  Image,
-  Text,
-  VStack,
-  Button,
-  Pressable,
-} from "native-base";
+import { Box, HStack, Image, Text, VStack } from "native-base";
 import React, { useState } from "react";
-import { TouchableOpacity, ImageSourcePropType } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { StoryblockAssetContent } from "storyblok-types";
+import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationImagesProps {
   images: StoryblockAssetContent[];
@@ -31,28 +24,6 @@ const getSecondaryImages = (images: StoryblockAssetContent[]) => {
 
 const getAdditionalImageCount = (images: StoryblockAssetContent[]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
-
-interface GalleryImage {
-  source: ImageSourcePropType;
-  alt: string;
-}
-
-interface ImageGalleryProps {
-  isOpen: boolean;
-  activeImageIndex: number;
-  images: GalleryImage[];
-  onActiveImageIndexChange?: (activeImageIndex: number) => void;
-  onClose?: () => void;
-}
-
-export const ImageGallery: React.FC<ImageGalleryProps> = ({
-  activeImageIndex,
-  images,
-  isOpen,
-  onActiveImageIndexChange,
-}) => {
-  return <Text>My cool gallery</Text>;
-};
 
 export const EstimationImages: React.FC<EstimationImagesProps> = ({
   images,
@@ -121,18 +92,16 @@ export const EstimationImages: React.FC<EstimationImagesProps> = ({
         </HStack>
       )}
 
-      {activeImageIndex !== null && (
-        <ImageGallery
-          activeImageIndex={activeImageIndex}
-          images={images.map((image) => ({
-            source: { uri: image.filename },
-            alt: image.alt,
-          }))}
-          isOpen
-          onActiveImageIndexChange={(index) => setActiveImageIndex(index)}
-          onClose={() => setActiveImageIndex(null)}
-        />
-      )}
+      <ImageGallery
+        initialImageIndex={activeImageIndex ?? 0}
+        isOpen={activeImageIndex !== null}
+        images={images.map((image) => ({
+          alt: image.alt,
+          source: { uri: image.filename },
+          id: image.id,
+        }))}
+        onClose={() => setActiveImageIndex(null)}
+      />
     </VStack>
   );
 };
