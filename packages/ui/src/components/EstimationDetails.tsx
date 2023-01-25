@@ -1,8 +1,9 @@
-import { Box, HStack, SectionList, Text } from "native-base";
+import { Box, Flex, HStack, SectionList, Text, View } from "native-base";
 import React, { useMemo, useState } from "react";
 import { LayoutAnimation, Platform, UIManager } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
+import { EstimationImages } from "./EstimationImages";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { RichTextResolver } from "./RichTextResolver";
 
@@ -25,6 +26,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           nominalDays,
           optimisticDays,
           pessimisticDays,
+          images,
         }) => ({
           key: _uid,
           description,
@@ -32,6 +34,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           nominalDays,
           optimisticDays,
           pessimisticDays,
+          images: images || [],
         })
       );
       return { data, title, description, key: _uid };
@@ -70,7 +73,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
         );
       }}
       renderItem={({
-        item: { task, description, key: itemKey, nominalDays },
+        item: { task, description, key: itemKey, nominalDays, images },
         section: { key: sectionKey },
       }) => {
         return (
@@ -91,9 +94,12 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
               </HStack>
             }
             hideableComponent={
-              <Box p={4} bg="amber.200">
-                <RichTextResolver richText={description} />
-              </Box>
+              <Flex p={4} bg="amber.200" direction="row">
+                {images.length > 0 && <EstimationImages images={images} />}
+                <Box flexShrink={1}>
+                  <RichTextResolver richText={description} />
+                </Box>
+              </Flex>
             }
           />
         );

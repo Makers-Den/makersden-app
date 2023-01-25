@@ -1,4 +1,7 @@
-import type { StoryblockRichTextContent } from "./internalTypes";
+import type {
+  StoryblockAssetContent,
+  StoryblockRichTextContent,
+} from "./internalTypes";
 
 export interface EstimationSectionContent {
   _uid?: string;
@@ -17,4 +20,5 @@ export interface EstimationRowContent {
   nominalDays: number;
   optimisticDays: number;
   pessimisticDays: number;
+  images?: StoryblockAssetContent[];
 }
