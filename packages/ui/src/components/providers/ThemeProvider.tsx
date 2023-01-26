@@ -1,5 +1,6 @@
-import { NativeBaseProvider } from "native-base";
+import { extendTheme, NativeBaseProvider } from "native-base";
 import React from "react";
+import { theme } from "../../theme/theme";
 
 export type ThemeProviderProps = {
   children?: React.ReactNode;
@@ -7,5 +8,9 @@ export type ThemeProviderProps = {
 };
 
 export function ThemeProvider({ children, isSSR }: ThemeProviderProps) {
-  return <NativeBaseProvider isSSR={isSSR}>{children}</NativeBaseProvider>;
+  return (
+    <NativeBaseProvider theme={theme} isSSR={isSSR}>
+      {children}
+    </NativeBaseProvider>
+  );
 }
