@@ -1,4 +1,4 @@
-import { extendTheme, NativeBaseProvider } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import React from "react";
 import { theme } from "../../theme/theme";
 

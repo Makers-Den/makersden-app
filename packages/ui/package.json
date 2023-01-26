@@ -21,7 +21,6 @@
     "native-base": "^3.4.25",
     "react": "18.1.0",
     "react-native": "0.70.5",
-    "react-native-section-list-get-item-layout": "^2.2.3",
     "react-native-svg": "12.3.0",
     "react-native-web": "0.18.10",
     "storyblok-rich-text-react-renderer": "^2.6.1"
