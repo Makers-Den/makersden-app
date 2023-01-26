@@ -13,7 +13,7 @@ const validateEnvVars = z.object({
 export const environment = validateEnvVars.parse(
   Object.freeze({
     EXAMPLE_ESTIMATION_SECRET:
-      process.env.NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET,
+      "secret" || process.env.NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET,
     GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
     STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
     STORYBLOK_ENVIRONMENT_FOLDER_NAME:

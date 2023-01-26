@@ -1,9 +1,8 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Box, Heading, HStack, Text, Flex } from "native-base";
+import { Box, Heading, HStack, Text, SectionList, Divider } from "native-base";
 import {
   LayoutAnimation,
   Platform,
-  SectionList,
   TouchableOpacity,
   UIManager,
 } from "react-native";
@@ -25,20 +24,23 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   const { sections, title } = estimation.content;
 
   const sectionsData = useMemo(() => {
-    return sections.map(({ rows, title, description, _uid }) => {
+    return sections.map(({ rows, title, description, _uid }, sectionIndex) => {
       let nominalDaysSum: number = 0;
       let optimisticDaysSum: number = 0;
       let pessimisticDaysSum: number = 0;
       const data = rows.map(
-        ({
-          _uid,
-          description,
-          task,
-          nominalDays,
-          optimisticDays,
-          pessimisticDays,
-          images,
-        }) => {
+        (
+          {
+            _uid,
+            description,
+            task,
+            nominalDays,
+            optimisticDays,
+            pessimisticDays,
+            images,
+          },
+          itemIndex
+        ) => {
           nominalDaysSum += nominalDays;
           optimisticDaysSum += optimisticDays;
           pessimisticDaysSum += pessimisticDays;
@@ -50,6 +52,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             optimisticDays,
             pessimisticDays,
             images: images || [],
+            listIndex: `${sectionIndex + 1}.${itemIndex + 1}`,
           };
         }
       );
@@ -60,12 +63,13 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 
       return {
         data,
-        title,
+        title: title.substring(1),
         description,
         key: _uid,
         nominalDaysSum: parseSum(nominalDaysSum),
         optimisticDaysSum: parseSum(optimisticDaysSum),
         pessimisticDaysSum: parseSum(pessimisticDaysSum),
+        listIndex: `${sectionIndex + 1}`,
       };
     });
   }, [sections]);
@@ -92,6 +96,8 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   function sectionLinkHandler(sectionIndex: number) {
     return () => {
       if (sectionListRef.current) {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setExpandedKeys([]);
         sectionListRef.current.scrollToLocation({
           itemIndex: 0,
           sectionIndex,
@@ -103,13 +109,14 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 
   const getItemLayout = sectionListGetItemLayout({
     // The height of the row with rowData at the given sectionIndex and rowIndex
-    getItemHeight: () => 8,
-    getSectionHeaderHeight: () => 10, // The height of your section headers
-    listHeaderHeight: 12 + sectionsData.length * 8, // The height of your list header
+    getItemHeight: () => 10,
+    getSectionHeaderHeight: () => 12, // The height of your section headers
+    listHeaderHeight: 16 + sectionsData.length * 10, // The height of your list header
   });
 
   return (
     <SectionList
+      bg="black.200"
       ref={sectionListRef}
       sections={sectionsData}
       //@ts-ignore the data types are not compatable and I cannot change hem in getItemLayout
@@ -118,87 +125,107 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       ListHeaderComponent={
         <Box>
           <HStack
-            minH={12}
-            pl={4}
+            minH={16}
+            px={4}
             space={2}
             py={2}
-            bg="blue.100"
             justifyContent="space-between"
             alignItems={"center"}
           >
             <Heading size={"sm"}>{title}</Heading>
           </HStack>
-          {sectionsData.map(({ title, nominalDaysSum, key }, sectionIndex) => {
-            return (
-              <TouchableOpacity
-                key={key}
-                onPress={sectionLinkHandler(sectionIndex)}
-              >
-                <HStack
-                  pl={4}
-                  bg="amber.200"
-                  minH={8}
-                  py={2}
-                  justifyContent="space-between"
-                  alignItems={"center"}
-                >
-                  <Text maxW={"3/4"}>{title}</Text>
-                  <Text>{nominalDaysSum} days</Text>
-                </HStack>
-              </TouchableOpacity>
-            );
-          })}
+          <Box px={4} py={2}>
+            <Heading size="xs">Table of contents</Heading>
+            {sectionsData.map(
+              ({ title, nominalDaysSum, listIndex, key }, sectionIndex) => {
+                return (
+                  <TouchableOpacity
+                    key={key}
+                    onPress={sectionLinkHandler(sectionIndex)}
+                  >
+                    <HStack
+                      px={2}
+                      py={1}
+                      minH={6}
+                      justifyContent="space-between"
+                      alignItems={"center"}
+                      my={2}
+                    >
+                      <Text maxW={"3/4"}>
+                        {listIndex} {title}
+                      </Text>
+                      <Text>{nominalDaysSum} days</Text>
+                    </HStack>
+                  </TouchableOpacity>
+                );
+              }
+            )}
+          </Box>
         </Box>
       }
       stickySectionHeadersEnabled
-      renderSectionHeader={({ section: { title, nominalDaysSum } }) => {
+      renderSectionHeader={({
+        section: { title, nominalDaysSum, listIndex },
+      }) => {
         return (
           <HStack
-            pl={4}
-            minH={10}
-            bg="blue.100"
+            px={3}
+            minH={12}
+            bg="darkBlue.400"
             justifyContent="space-between"
             space={2}
             py={2}
             alignItems={"center"}
+            borderWidth="0.5"
+            borderColor={"gray.400"}
+            borderRadius="sm"
           >
             <Text fontSize="md" maxW={"3/4"}>
-              {title}
+              {listIndex} {title}
             </Text>
             <Text fontSize="md">{nominalDaysSum} days</Text>
           </HStack>
         );
       }}
+      ItemSeparatorComponent={() => <Divider bg="gray.400" />}
       renderItem={({
-        item: { task, description, key: itemKey, nominalDays, images },
+        item: {
+          task,
+          description,
+          key: itemKey,
+          nominalDays,
+          images,
+          listIndex,
+        },
       }) => {
         return (
           <ExpandableComponent
             isExpanded={expandedKeys.includes(itemKey!)}
             onClickFunction={itemClickHandler(itemKey!)}
+            wrapperProps={{
+              px: 4,
+              py: 2,
+            }}
             headerComponent={
               <HStack
-                pl={4}
-                minH={8}
+                minH={10}
                 space={2}
                 py={2}
                 justifyContent="space-between"
                 alignItems={"center"}
-                bg="gray.200"
               >
-                <Box maxW="3/4">
+                <HStack space={2} maxW="3/4">
+                  <Text>{listIndex}</Text>
                   <RichTextResolver richText={task} />
-                </Box>
+                </HStack>
                 <Text>{nominalDays} days</Text>
               </HStack>
             }
             hideableComponent={
-              <Flex p={4} bg="amber.200" direction="column">
+              <Box py={2}>
                 {images.length > 0 && <EstimationImages images={images} />}
-                <Box flexShrink={1}>
-                  <RichTextResolver richText={description} />
-                </Box>
-              </Flex>
+                <RichTextResolver richText={description} />
+              </Box>
             }
           />
         );
