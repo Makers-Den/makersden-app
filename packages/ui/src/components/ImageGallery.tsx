@@ -56,7 +56,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
             width="100%"
             height="100%"
             resizeMode="contain"
-            background="black"
+            background="black.200"
           />
         ))}
       </Swiper>
