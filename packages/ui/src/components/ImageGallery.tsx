@@ -61,7 +61,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
         ))}
       </Swiper>
 
-      <Box position="absolute" top="6" right="4">
+      <Box position="absolute" top="6" right="4" safeArea>
         <ImageGalleryButton onPress={onClose} text="X" />
       </Box>
     </Modal>
