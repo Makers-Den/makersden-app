@@ -1,4 +1,3 @@
-import { SectionList } from "react-native";
 import { Box, Heading, HStack, Text, Divider } from "native-base";
 import React, { useMemo, useRef, useState } from "react";
 import {
@@ -6,9 +5,11 @@ import {
   Platform,
   TouchableOpacity,
   UIManager,
+  SectionList
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
+import { EstimationImages } from "./EstimationImages";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { RichTextResolver } from "./RichTextResolver";
 
@@ -36,6 +37,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             nominalDays,
             optimisticDays,
             pessimisticDays,
+            images,
           },
           itemIndex
         ) => {
@@ -49,6 +51,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             nominalDays,
             optimisticDays,
             pessimisticDays,
+            images: images || [],
             listIndex: `${sectionIndex + 1}.${itemIndex + 1}`,
           };
         }
@@ -197,7 +200,14 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       }}
       ItemSeparatorComponent={() => <Divider bg="gray.400" />}
       renderItem={({
-        item: { task, description, key: itemKey, nominalDays, listIndex },
+        item: {
+          task,
+          description,
+          key: itemKey,
+          nominalDays,
+          images,
+          listIndex,
+        },
       }) => {
         return (
           <ExpandableComponent
@@ -224,6 +234,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             }
             hideableComponent={
               <Box py={2}>
+                {images.length > 0 && <EstimationImages images={images} />}
                 <RichTextResolver richText={description} />
               </Box>
             }
