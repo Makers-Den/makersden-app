@@ -27,7 +27,7 @@ export const EstimationGate: React.FC<EstimationGateProps> = ({
   onShowExampleEstimation,
 }) => {
   return (
-    <View pt={48} justifyContent="center" alignItems="center">
+    <View pt={40} justifyContent="center" alignItems="center">
       <VStack space={6} justifyContent="center" alignItems="center">
         <Heading>Enter estimation secret</Heading>
 

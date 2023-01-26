@@ -25,7 +25,8 @@
     "react-native-safe-area-context": "4.4.1",
     "storyblok-js-client": "^5.2.5",
     "storyblok-types": "*",
-    "ui": "*"
+    "ui": "*",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
