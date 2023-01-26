@@ -193,7 +193,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
               </HStack>
             }
             hideableComponent={
-              <Flex p={4} bg="amber.200" direction="row">
+              <Flex p={4} bg="amber.200" direction="column">
                 {images.length > 0 && <EstimationImages images={images} />}
                 <Box flexShrink={1}>
                   <RichTextResolver richText={description} />

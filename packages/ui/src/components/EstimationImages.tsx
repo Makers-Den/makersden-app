@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text, VStack } from "native-base";
+import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { StoryblockAssetContent } from "storyblok-types";
@@ -47,61 +47,66 @@ export const EstimationImages: React.FC<EstimationImagesProps> = ({
   }
 
   return (
-    <VStack space={3} mr={4}>
-      <TouchableOpacity activeOpacity={0.8} onPress={() => handleImagePress(0)}>
-        <Image
-          source={{ uri: primaryImage.filename }}
-          alt={primaryImage.alt}
-          width="120px"
-          height="80px"
-          resizeMode="cover"
-          borderRadius="sm"
-        />
-      </TouchableOpacity>
+    <Flex alignItems="center">
+      <VStack space={3} minHeight="1px" width="120px">
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => handleImagePress(0)}
+        >
+          <Image
+            source={{ uri: primaryImage.filename }}
+            alt={primaryImage.alt}
+            width="120px"
+            height="80px"
+            resizeMode="cover"
+            borderRadius="sm"
+          />
+        </TouchableOpacity>
 
-      {secondaryImages.length > 0 && (
-        <HStack alignItems="center" justifyContent="space-between">
-          <HStack space={3}>
-            {secondaryImages.map((secondaryImage, index) => (
-              <TouchableOpacity
-                key={secondaryImage.id}
-                activeOpacity={0.8}
-                onPress={() => handleImagePress(1 + index)}
-              >
-                <Image
-                  source={{ uri: secondaryImage.filename }}
-                  alt={secondaryImage.alt}
-                  width="40px"
-                  height="30px"
-                  resizeMode="cover"
-                  borderRadius="sm"
-                />
-              </TouchableOpacity>
-            ))}
+        {secondaryImages.length > 0 && (
+          <HStack alignItems="center" justifyContent="space-between">
+            <HStack space={3}>
+              {secondaryImages.map((secondaryImage, index) => (
+                <TouchableOpacity
+                  key={secondaryImage.id}
+                  activeOpacity={0.8}
+                  onPress={() => handleImagePress(1 + index)}
+                >
+                  <Image
+                    source={{ uri: secondaryImage.filename }}
+                    alt={secondaryImage.alt}
+                    width="40px"
+                    height="30px"
+                    resizeMode="cover"
+                    borderRadius="sm"
+                  />
+                </TouchableOpacity>
+              ))}
+            </HStack>
+            <Box>
+              {additionalImageCount > 0 && (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => handleImagePress(1 + SECONDARY_IMAGE_COUNT)}
+                >
+                  <Text>+{additionalImageCount}</Text>
+                </TouchableOpacity>
+              )}
+            </Box>
           </HStack>
-          <Box>
-            {additionalImageCount > 0 && (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => handleImagePress(1 + SECONDARY_IMAGE_COUNT)}
-              >
-                <Text>+{additionalImageCount}</Text>
-              </TouchableOpacity>
-            )}
-          </Box>
-        </HStack>
-      )}
+        )}
 
-      <ImageGallery
-        initialImageIndex={activeImageIndex ?? 0}
-        isOpen={activeImageIndex !== null}
-        images={images.map((image) => ({
-          alt: image.alt,
-          source: { uri: image.filename },
-          id: image.id,
-        }))}
-        onClose={() => setActiveImageIndex(null)}
-      />
-    </VStack>
+        <ImageGallery
+          initialImageIndex={activeImageIndex ?? 0}
+          isOpen={activeImageIndex !== null}
+          images={images.map((image) => ({
+            alt: image.alt,
+            source: { uri: image.filename },
+            id: image.id,
+          }))}
+          onClose={() => setActiveImageIndex(null)}
+        />
+      </VStack>
+    </Flex>
   );
 };
