@@ -2,7 +2,7 @@ import { useEstimationScreen } from "client-logic";
 import dynamic from "next/dynamic";
 import { EstimationScreen } from "ui";
 import { api } from "../utils/api";
-import { environment } from "../utils/environment";
+import { clientEnvironment } from "../utils/clientEnvironment";
 
 function Index() {
   const {
@@ -15,7 +15,7 @@ function Index() {
     handleShowExampleEstimation,
   } = useEstimationScreen({
     api,
-    exampleEstimationSecret: environment.EXAMPLE_ESTIMATION_SECRET,
+    exampleEstimationSecret: clientEnvironment.EXAMPLE_ESTIMATION_SECRET,
   });
 
   return (

@@ -33,6 +33,7 @@ export const estimationFromSheet = (
       optimisticDays: row.optimisticDays ?? 0,
       nominalDays: row.nominalDays ?? 0,
       pessimisticDays: row.pessimisticDays ?? 0,
+      images: []
     })),
   })),
 });

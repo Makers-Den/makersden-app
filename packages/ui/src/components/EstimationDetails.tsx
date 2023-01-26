@@ -1,16 +1,17 @@
-import { Box, Heading, HStack, Text, SectionList, Divider } from "native-base";
+import { Box, Heading, HStack, Text, Divider } from "native-base";
 import React, { useMemo, useRef, useState } from "react";
 import {
   LayoutAnimation,
   Platform,
   TouchableOpacity,
   UIManager,
+  SectionList
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
+import { EstimationImages } from "./EstimationImages";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { RichTextResolver } from "./RichTextResolver";
-import sectionListGetItemLayout from "react-native-section-list-get-item-layout";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -36,6 +37,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             nominalDays,
             optimisticDays,
             pessimisticDays,
+            images,
           },
           itemIndex
         ) => {
@@ -49,6 +51,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             nominalDays,
             optimisticDays,
             pessimisticDays,
+            images: images || [],
             listIndex: `${sectionIndex + 1}.${itemIndex + 1}`,
           };
         }
@@ -104,20 +107,31 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
     };
   }
 
-  const getItemLayout = sectionListGetItemLayout({
-    // The height of the row with rowData at the given sectionIndex and rowIndex
-    getItemHeight: () => 10,
-    getSectionHeaderHeight: () => 12, // The height of your section headers
-    listHeaderHeight: 16 + sectionsData.length * 10, // The height of your list header
-  });
+  const handleScrollToIndexFailed = (
+    index: number,
+    averageItemLength: number
+  ) => {
+    sectionListRef.current.scrollToLocation({
+      itemIndex: 0,
+      sectionIndex: 0,
+      viewOffset: averageItemLength * index,
+    });
+
+    setTimeout(() => {
+      sectionListRef.current.scrollToLocation({
+        itemIndex: 0,
+        sectionIndex: index,
+      });
+    }, 0);
+  };
 
   return (
     <SectionList
-      bg="black.200"
       ref={sectionListRef}
       sections={sectionsData}
-      //@ts-ignore the data types are not compatable and I cannot change hem in getItemLayout
-      getItemLayout={getItemLayout}
+      onScrollToIndexFailed={({ index, averageItemLength }) =>
+        handleScrollToIndexFailed(index, averageItemLength)
+      }
       keyExtractor={({ key }, index) => key || `${index}`}
       ListHeaderComponent={
         <Box>
@@ -134,9 +148,12 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           <Box px={4} py={2}>
             <Heading size="xs">Table of contents</Heading>
             {sectionsData.map(
-              ({ title, nominalDaysSum, listIndex }, sectionIndex) => {
+              ({ title, nominalDaysSum, listIndex, key }, sectionIndex) => {
                 return (
-                  <TouchableOpacity onPress={sectionLinkHandler(sectionIndex)}>
+                  <TouchableOpacity
+                    key={key}
+                    onPress={sectionLinkHandler(sectionIndex)}
+                  >
                     <HStack
                       px={2}
                       py={1}
@@ -183,7 +200,14 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       }}
       ItemSeparatorComponent={() => <Divider bg="gray.400" />}
       renderItem={({
-        item: { task, description, key: itemKey, nominalDays, listIndex },
+        item: {
+          task,
+          description,
+          key: itemKey,
+          nominalDays,
+          images,
+          listIndex,
+        },
       }) => {
         return (
           <ExpandableComponent
@@ -210,6 +234,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             }
             hideableComponent={
               <Box py={2}>
+                {images.length > 0 && <EstimationImages images={images} />}
                 <RichTextResolver richText={description} />
               </Box>
             }
