@@ -10,11 +10,11 @@ export default function () {
     <TRPCProvider>
       <ThemeProvider>
         <SafeAreaProvider>
-          <SafeAreaView>
-            <ContentWrapper>
+          <ContentWrapper>
+            <SafeAreaView>
               <EstimationScreen />
-            </ContentWrapper>
-          </SafeAreaView>
+            </SafeAreaView>
+          </ContentWrapper>
         </SafeAreaProvider>
       </ThemeProvider>
     </TRPCProvider>
