@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
+import { useMapEstimationData } from "../hooks/useMapEstimationData";
 import { isRichTextEmpty } from "../utils/isRichTextEmpty";
 import { EstimationImages } from "./EstimationImages";
 import { ExpandableComponent } from "./ExpandableComponent";
@@ -22,58 +23,8 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   estimation,
 }) => {
   const sectionListRef = useRef<any>(null);
-  const { sections, title } = estimation.content;
 
-  const sectionsData = useMemo(() => {
-    return sections.map(({ rows, title, description, _uid }, sectionIndex) => {
-      let nominalDaysSum: number = 0;
-      let optimisticDaysSum: number = 0;
-      let pessimisticDaysSum: number = 0;
-      const data = rows.map(
-        (
-          {
-            _uid,
-            description,
-            task,
-            nominalDays,
-            optimisticDays,
-            pessimisticDays,
-            images,
-          },
-          itemIndex
-        ) => {
-          nominalDaysSum += nominalDays;
-          optimisticDaysSum += optimisticDays;
-          pessimisticDaysSum += pessimisticDays;
-          return {
-            key: _uid,
-            description,
-            task,
-            nominalDays,
-            optimisticDays,
-            pessimisticDays,
-            images: images || [],
-            listIndex: `${sectionIndex + 1}.${itemIndex + 1}`,
-          };
-        }
-      );
-
-      function parseSum(sum: number) {
-        return parseFloat(sum.toFixed(1));
-      }
-
-      return {
-        data,
-        title: title.substring(1),
-        description,
-        key: _uid,
-        nominalDaysSum: parseSum(nominalDaysSum),
-        optimisticDaysSum: parseSum(optimisticDaysSum),
-        pessimisticDaysSum: parseSum(pessimisticDaysSum),
-        listIndex: `${sectionIndex + 1}`,
-      };
-    });
-  }, [sections]);
+  const { title, sectionsData } = useMapEstimationData(estimation);
 
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
 

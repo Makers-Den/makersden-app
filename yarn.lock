@@ -7594,6 +7594,11 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
+remeda@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-1.6.0.tgz#37dd182cb9be170bc800ef81b4aee13d1718f714"
+  integrity sha512-2NBGJZrwWeqAY+Tzo66FyBYyW0CmMFh0tCg97T8G76krXmI45j/EK1oy+5WYrl2j7oPbgRkN6loGIiliiquvxg==
+
 remove-trailing-slash@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/remove-trailing-slash/-/remove-trailing-slash-0.1.1.tgz#be2285a59f39c74d1bce4f825950061915e3780d"
