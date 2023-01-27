@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { ISbStoryData } from "storyblok-js-client";
+import { EstimationContent } from "storyblok-types";
 import { Api } from "../types/api";
 
 interface UseEstimationScreenDeps {
   api: Api;
   exampleEstimationSecret: string;
+  onSuccess?: (data: ISbStoryData<EstimationContent>) => void;
 }
 
 export const useEstimationScreen = ({
   api,
   exampleEstimationSecret,
+  onSuccess,
 }: UseEstimationScreenDeps) => {
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
@@ -42,6 +46,8 @@ export const useEstimationScreen = ({
       onSuccess: (data) => {
         if (data.isError === true || !data.estimation) {
           handleEstimationListQueryError();
+        } else {
+          onSuccess?.(data.estimation);
         }
       },
     }
