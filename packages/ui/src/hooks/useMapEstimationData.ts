@@ -68,3 +68,7 @@ export function useMapEstimationData(
 
   return { sectionsData, title };
 }
+
+export type SectionsData = ReturnType<
+  typeof useMapEstimationData
+>["sectionsData"];

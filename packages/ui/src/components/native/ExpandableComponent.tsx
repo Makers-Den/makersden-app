@@ -20,16 +20,6 @@ export function ExpandableComponent({
   hideableComponent,
   wrapperProps,
 }: ExpandableComponentProps) {
-  const [layoutHeight, setLayoutHeight] = useState<undefined | 0>(0);
-
-  useEffect(() => {
-    if (isExpanded) {
-      setLayoutHeight(undefined);
-    } else {
-      setLayoutHeight(0);
-    }
-  }, [isExpanded]);
-
   return (
     <Box {...wrapperProps}>
       <TouchableOpacity
@@ -39,7 +29,7 @@ export function ExpandableComponent({
       >
         {headerComponent}
       </TouchableOpacity>
-      <Box height={layoutHeight} overflow="hidden">
+      <Box height={isExpanded ? undefined : 0} overflow="hidden">
         {hideableComponent}
       </Box>
     </Box>
