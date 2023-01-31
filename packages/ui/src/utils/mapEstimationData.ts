@@ -3,7 +3,7 @@ import { EstimationContent } from "storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
 
-export function useMapEstimationData(
+export function mapEstimationData(
   estimation: ISbStoryData<EstimationContent>
 ) {
   const { sections, title } = estimation.content;
@@ -68,3 +68,7 @@ export function useMapEstimationData(
 
   return { sectionsData, title };
 }
+
+export type SectionsData = ReturnType<
+  typeof mapEstimationData
+>["sectionsData"];

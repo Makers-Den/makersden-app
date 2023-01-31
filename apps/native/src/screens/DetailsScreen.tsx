@@ -1,4 +1,4 @@
-import { EstimationDetails } from "ui/src/components/EstimationDetails";
+import { EstimationDetails } from "ui/src/components/native/EstimationDetails";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, Screens } from "../types";
 import { ContentWrapper } from "ui/src/components/ContentWrapper";
