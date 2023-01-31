@@ -14,6 +14,7 @@ export const useEstimationScreen = ({
   exampleEstimationSecret,
   onSuccess,
 }: UseEstimationScreenDeps) => {
+  const trpcContext = api.useContext();
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
   const [enteredEstimationSecret, setEnteredEstimationSecret] = useState("");
@@ -21,21 +22,6 @@ export const useEstimationScreen = ({
   const handleEstimationListQueryError = () => {
     setEnteredEstimationSecret("");
     setIsSecretInvalid(true);
-  };
-
-  const handleEnter = () => {
-    setIsSecretInvalid(false);
-    setEnteredEstimationSecret(estimationSecret);
-  };
-
-  const handleEstimationSecretChange = (estimationSecret: string) => {
-    setEstimationSecret(estimationSecret);
-  };
-
-  const handleShowExampleEstimation = () => {
-    setEstimationSecret(exampleEstimationSecret);
-    setIsSecretInvalid(false);
-    setEnteredEstimationSecret(exampleEstimationSecret);
   };
 
   const estimationListQuery = api.estimations.findOne.useQuery(
@@ -52,6 +38,24 @@ export const useEstimationScreen = ({
       },
     }
   );
+
+  const handleEnter = () => {
+    setIsSecretInvalid(false);
+    setEnteredEstimationSecret(estimationSecret);
+    trpcContext.estimations.findOne.invalidate({
+      secret: enteredEstimationSecret,
+    });
+  };
+
+  const handleEstimationSecretChange = (estimationSecret: string) => {
+    setEstimationSecret(estimationSecret);
+  };
+
+  const handleShowExampleEstimation = () => {
+    setEstimationSecret(exampleEstimationSecret);
+    setIsSecretInvalid(false);
+    setEnteredEstimationSecret(exampleEstimationSecret);
+  };
 
   const estimation =
     estimationListQuery.data && !estimationListQuery.data.isError
