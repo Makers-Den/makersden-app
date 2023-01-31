@@ -6,7 +6,6 @@ import { environment } from "../utils/environment";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, Screens } from "../types";
 import { ContentWrapper } from "ui/src/components/ContentWrapper";
-import { date } from "zod";
 
 export type GateScreenProps = NativeStackScreenProps<
   RootStackParamList,
