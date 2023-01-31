@@ -1,14 +1,14 @@
-import { Box, Divider, HStack, Text } from "native-base";
-import React, { useState } from "react";
+import { Divider } from "native-base";
+import React from "react";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
-import { useMapEstimationData } from "../../hooks/useMapEstimationData";
-import { isRichTextEmpty } from "../../utils/isRichTextEmpty";
-import { EstimationImages } from "../EstimationImages";
+import { mapEstimationData } from "../../utils/mapEstimationData";
 import { ExpandableComponent } from "./ExpandableComponent";
-import { RichTextResolver } from "../RichTextResolver";
 import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
+import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationRowContent } from "../EstimationRowContent";
+import { useArray } from "client-logic";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -17,21 +17,8 @@ export interface EstimationDetailsProps {
 export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   estimation,
 }) => {
-  const { title, sectionsData } = useMapEstimationData(estimation);
-
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
-
-  function itemClickHandler(itemKey: string) {
-    return () => {
-      setExpandedKeys((curState) => {
-        if (curState.includes(itemKey)) {
-          return curState.filter((key) => key !== itemKey);
-        }
-
-        return [...curState, itemKey];
-      });
-    };
-  }
+  const { title, sectionsData } = mapEstimationData(estimation);
+  const expandedKeys = useArray<string>([]);
 
   function sectionLinkHandler({ key }: SectionLinkData) {
     if (key) {
@@ -67,46 +54,33 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                 nominalDays,
                 images,
                 listIndex,
-              }) => {
-                return (
-                  <>
-                    <ExpandableComponent
-                      isExpanded={expandedKeys.includes(itemKey!)}
-                      onClickFunction={itemClickHandler(itemKey!)}
-                      headerComponent={({ isHovered, isPressed }) => (
-                        <HStack
-                          minH={10}
-                          space={3}
-                          py={2}
-                          px={4}
-                          justifyContent="space-between"
-                          alignItems={"center"}
-                          bg={isHovered || isPressed ? "black.100" : undefined}
-                        >
-                          <HStack space={2} flexBasis={"60%"}>
-                            <Text>{listIndex}</Text>
-                            <RichTextResolver richText={task} />
-                          </HStack>
-                          <Text flexBasis={"auto"}>{nominalDays} days</Text>
-                        </HStack>
-                      )}
-                      hideableComponent={
-                        <Box py={2} px={4}>
-                          {images.length > 0 && (
-                            <EstimationImages images={images} />
-                          )}
-                          {isRichTextEmpty(description) ? (
-                            <Text>No description available</Text>
-                          ) : (
-                            <RichTextResolver richText={description} />
-                          )}
-                        </Box>
-                      }
-                    />
-                    <Divider bg="gray.400" />
-                  </>
-                );
-              }
+              }) => (
+                <>
+                  <ExpandableComponent
+                    isExpanded={expandedKeys.includes(itemKey!)}
+                    onClick={() => expandedKeys.toggle(itemKey!)}
+                    headerComponent={({ isHovered, isPressed }) => (
+                      <EstimationRowHeader
+                        nominalDays={nominalDays}
+                        order={listIndex}
+                        text={task}
+                        isHighlighted={isHovered || isPressed}
+                        wrapperProps={{
+                          px: 4,
+                        }}
+                      />
+                    )}
+                    hideableComponent={
+                      <EstimationRowContent
+                        description={description}
+                        images={images}
+                        wrapperProps={{ px: 4 }}
+                      />
+                    }
+                  />
+                  <Divider bg="gray.400" />
+                </>
+              )
             )}
           </div>
         );

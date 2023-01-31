@@ -1,32 +1,26 @@
 import { Box } from "native-base";
 import { InterfaceBoxProps } from "native-base/lib/typescript/components/primitives/Box";
-import React, { ReactNode, useEffect, useState } from "react";
-import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import React, { ReactNode } from "react";
+import { TouchableOpacity } from "react-native";
 
 export type ExpandableComponentProps = {
   isExpanded: boolean;
-  onClickFunction: () => void;
+  onClick: () => void;
   headerComponent: ReactNode;
-  headerWrapperStyle?: StyleProp<ViewStyle>;
   hideableComponent: ReactNode;
   wrapperProps?: InterfaceBoxProps;
 };
 
 export function ExpandableComponent({
   isExpanded,
-  onClickFunction,
+  onClick,
   headerComponent,
-  headerWrapperStyle,
   hideableComponent,
   wrapperProps,
 }: ExpandableComponentProps) {
   return (
     <Box {...wrapperProps}>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={onClickFunction}
-        style={headerWrapperStyle}
-      >
+      <TouchableOpacity activeOpacity={0.8} onPress={onClick}>
         {headerComponent}
       </TouchableOpacity>
       <Box height={isExpanded ? undefined : 0} overflow="hidden">

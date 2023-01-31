@@ -1,5 +1,5 @@
-import { Box, HStack, Text, Divider } from "native-base";
-import React, { useRef, useState } from "react";
+import { Divider } from "native-base";
+import React, { useRef } from "react";
 import {
   LayoutAnimation,
   Platform,
@@ -8,13 +8,13 @@ import {
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
-import { useMapEstimationData } from "../../hooks/useMapEstimationData";
-import { isRichTextEmpty } from "../../utils/isRichTextEmpty";
-import { EstimationImages } from "../EstimationImages";
+import { useArray } from "client-logic";
+import { mapEstimationData } from "../../utils/mapEstimationData";
 import { ExpandableComponent } from "./ExpandableComponent";
-import { RichTextResolver } from "../RichTextResolver";
 import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
+import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationRowContent } from "../EstimationRowContent";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -25,9 +25,8 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 }) => {
   const sectionListRef = useRef<any>(null);
 
-  const { title, sectionsData } = useMapEstimationData(estimation);
-
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
+  const { title, sectionsData } = mapEstimationData(estimation);
+  const expandedKeys = useArray<string>([]);
 
   if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -49,19 +48,14 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           delay: 0,
         },
       });
-      setExpandedKeys((curState) => {
-        if (curState.includes(itemKey)) {
-          return curState.filter((key) => key !== itemKey);
-        }
 
-        return [...curState, itemKey];
-      });
+      expandedKeys.toggle(itemKey);
     };
   }
 
   function sectionLinkHandler({ sectionIndex }: SectionLinkData) {
     if (sectionListRef.current) {
-      setExpandedKeys([]);
+      expandedKeys.clear();
       sectionListRef.current.scrollToLocation({
         itemIndex: 1,
         sectionIndex,
@@ -118,15 +112,13 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       stickySectionHeadersEnabled
       renderSectionHeader={({
         section: { title, nominalDaysSum, listIndex },
-      }) => {
-        return (
-          <EstimationsSectionHeader
-            title={title}
-            nominalDaysSum={nominalDaysSum}
-            listIndex={listIndex}
-          />
-        );
-      }}
+      }) => (
+        <EstimationsSectionHeader
+          title={title}
+          nominalDaysSum={nominalDaysSum}
+          listIndex={listIndex}
+        />
+      )}
       ItemSeparatorComponent={() => <Divider bg="gray.400" />}
       renderItem={({
         item: {
@@ -137,43 +129,26 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           images,
           listIndex,
         },
-      }) => {
-        return (
-          <ExpandableComponent
-            isExpanded={expandedKeys.includes(itemKey!)}
-            onClickFunction={itemClickHandler(itemKey!)}
-            wrapperProps={{
-              px: 4,
-              py: 2,
-            }}
-            headerComponent={
-              <HStack
-                minH={10}
-                space={3}
-                py={2}
-                justifyContent="space-between"
-                alignItems={"center"}
-              >
-                <HStack space={2} flexBasis={"60%"}>
-                  <Text>{listIndex}</Text>
-                  <RichTextResolver richText={task} />
-                </HStack>
-                <Text flexBasis={"auto"}>{nominalDays} days</Text>
-              </HStack>
-            }
-            hideableComponent={
-              <Box py={2}>
-                {images.length > 0 && <EstimationImages images={images} />}
-                {isRichTextEmpty(description) ? (
-                  <Text>No description available</Text>
-                ) : (
-                  <RichTextResolver richText={description} />
-                )}
-              </Box>
-            }
-          />
-        );
-      }}
+      }) => (
+        <ExpandableComponent
+          isExpanded={expandedKeys.includes(itemKey!)}
+          onClick={itemClickHandler(itemKey!)}
+          wrapperProps={{
+            px: 4,
+            py: 2,
+          }}
+          headerComponent={
+            <EstimationRowHeader
+              nominalDays={nominalDays}
+              order={listIndex}
+              text={task}
+            />
+          }
+          hideableComponent={
+            <EstimationRowContent description={description} images={images} />
+          }
+        />
+      )}
     />
   );
 };

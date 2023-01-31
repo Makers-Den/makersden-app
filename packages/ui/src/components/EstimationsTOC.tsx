@@ -1,7 +1,7 @@
 import { Box, Heading, HStack, Text } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { SectionsData } from "../hooks/useMapEstimationData";
+import { SectionsData } from "../utils/mapEstimationData";
 
 export type SectionLinkData = { sectionIndex: number; key?: string };
 
@@ -36,7 +36,7 @@ export function EstimationsTOC({
         minH={12}
         bg="darkBlue.400"
         py={2}
-        justifyContent="start"
+        justifyContent="flex-start"
         alignItems={"center"}
         borderWidth="0.5"
         borderColor={"gray.400"}
