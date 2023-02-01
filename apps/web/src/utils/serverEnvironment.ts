@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const validateEnvVars = z.object({
-  EXAMPLE_ESTIMATION_SECRET: z.string().min(1),
   GOOGLE_SHEETS_API_KEY: z.string().min(1),
   STORYBLOK_ACCESS_TOKEN: z.string().min(1),
   STORYBLOK_ENVIRONMENT_FOLDER_NAME: z.string().min(1),
@@ -12,8 +11,6 @@ const validateEnvVars = z.object({
 
 export const serverEnvironment = validateEnvVars.parse(
   Object.freeze({
-    EXAMPLE_ESTIMATION_SECRET:
-      process.env.NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET,
     GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
     STORYBLOK_ACCESS_TOKEN: process.env.STORYBLOK_ACCESS_TOKEN,
     STORYBLOK_ENVIRONMENT_FOLDER_NAME:
