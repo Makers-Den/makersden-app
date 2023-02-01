@@ -17,6 +17,7 @@ export function Navigation() {
           headerStyle: {
             backgroundColor: colors.black[200],
           },
+          headerTintColor: colors.white,
           headerTitleStyle: {
             fontWeight: "bold",
             color: colors.white,
