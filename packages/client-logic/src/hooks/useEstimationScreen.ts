@@ -1,15 +1,20 @@
 import { useState } from "react";
+import { ISbStoryData } from "storyblok-js-client";
+import { EstimationContent } from "storyblok-types";
 import { Api } from "../types/api";
 
 interface UseEstimationScreenDeps {
   api: Api;
   exampleEstimationSecret: string;
+  onSuccess?: (data: ISbStoryData<EstimationContent>) => void;
 }
 
 export const useEstimationScreen = ({
   api,
   exampleEstimationSecret,
+  onSuccess,
 }: UseEstimationScreenDeps) => {
+  const trpcContext = api.useContext();
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
   const [enteredEstimationSecret, setEnteredEstimationSecret] = useState("");
@@ -19,9 +24,27 @@ export const useEstimationScreen = ({
     setIsSecretInvalid(true);
   };
 
+  const estimationListQuery = api.estimations.findOne.useQuery(
+    { secret: enteredEstimationSecret },
+    {
+      enabled: !!enteredEstimationSecret,
+      onError: handleEstimationListQueryError,
+      onSuccess: (data) => {
+        if (data.isError === true || !data.estimation) {
+          handleEstimationListQueryError();
+        } else {
+          onSuccess?.(data.estimation);
+        }
+      },
+    }
+  );
+
   const handleEnter = () => {
     setIsSecretInvalid(false);
     setEnteredEstimationSecret(estimationSecret);
+    trpcContext.estimations.findOne.invalidate({
+      secret: enteredEstimationSecret,
+    });
   };
 
   const handleEstimationSecretChange = (estimationSecret: string) => {
@@ -33,19 +56,6 @@ export const useEstimationScreen = ({
     setIsSecretInvalid(false);
     setEnteredEstimationSecret(exampleEstimationSecret);
   };
-
-  const estimationListQuery = api.estimations.findOne.useQuery(
-    { secret: enteredEstimationSecret },
-    {
-      enabled: !!enteredEstimationSecret,
-      onError: handleEstimationListQueryError,
-      onSuccess: (data) => {
-        if (data.isError === true || !data.estimation) {
-          handleEstimationListQueryError();
-        }
-      },
-    }
-  );
 
   const estimation =
     estimationListQuery.data && !estimationListQuery.data.isError

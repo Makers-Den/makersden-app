@@ -1,7 +1,7 @@
 import React from "react";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
-import { EstimationDetails } from "../components/EstimationDetails";
+import { EstimationDetails } from "../components/web/EstimationDetails";
 import { EstimationGate } from "../components/EstimationGate";
 
 export interface EstimationScreenProps {

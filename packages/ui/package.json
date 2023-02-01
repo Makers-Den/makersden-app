@@ -11,6 +11,7 @@
   "devDependencies": {
     "@types/react": "^18.0.22",
     "@types/react-native": "^0.69.15",
+    "client-logic": "*",
     "storyblok-js-client": "^5.3.3",
     "storyblok-types": "*",
     "tsconfig": "*",
@@ -24,6 +25,7 @@
     "react-native-svg": "12.3.0",
     "react-native-web": "0.18.10",
     "react-native-web-swiper": "^2.2.4",
+    "remeda": "^1.6.0",
     "storyblok-rich-text-react-renderer": "^2.6.1"
   }
 }
