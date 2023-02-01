@@ -16,6 +16,7 @@ export const findEstimation = async (
       per_page: 1,
       starts_with: `${query.environmentFolderName}/estimations`,
       page: 1,
+      cv: Date.now(),
       filter_query: {
         secret: { in: query.secret },
       },
