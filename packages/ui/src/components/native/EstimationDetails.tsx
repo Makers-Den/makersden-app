@@ -15,6 +15,8 @@ import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
 import { EstimationRowHeader } from "../EstimationRowHeader";
 import { EstimationRowContent } from "../EstimationRowContent";
+import { ImageGallery } from "./ImageGallery";
+import { useGallery } from "../../hooks/useGallery";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -27,6 +29,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 
   const { title, sectionsData } = mapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
+  const gallery = useGallery();
 
   if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -97,58 +100,84 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   };
 
   return (
-    <SectionList
-      ref={sectionListRef}
-      sections={sectionsData}
-      onScrollToIndexFailed={handleScrollToIndexFailed}
-      keyExtractor={({ key }, index) => key || `${index}`}
-      ListHeaderComponent={
-        <EstimationsTOC
-          title={title}
-          sectionsData={sectionsData}
-          onSectionLinkClick={sectionLinkHandler}
-        />
-      }
-      stickySectionHeadersEnabled
-      renderSectionHeader={({
-        section: { title, nominalDaysSum, listIndex },
-      }) => (
-        <EstimationsSectionHeader
-          title={title}
-          nominalDaysSum={nominalDaysSum}
-          listIndex={listIndex}
-        />
-      )}
-      ItemSeparatorComponent={() => <Divider bg="gray.400" />}
-      renderItem={({
-        item: {
-          task,
-          description,
-          key: itemKey,
-          nominalDays,
-          images,
-          listIndex,
-        },
-      }) => (
-        <ExpandableComponent
-          isExpanded={expandedKeys.includes(itemKey!)}
-          onClick={itemClickHandler(itemKey!)}
-          wrapperProps={{
-            px: 4,
-            py: 2,
-          }}
-          headerComponent={
-            <EstimationRowHeader
-              nominalDays={nominalDays}
-              order={listIndex}
-              text={task}
-            />
-          }
-          hideableComponent={
-            <EstimationRowContent description={description} images={images} />
-          }
-        />
-      )}
-    />
+    <>
+      <SectionList
+        ref={sectionListRef}
+        sections={sectionsData}
+        onScrollToIndexFailed={handleScrollToIndexFailed}
+        keyExtractor={({ key }, index) => key || `${index}`}
+        ListHeaderComponent={
+          <EstimationsTOC
+            title={title}
+            sectionsData={sectionsData}
+            onSectionLinkClick={sectionLinkHandler}
+          />
+        }
+        stickySectionHeadersEnabled
+        renderSectionHeader={({
+          section: { title, nominalDaysSum, listIndex },
+        }) => (
+          <EstimationsSectionHeader
+            title={title}
+            nominalDaysSum={nominalDaysSum}
+            listIndex={listIndex}
+          />
+        )}
+        ItemSeparatorComponent={() => <Divider bg="gray.400" />}
+        renderItem={({
+          item: {
+            task,
+            description,
+            key: itemKey,
+            nominalDays,
+            images,
+            listIndex,
+          },
+        }) => (
+          <ExpandableComponent
+            isExpanded={expandedKeys.includes(itemKey!)}
+            onClick={itemClickHandler(itemKey!)}
+            wrapperProps={{
+              px: 4,
+              py: 2,
+            }}
+            headerComponent={
+              <EstimationRowHeader
+                nominalDays={nominalDays}
+                order={listIndex}
+                text={task}
+              />
+            }
+            hideableComponent={
+              <EstimationRowContent
+                description={description}
+                images={images}
+                onImageClick={(imageIndex) => {
+                  gallery.open(
+                    images.map((image) => ({
+                      alt: image.alt,
+                      id: image.id,
+                      url: image.filename,
+                    })),
+                    imageIndex
+                  );
+                }}
+              />
+            }
+          />
+        )}
+      />
+
+      <ImageGallery
+        initialImageIndex={gallery.initialImageIndex ?? 0}
+        isOpen={gallery.isOpen}
+        images={gallery.images.map((image) => ({
+          alt: image.alt,
+          source: { uri: image.url },
+          id: image.id,
+        }))}
+        onClose={gallery.close}
+      />
+    </>
   );
 };

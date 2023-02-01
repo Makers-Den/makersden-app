@@ -9,6 +9,8 @@ import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
 import { EstimationRowHeader } from "../EstimationRowHeader";
 import { EstimationRowContent } from "../EstimationRowContent";
 import { useArray } from "client-logic";
+import { useGallery } from "../../hooks/useGallery";
+import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -19,6 +21,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 }) => {
   const { title, sectionsData } = mapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
+  const gallery = useGallery();
 
   function sectionLinkHandler({ key }: SectionLinkData) {
     if (key) {
@@ -37,7 +40,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       />
       {sectionsData.map(({ data, nominalDaysSum, title, listIndex, key }) => {
         return (
-          <div id={key}>
+          <div key={key} id={key}>
             <EstimationsSectionHeader
               title={title}
               listIndex={listIndex}
@@ -55,7 +58,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                 images,
                 listIndex,
               }) => (
-                <>
+                <React.Fragment key={itemKey}>
                   <ExpandableComponent
                     isExpanded={expandedKeys.includes(itemKey!)}
                     onClick={() => expandedKeys.toggle(itemKey!)}
@@ -75,16 +78,37 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                         description={description}
                         images={images}
                         wrapperProps={{ px: 4 }}
+                        onImageClick={(imageIndex) => {
+                          gallery.open(
+                            images.map((image) => ({
+                              alt: image.alt,
+                              id: image.id,
+                              url: image.filename,
+                            })),
+                            imageIndex
+                          );
+                        }}
                       />
                     }
                   />
                   <Divider bg="gray.400" />
-                </>
+                </React.Fragment>
               )
             )}
           </div>
         );
       })}
+
+      <ImageGallery
+        initialImageIndex={gallery.initialImageIndex ?? 0}
+        isOpen={gallery.isOpen}
+        images={gallery.images.map((image) => ({
+          alt: image.alt,
+          source: { uri: image.url },
+          id: image.id,
+        }))}
+        onClose={gallery.close}
+      />
     </div>
   );
 };

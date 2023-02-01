@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "native-base": "^3.4.25",
+    "nuka-carousel": "^5.4.1",
     "react": "18.1.0",
     "react-native": "0.70.5",
     "react-native-svg": "12.3.0",
