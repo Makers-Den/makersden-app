@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start",
-    "android": " export $(grep -v '^#' .env.local | xargs) && expo start --android",
-    "ios": "export $(grep -v '^#' .env.local | xargs) && expo start --ios",
+    "start": "export DEVELOPMENT=true && expo start",
+    "android": "export DEVELOPMENT=true && expo start --android",
+    "ios": "export DEVELOPMENT=true && expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "dev": "export $(grep -v '^#' .env.local | xargs) && expo start --android"
+    "dev": "export DEVELOPMENT=true && expo start --android"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.2",
@@ -21,6 +21,7 @@
     "client-logic": "*",
     "expo": "47.0.12",
     "expo-status-bar": "1.4.2",
+    "expo-updates": "^0.15.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
