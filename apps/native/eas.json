@@ -26,6 +26,12 @@
     }
   },
   "submit": {
+    "staging-store": {
+      "android": {
+        "track": "internal",
+        "serviceAccountKeyPath": "./service-account.json"
+      }
+    },
     "production": {}
   }
 }
