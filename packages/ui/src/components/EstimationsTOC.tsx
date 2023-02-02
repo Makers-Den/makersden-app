@@ -63,7 +63,7 @@ export function EstimationsTOC({
                   my={2}
                 >
                   <HStack flexBasis={"70%"}>
-                    <Text color={"green.400"}>{listIndex}</Text>
+                    <Text color={"green.400"}>{listIndex}. </Text>
                     <Text color={"green.400"} underline>
                       {title}
                     </Text>

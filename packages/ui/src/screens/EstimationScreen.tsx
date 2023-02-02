@@ -14,7 +14,7 @@ export interface EstimationScreenProps {
   onShowExampleEstimation: () => void;
 }
 
-export const EstimationScreen: React.FC<EstimationScreenProps> = ({
+export const EstimationScreen = ({
   isLoading,
   isInvalid,
   estimation,
@@ -22,7 +22,7 @@ export const EstimationScreen: React.FC<EstimationScreenProps> = ({
   onEnter,
   onEstimationSecretChange,
   onShowExampleEstimation,
-}) => {
+}: EstimationScreenProps) => {
   if (!estimation) {
     return (
       <EstimationGate
