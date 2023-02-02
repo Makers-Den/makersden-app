@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.makersden.app",
+      "sha256_cert_fingerprints": [
+        "13:16:1A:76:E9:62:98:2B:DE:46:00:F5:C3:A7:88:C3:A0:38:73:19:BE:B8:C9:A1:7D:D3:25:47:41:FA:07:D6"
+      ]
+    }
+  }
+]

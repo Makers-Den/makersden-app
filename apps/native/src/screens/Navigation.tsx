@@ -1,16 +1,33 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as Linking from "expo-linking";
 import { GateScreen } from "./GateScreen";
 import { DetailsScreen } from "./DetailsScreen";
 import { RootStackParamList, Screens } from "../types";
 import { useTheme } from "ui/src/hooks/useTheme";
+import { environment } from "../utils/environment";
+import { LinkScreen } from "./LinkScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const prefix = Linking.createURL("/");
+
 export function Navigation() {
   const { colors } = useTheme();
+  const linking: LinkingOptions<typeof Screens> = {
+    prefixes: [prefix, environment.WEB_LINKING_URL],
+    config: {
+      initialRouteName: Screens.Gate,
+      screens: {
+        [Screens.Gate]: "",
+        [Screens.Details]: "estimations/:secret",
+        [Screens.Link]: "link",
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
         initialRouteName={Screens.Gate}
         screenOptions={{
@@ -30,6 +47,7 @@ export function Navigation() {
           component={GateScreen}
         />
         <Stack.Screen name={Screens.Details} component={DetailsScreen} />
+        <Stack.Screen name={Screens.Link} component={LinkScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
