@@ -1,12 +1,11 @@
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Linking from "expo-linking";
-import { GateScreen } from "./GateScreen";
-import { DetailsScreen } from "./DetailsScreen";
-import { RootStackParamList, Screens } from "../types";
+import { EstimationGateScreen } from "./screens/EstimationGateScreen";
+import { EstimationDetailsScreen } from "./screens/EstimationDetailsScreen";
+import { RootStackParamList, Screens } from "./types";
 import { useTheme } from "ui/src/hooks/useTheme";
-import { environment } from "../utils/environment";
-import { LinkScreen } from "./LinkScreen";
+import { environment } from "./utils/environment";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,11 +16,10 @@ export function Navigation() {
   const linking: LinkingOptions<typeof Screens> = {
     prefixes: [prefix, environment.WEB_LINKING_URL],
     config: {
-      initialRouteName: Screens.Gate,
+      initialRouteName: Screens.EstimationGate,
       screens: {
-        [Screens.Gate]: "",
-        [Screens.Details]: "estimations/:secret",
-        [Screens.Link]: "link",
+        [Screens.EstimationGate]: "",
+        [Screens.EstimationDetails]: "estimations/:secret",
       },
     },
   };
@@ -29,7 +27,7 @@ export function Navigation() {
   return (
     <NavigationContainer linking={linking}>
       <Stack.Navigator
-        initialRouteName={Screens.Gate}
+        initialRouteName={Screens.EstimationGate}
         screenOptions={{
           headerStyle: {
             backgroundColor: colors.black[200],
@@ -43,11 +41,14 @@ export function Navigation() {
       >
         <Stack.Screen
           options={{ title: "Home" }}
-          name={Screens.Gate}
-          component={GateScreen}
+          name={Screens.EstimationGate}
+          component={EstimationGateScreen}
         />
-        <Stack.Screen name={Screens.Details} component={DetailsScreen} />
-        <Stack.Screen name={Screens.Link} component={LinkScreen} />
+        <Stack.Screen
+          options={{ title: "Details" }}
+          name={Screens.EstimationDetails}
+          component={EstimationDetailsScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

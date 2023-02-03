@@ -1,18 +1,20 @@
 import React from "react";
-import { EstimationGate } from "ui/src/components/EstimationGate";
-import { useEstimationScreen } from "client-logic";
+import { EstimationGateScreen as UiEstimationGateScreen } from "ui/src/screens/EstimationGateScreen";
+import { useEstimationGateScreen } from "client-logic";
 import { api } from "../utils/api";
 import { environment } from "../utils/environment";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, Screens } from "../types";
 import { ContentWrapper } from "ui/src/components/ContentWrapper";
 
-export type GateScreenProps = NativeStackScreenProps<
+export type EstimationGateScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  Screens.Gate
+  Screens.EstimationGate
 >;
 
-export function GateScreen({ navigation }: GateScreenProps) {
+export function EstimationGateScreen({
+  navigation,
+}: EstimationGateScreenProps) {
   const {
     estimationSecret,
     isEstimationLoading,
@@ -20,17 +22,17 @@ export function GateScreen({ navigation }: GateScreenProps) {
     handleEnter,
     handleEstimationSecretChange,
     handleShowExampleEstimation,
-  } = useEstimationScreen({
+  } = useEstimationGateScreen({
     api,
     exampleEstimationSecret: environment.EXAMPLE_ESTIMATION_SECRET,
-    onSuccess: (data) => {
-      navigation.push(Screens.Details, { estimation: data });
+    onSuccess: (secret) => {
+      navigation.push(Screens.EstimationDetails, { secret });
     },
   });
 
   return (
     <ContentWrapper>
-      <EstimationGate
+      <UiEstimationGateScreen
         estimationSecret={estimationSecret}
         isInvalid={isSecretInvalid}
         isLoading={isEstimationLoading}

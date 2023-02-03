@@ -1,14 +1,9 @@
-import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
-
 export enum Screens {
-  Gate = "Gate",
-  Details = "Details",
-  Link = "Link",
+  EstimationGate = "EstimationGate",
+  EstimationDetails = "EstimationDetails",
 }
 
 export type RootStackParamList = {
-  [Screens.Gate]: undefined;
-  [Screens.Details]: { estimation: ISbStoryData<EstimationContent> };
-  [Screens.Link]: undefined;
+  [Screens.EstimationGate]: undefined;
+  [Screens.EstimationDetails]: { secret: string };
 };

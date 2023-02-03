@@ -1,23 +1,25 @@
-import { useState } from "react";
-import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
-import { Api } from "../types/api";
+import { useEffect, useState } from "react";
+import { Api } from "../../types/api";
 
-interface UseEstimationScreenDeps {
+export interface UseEstimationGateScreenDeps {
   api: Api;
   exampleEstimationSecret: string;
-  onSuccess?: (data: ISbStoryData<EstimationContent>) => void;
+  onSuccess?: (secret: string) => void;
 }
 
-export const useEstimationScreen = ({
+export const useEstimationGateScreen = ({
   api,
   exampleEstimationSecret,
   onSuccess,
-}: UseEstimationScreenDeps) => {
+}: UseEstimationGateScreenDeps) => {
   const trpcContext = api.useContext();
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
   const [enteredEstimationSecret, setEnteredEstimationSecret] = useState("");
+
+  useEffect(() => {
+    trpcContext.estimations.findOne.invalidate();
+  }, []);
 
   const handleEstimationListQueryError = () => {
     setEnteredEstimationSecret("");
@@ -33,7 +35,9 @@ export const useEstimationScreen = ({
         if (data.isError === true || !data.estimation) {
           handleEstimationListQueryError();
         } else {
-          onSuccess?.(data.estimation);
+          setEstimationSecret("");
+          setEnteredEstimationSecret("");
+          onSuccess?.(enteredEstimationSecret);
         }
       },
     }
@@ -42,9 +46,6 @@ export const useEstimationScreen = ({
   const handleEnter = () => {
     setIsSecretInvalid(false);
     setEnteredEstimationSecret(estimationSecret);
-    trpcContext.estimations.findOne.invalidate({
-      secret: enteredEstimationSecret,
-    });
   };
 
   const handleEstimationSecretChange = (estimationSecret: string) => {
@@ -57,15 +58,9 @@ export const useEstimationScreen = ({
     setEnteredEstimationSecret(exampleEstimationSecret);
   };
 
-  const estimation =
-    estimationListQuery.data && !estimationListQuery.data.isError
-      ? estimationListQuery.data.estimation
-      : null;
-
   return {
     isSecretInvalid,
     isEstimationLoading: estimationListQuery.isFetching,
-    estimation,
     estimationSecret,
     handleEnter,
     handleEstimationSecretChange,
