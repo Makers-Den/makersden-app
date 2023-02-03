@@ -29,7 +29,7 @@ export function EstimationsSectionHeader({
       {...wrapperProps}
     >
       <Text fontSize="md" bold color={"green.400"} flexBasis={"70%"}>
-        {listIndex} {title.toUpperCase()}
+        {listIndex}. {title.toUpperCase()}
       </Text>
       <Text flexBasis={"auto"} fontSize="md">
         {nominalDaysSum} days

@@ -167,7 +167,6 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           />
         )}
       />
-
       <ImageGallery
         initialImageIndex={gallery.initialImageIndex ?? 0}
         isOpen={gallery.isOpen}
