@@ -30,7 +30,7 @@ export const EstimationRowHeader: React.FC<EstimationRowHeaderProps> = ({
       {...wrapperProps}
     >
       <HStack space={2} flexBasis={"60%"}>
-        <Text>{order}</Text>
+        <Text>{order}. </Text>
         <RichTextResolver richText={text} />
       </HStack>
       <Text flexBasis={"auto"}>{nominalDays} days</Text>

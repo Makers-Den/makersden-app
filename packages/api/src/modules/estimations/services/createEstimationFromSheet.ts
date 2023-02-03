@@ -38,7 +38,7 @@ export const createEstimationFromSheet = async (
     command.spreadsheetId
   );
 
-  if (estimationSheetDownloadResult.isError === true) {
+  if (estimationSheetDownloadResult.isError) {
     return estimationSheetDownloadResult;
   }
 
@@ -46,7 +46,7 @@ export const createEstimationFromSheet = async (
     estimationSheetDownloadResult.rows
   );
 
-  if (estimationSheetParseResult.isError === true) {
+  if (estimationSheetParseResult.isError) {
     return estimationSheetParseResult;
   }
 
@@ -64,7 +64,7 @@ export const createEstimationFromSheet = async (
     spaceId: command.storyblokSpaceId,
   });
 
-  if (createEstimationResult.isError === true) {
+  if (createEstimationResult.isError) {
     return createEstimationResult;
   }
 
