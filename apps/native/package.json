@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "export DEVELOPMENT=true && expo start",
-    "android": "export DEVELOPMENT=true && expo start --android",
-    "ios": "export DEVELOPMENT=true && expo start --ios",
-    "web": "expo start --web",
+    "dev:android": "export DEVELOPMENT=true && expo start --android",
+    "dev:ios": "export DEVELOPMENT=true && expo start --ios",
     "eject": "expo eject",
-    "dev": "export DEVELOPMENT=true && expo start --android"
+    "start": "export DEVELOPMENT=true && expo start",
+    "web": "expo start --web"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.2",

@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "turbo run dev",
+    "dev:ios": "cd apps/native && yarn dev:ios",
+    "dev:android": "cd apps/native && yarn dev:android",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
     "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
