@@ -2,6 +2,7 @@
   "expo": {
     "name": "Makers' Den App",
     "slug": "makers-den-app",
+    "scheme": "makers-den-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +22,26 @@
       "bundleIdentifier": "io.makersden.app"
     },
     "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": {
+            "scheme": "https",
+            "host": "staging.app.makersden.io"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": {
+            "scheme": "https",
+            "host": "app.makersden.io"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#131825"
@@ -32,7 +53,7 @@
         "runtimeVersion": { "policy": "sdkVersion" }
       },
       "build": {
-        "runtimeVersion": "1.0.4"
+        "runtimeVersion": "1.0.6"
       },
       "eas": {
         "projectId": "83d2d396-105f-48c9-aa90-973cb4170235"

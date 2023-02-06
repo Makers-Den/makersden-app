@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "ui";
+import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
 import { api } from "../utils/api";
 import { ContentWrapper } from "ui/src/components/ContentWrapper";
 

@@ -9,7 +9,7 @@ import {
 } from "native-base";
 import React from "react";
 
-export interface EstimationGateProps {
+export interface EstimationGateScreenProps {
   isLoading: boolean;
   isInvalid: boolean;
   estimationSecret: string;
@@ -18,7 +18,7 @@ export interface EstimationGateProps {
   onShowExampleEstimation: () => void;
 }
 
-export const EstimationGate: React.FC<EstimationGateProps> = ({
+export const EstimationGateScreen: React.FC<EstimationGateScreenProps> = ({
   isLoading,
   isInvalid,
   estimationSecret,
