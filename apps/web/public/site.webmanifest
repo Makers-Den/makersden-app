@@ -1,0 +1,14 @@
+{
+  "name": "Makers' Den App",
+  "short_name": "Makers' Den App",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#6DDA84",
+  "background_color": "#131825",
+  "display": "standalone"
+}

@@ -12,6 +12,8 @@ import { EstimationRowContent } from "../EstimationRowContent";
 import { useArray } from "client-logic";
 import { useGallery } from "../../hooks/useGallery";
 import { ImageGallery } from "./ImageGallery";
+import { Logo } from "../Logo";
+import { LogoWrapper } from "../LogoWrapper";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -46,6 +48,10 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 
   return (
     <div>
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
+
       <EstimationsTOC
         title={title}
         description={description}
