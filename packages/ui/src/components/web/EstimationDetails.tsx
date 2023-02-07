@@ -1,4 +1,5 @@
 import { Divider, useBreakpointValue } from "native-base";
+import * as R from "remeda";
 import React, { useMemo } from "react";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
@@ -20,12 +21,15 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   estimation,
 }) => {
   const { title, description, sectionsData } = mapEstimationData(estimation);
+
   const itemKeys = useMemo(
     () =>
-      sectionsData
-        .flatMap((sectionData) => sectionData.data)
-        .filter((item) => item.key)
-        .map((item) => item.key as string),
+      R.pipe(
+        sectionsData,
+        R.flatMap((sectionData) => sectionData.data),
+        R.filter((item) => !!item.key),
+        R.map((item) => item.key as string)
+      ),
     [sectionsData]
   );
   const initiallyExpandedKeys = useBreakpointValue({ base: [], lg: itemKeys });

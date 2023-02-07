@@ -10,16 +10,22 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
     return R.map.indexed(
       sections,
       ({ rows, title, description, _uid }, sectionIndex) => {
-        const includedRows = rows.filter(row => row.isIncluded);
+        const includedRows = R.filter(rows, (row) => row.isIncluded);
         const nominalDaysSum = R.sumBy(includedRows, ({ nominalDays }) => {
           return nominalDays;
         });
-        const optimisticDaysSum = R.sumBy(includedRows, ({ optimisticDays }) => {
-          return optimisticDays;
-        });
-        const pessimisticDaysSum = R.sumBy(includedRows, ({ pessimisticDays }) => {
-          return pessimisticDays;
-        });
+        const optimisticDaysSum = R.sumBy(
+          includedRows,
+          ({ optimisticDays }) => {
+            return optimisticDays;
+          }
+        );
+        const pessimisticDaysSum = R.sumBy(
+          includedRows,
+          ({ pessimisticDays }) => {
+            return pessimisticDays;
+          }
+        );
         const data = R.map.indexed(
           rows,
           (
@@ -31,7 +37,7 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
               optimisticDays,
               pessimisticDays,
               images,
-              isIncluded
+              isIncluded,
             },
             itemIndex
           ) => {
