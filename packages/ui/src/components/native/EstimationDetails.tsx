@@ -27,7 +27,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 }) => {
   const sectionListRef = useRef<any>(null);
 
-  const { title, sectionsData } = mapEstimationData(estimation);
+  const { title, description, sectionsData } = mapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
 
@@ -109,6 +109,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
         ListHeaderComponent={
           <EstimationsTOC
             title={title}
+            description={description}
             sectionsData={sectionsData}
             onSectionLinkClick={sectionLinkHandler}
           />
@@ -131,6 +132,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
             key: itemKey,
             nominalDays,
             images,
+            isIncluded,
             listIndex,
           },
         }) => (
@@ -146,6 +148,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                 nominalDays={nominalDays}
                 order={listIndex}
                 text={task}
+                isIncluded={isIncluded}
               />
             }
             hideableComponent={

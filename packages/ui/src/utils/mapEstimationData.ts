@@ -4,21 +4,28 @@ import { useMemo } from "react";
 import * as R from "remeda";
 
 export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
-  const { sections, title } = estimation.content;
+  const { sections, description, title } = estimation.content;
 
   const sectionsData = useMemo(() => {
     return R.map.indexed(
       sections,
       ({ rows, title, description, _uid }, sectionIndex) => {
-        const nominalDaysSum = R.sumBy(rows, ({ nominalDays }) => {
+        const includedRows = R.filter(rows, (row) => row.isIncluded);
+        const nominalDaysSum = R.sumBy(includedRows, ({ nominalDays }) => {
           return nominalDays;
         });
-        const optimisticDaysSum = R.sumBy(rows, ({ optimisticDays }) => {
-          return optimisticDays;
-        });
-        const pessimisticDaysSum = R.sumBy(rows, ({ pessimisticDays }) => {
-          return pessimisticDays;
-        });
+        const optimisticDaysSum = R.sumBy(
+          includedRows,
+          ({ optimisticDays }) => {
+            return optimisticDays;
+          }
+        );
+        const pessimisticDaysSum = R.sumBy(
+          includedRows,
+          ({ pessimisticDays }) => {
+            return pessimisticDays;
+          }
+        );
         const data = R.map.indexed(
           rows,
           (
@@ -30,6 +37,7 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
               optimisticDays,
               pessimisticDays,
               images,
+              isIncluded,
             },
             itemIndex
           ) => {
@@ -40,6 +48,7 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
               nominalDays,
               optimisticDays,
               pessimisticDays,
+              isIncluded,
               images: images || [],
               listIndex: `${sectionIndex + 1}.${itemIndex + 1}`,
             };
@@ -64,7 +73,7 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
     );
   }, [sections]);
 
-  return { sectionsData, title };
+  return { sectionsData, description, title };
 }
 
 export type SectionsData = ReturnType<typeof mapEstimationData>["sectionsData"];
