@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const prefix = Linking.createURL("/");
 
-export function Navigation() {
+export const Navigation = () => {
   const { colors } = useTheme();
   const linking: LinkingOptions<typeof Screens> = {
     prefixes: [prefix, environment.WEB_LINKING_URL],
@@ -53,4 +53,4 @@ export function Navigation() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};

@@ -12,6 +12,7 @@ const getBaseUrl = () => {
 };
 
 export const api = createTRPCNext<AppRouter>({
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   config() {
     return {
       transformer,

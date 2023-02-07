@@ -14,9 +14,9 @@ export type EstimationGateScreenProps = NativeStackScreenProps<
 >;
 
 
-export function EstimationGateScreen({
+export const EstimationGateScreen = ({
   navigation,
-}: EstimationGateScreenProps) {
+}: EstimationGateScreenProps) => {
   const {
     estimationSecret,
     isEstimationLoading,
@@ -44,4 +44,4 @@ export function EstimationGateScreen({
       />
     </ContentWrapper>
   );
-}
+};

@@ -1,6 +1,6 @@
 module.exports = {
   extends: ["next", "turbo", "prettier"],
-  plugins: ["unused-imports", "simple-import-sort"],
+  plugins: ["unused-imports", "simple-import-sort", "prefer-arrow"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
     "react/jsx-key": "off",
@@ -11,6 +11,14 @@ module.exports = {
       { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
     ],
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
   },
 };

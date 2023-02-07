@@ -12,9 +12,9 @@ export type EstimationDetailsScreenProps = NativeStackScreenProps<
   Screens.EstimationDetails
 >;
 
-export function EstimationDetailsScreen({
+export const EstimationDetailsScreen = ({
   route,
-}: EstimationDetailsScreenProps) {
+}: EstimationDetailsScreenProps) => {
   const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
     api,
     estimationSecret: route.params.secret,
@@ -28,4 +28,4 @@ export function EstimationDetailsScreen({
       />
     </ContentWrapper>
   );
-}
+};

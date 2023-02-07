@@ -7,6 +7,7 @@
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
     "eslint-config-turbo": "latest",
+    "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-react": "latest",
     "eslint-plugin-simple-import-sort": "latest",
     "eslint-plugin-unused-imports": "latest"
