@@ -1,6 +1,6 @@
 import React from "react";
-import { VStack, Text } from "native-base";
-import { IVStackProps } from "native-base/lib/typescript/components/primitives/Stack/VStack";
+import { Stack, Text, useBreakpointValue, Box } from "native-base";
+import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
 import { EstimationImages } from "./EstimationImages";
 import {
   StoryblockAssetContent,
@@ -12,7 +12,7 @@ import { RichTextResolver } from "./RichTextResolver";
 export interface EstimationRowContentProps {
   images: StoryblockAssetContent[];
   description: StoryblockRichTextContent;
-  wrapperProps?: IVStackProps;
+  wrapperProps?: IStackProps;
   onImageClick?: (imageIndex: number) => void;
 }
 
@@ -22,16 +22,29 @@ export const EstimationRowContent: React.FC<EstimationRowContentProps> = ({
   onImageClick,
   wrapperProps = {},
 }) => {
+  const styles = useBreakpointValue({
+    base: {
+      imageWrapper: {},
+      stack: { direction: "column", pb: 2 },
+    },
+    lg: {
+      imageWrapper: { mr: 2 },
+      stack: { direction: "row", pb: 4 },
+    },
+  });
+
   return (
-    <VStack space={2} py={2} {...wrapperProps}>
+    <Stack space={2} pt={2} {...styles.stack} {...wrapperProps}>
       {images.length > 0 && (
-        <EstimationImages images={images} onImageClick={onImageClick} />
+        <Box {...styles.imageWrapper}>
+          <EstimationImages images={images} onImageClick={onImageClick} />
+        </Box>
       )}
       {isRichTextEmpty(description) ? (
         <Text>No description available</Text>
       ) : (
         <RichTextResolver richText={description} />
       )}
-    </VStack>
+    </Stack>
   );
 };

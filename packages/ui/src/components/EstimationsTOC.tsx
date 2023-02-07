@@ -1,24 +1,60 @@
-import { Box, Heading, HStack, Text } from "native-base";
+import { Box, Heading, HStack, Text, useBreakpointValue } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
+import { StoryblockRichTextContent } from "storyblok-types";
 import { SectionsData } from "../utils/mapEstimationData";
+import { RichTextResolver } from "./RichTextResolver";
 
 export type SectionLinkData = { sectionIndex: number; key?: string };
 
 export type EstimationsTOCProps = {
   title: string;
+  description: StoryblockRichTextContent;
   sectionsData: SectionsData;
   onSectionLinkClick: (args: SectionLinkData) => void;
 };
 
 export function EstimationsTOC({
   title,
+  description,
   sectionsData,
   onSectionLinkClick,
 }: EstimationsTOCProps) {
+  const styles = useBreakpointValue({
+    base: {
+      description: {
+        fontSize: "sm",
+      },
+      heading: {
+        fontSize: "md",
+      },
+      item: {
+        fontSize: "sm",
+      },
+      mainHeading: {
+        fontSize: "md",
+      },
+    },
+    lg: {
+      description: {
+        fontSize: "sm",
+      },
+      heading: {
+        fontSize: "md",
+      },
+      item: {
+        fontSize: "md",
+      },
+      mainHeading: {
+        fontSize: "lg",
+      },
+    },
+  });
+
   function sectionLinkHandler(args: SectionLinkData) {
     return () => onSectionLinkClick(args);
   }
+
   return (
     <Box>
       <HStack
@@ -29,8 +65,16 @@ export function EstimationsTOC({
         justifyContent="space-between"
         alignItems={"center"}
       >
-        <Heading size={"xs"}>{title}</Heading>
+        <Heading {...styles.heading}>{title}</Heading>
       </HStack>
+      {description && (
+        <Box px={4} mb={4}>
+          <RichTextResolver
+            richText={description}
+            textProps={styles.description}
+          />
+        </Box>
+      )}
       <HStack
         px={3}
         minH={12}
@@ -42,7 +86,7 @@ export function EstimationsTOC({
         borderColor={"gray.400"}
         borderRadius="sm"
       >
-        <Text fontSize="md" color="green.400">
+        <Text color="green.400" {...styles.mainHeading}>
           TABLE OF CONTENTS
         </Text>
       </HStack>
@@ -63,12 +107,16 @@ export function EstimationsTOC({
                   my={2}
                 >
                   <HStack flexBasis={"70%"}>
-                    <Text color={"green.400"}>{listIndex}. </Text>
-                    <Text color={"green.400"} underline>
+                    <Text color={"green.400"} {...styles.item}>
+                      {listIndex}.{" "}
+                    </Text>
+                    <Text color={"green.400"} underline {...styles.item}>
                       {title}
                     </Text>
                   </HStack>
-                  <Text flexBasis={"auto"}>{nominalDaysSum} days</Text>
+                  <Text flexBasis={"auto"} {...styles.item}>
+                    {nominalDaysSum} days
+                  </Text>
                 </HStack>
               </TouchableOpacity>
             );
