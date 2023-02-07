@@ -1,5 +1,5 @@
-import { Divider } from "native-base";
-import React from "react";
+import { Divider, useBreakpointValue } from "native-base";
+import React, { useMemo } from "react";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
 import { mapEstimationData } from "../../utils/mapEstimationData";
@@ -19,8 +19,17 @@ export interface EstimationDetailsProps {
 export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   estimation,
 }) => {
-  const { title, sectionsData } = mapEstimationData(estimation);
-  const expandedKeys = useArray<string>([]);
+  const { title, description, sectionsData } = mapEstimationData(estimation);
+  const itemKeys = useMemo(
+    () =>
+      sectionsData
+        .flatMap((sectionData) => sectionData.data)
+        .filter((item) => item.key)
+        .map((item) => item.key as string),
+    [sectionsData]
+  );
+  const initiallyExpandedKeys = useBreakpointValue({ base: [], lg: itemKeys });
+  const expandedKeys = useArray<string>(initiallyExpandedKeys);
   const gallery = useGallery();
 
   function sectionLinkHandler({ key }: SectionLinkData) {
@@ -35,6 +44,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
     <div>
       <EstimationsTOC
         title={title}
+        description={description}
         sectionsData={sectionsData}
         onSectionLinkClick={sectionLinkHandler}
       />
@@ -56,6 +66,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                 key: itemKey,
                 nominalDays,
                 images,
+                isIncluded,
                 listIndex,
               }) => (
                 <React.Fragment key={itemKey}>
@@ -68,6 +79,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
                         order={listIndex}
                         text={task}
                         isHighlighted={isHovered || isPressed}
+                        isIncluded={isIncluded}
                         wrapperProps={{
                           px: 4,
                         }}
