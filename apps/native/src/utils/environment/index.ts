@@ -1,4 +1,5 @@
 import * as Updates from "expo-updates";
+
 import { developmentEnvironmentVariables } from "./development";
 import { productionEnvironmentVariables } from "./production";
 import { stagingEnvironmentVariables } from "./staging";

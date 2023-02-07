@@ -1,10 +1,11 @@
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Linking from "expo-linking";
-import { EstimationGateScreen } from "./screens/EstimationGateScreen";
-import { EstimationDetailsScreen } from "./screens/EstimationDetailsScreen";
-import { RootStackParamList, Screens } from "./types";
 import { useTheme } from "ui/src/hooks/useTheme";
+
+import { EstimationDetailsScreen } from "./screens/EstimationDetailsScreen";
+import { EstimationGateScreen } from "./screens/EstimationGateScreen";
+import { RootStackParamList, Screens } from "./types";
 import { environment } from "./utils/environment";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

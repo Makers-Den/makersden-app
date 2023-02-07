@@ -1,16 +1,18 @@
-import React from "react";
-import { EstimationGateScreen as UiEstimationGateScreen } from "ui/src/screens/EstimationGateScreen";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEstimationGateScreen } from "client-logic";
+import React from "react";
+import { ContentWrapper } from "ui/src/components/ContentWrapper";
+import { EstimationGateScreen as UiEstimationGateScreen } from "ui/src/screens/EstimationGateScreen";
+
+import { RootStackParamList, Screens } from "../types";
 import { api } from "../utils/api";
 import { environment } from "../utils/environment";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList, Screens } from "../types";
-import { ContentWrapper } from "ui/src/components/ContentWrapper";
 
 export type EstimationGateScreenProps = NativeStackScreenProps<
   RootStackParamList,
   Screens.EstimationGate
 >;
+
 
 export function EstimationGateScreen({
   navigation,
