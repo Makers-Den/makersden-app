@@ -1,17 +1,18 @@
 import React from "react";
-import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
-import { TRPCProvider } from "./utils/api";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Navigation } from "./Navigation";
+import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
 
-export default function () {
-  return (
-    <TRPCProvider>
-      <ThemeProvider>
-        <SafeAreaProvider>
-          <Navigation />
-        </SafeAreaProvider>
-      </ThemeProvider>
-    </TRPCProvider>
-  );
-}
+import { Navigation } from "./Navigation";
+import { TRPCProvider } from "./utils/api";
+
+const App = () => (
+  <TRPCProvider>
+    <ThemeProvider>
+      <SafeAreaProvider>
+        <Navigation />
+      </SafeAreaProvider>
+    </ThemeProvider>
+  </TRPCProvider>
+)
+
+export default App

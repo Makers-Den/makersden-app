@@ -1,8 +1,10 @@
 import { useEstimationDetailsScreen } from "client-logic";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { EstimationDetailsScreen } from "ui/src/screens/web/EstimationDetailsScreen";
-import dynamic from "next/dynamic";
+
 import { api } from "../../utils/api";
+
 
 const EstimationDetailsPage = () => {
   const router = useRouter();

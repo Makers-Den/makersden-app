@@ -1,5 +1,5 @@
-import { createTRPCNext } from "@trpc/next";
 import { httpBatchLink, loggerLink } from "@trpc/client";
+import { createTRPCNext } from "@trpc/next";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "api";
 import { transformer } from "api/transformer";
@@ -12,6 +12,7 @@ const getBaseUrl = () => {
 };
 
 export const api = createTRPCNext<AppRouter>({
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   config() {
     return {
       transformer,

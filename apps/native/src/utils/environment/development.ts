@@ -1,5 +1,6 @@
-import { EnvironmentVariables } from "./validate";
 import Constants from "expo-constants";
+
+import { EnvironmentVariables } from "./validate";
 
 const getLocalIp = () => {
   const localIpMatch = Constants.experienceUrl.match(
