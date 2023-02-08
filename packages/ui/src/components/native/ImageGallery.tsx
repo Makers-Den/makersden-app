@@ -1,7 +1,8 @@
 import { Box, Image, Pressable } from "native-base";
 import React from "react";
-import { Modal, ImageSourcePropType } from "react-native";
+import { ImageSourcePropType,Modal } from "react-native";
 import Swiper from "react-native-web-swiper";
+
 import { ImageGalleryButton } from "../ImageGalleryButton";
 
 interface GalleryImage {

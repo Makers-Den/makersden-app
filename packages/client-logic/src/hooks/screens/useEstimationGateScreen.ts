@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { Api } from "../../types/api";
 
 export interface UseEstimationGateScreenDeps {
@@ -19,7 +20,7 @@ export const useEstimationGateScreen = ({
 
   useEffect(() => {
     trpcContext.estimations.findOne.invalidate();
-  }, []);
+  }, [trpcContext.estimations.findOne]);
 
   const handleEstimationListQueryError = () => {
     setEnteredEstimationSecret("");

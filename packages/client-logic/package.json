@@ -6,13 +6,15 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@types/react": "^18.0.22",
     "api": "*",
+    "eslint-config-custom": "*",
     "storyblok-types": "*",
     "tsconfig": "*",
     "tsup": "^6.0.1",

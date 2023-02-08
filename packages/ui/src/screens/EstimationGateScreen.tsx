@@ -1,11 +1,11 @@
 import {
-  HStack,
-  Heading,
-  Input,
   Button,
-  VStack,
-  View,
   FormControl,
+  Heading,
+  HStack,
+  Input,
+  View,
+  VStack,
 } from "native-base";
 import React from "react";
 import { Platform } from "react-native";
@@ -21,14 +21,14 @@ export interface EstimationGateScreenProps {
   onShowExampleEstimation: () => void;
 }
 
-export const EstimationGateScreen: React.FC<EstimationGateScreenProps> = ({
+export const EstimationGateScreen = ({
   isLoading,
   isInvalid,
   estimationSecret,
   onEnter,
   onEstimationSecretChange,
   onShowExampleEstimation,
-}) => {
+}: EstimationGateScreenProps) => {
   return (
     <View justifyContent="center" alignItems="center">
       {Platform.OS === "web" && (

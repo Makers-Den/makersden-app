@@ -1,8 +1,9 @@
 import { HStack, Text, useBreakpointValue } from "native-base";
+import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 import React from "react";
 import { StoryblockRichTextContent } from "storyblok-types";
+
 import { RichTextResolver } from "./RichTextResolver";
-import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 
 export interface EstimationRowHeaderProps {
   nominalDays: number;

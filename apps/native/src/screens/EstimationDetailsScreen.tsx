@@ -1,5 +1,6 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEstimationDetailsScreen } from "client-logic";
+import { useEffect } from "react";
 import { ContentWrapper } from "ui/src/components/ContentWrapper";
 import { EstimationDetailsScreen as UiEstimationDetailsScreen } from "ui/src/screens/native/EstimationDetailsScreen";
 

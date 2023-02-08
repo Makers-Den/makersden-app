@@ -1,9 +1,9 @@
-import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
+import { ISbStoryData } from "storyblok-js-client";
+import { EstimationContent } from "storyblok-types";
 
-export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
+export const useMapEstimationData = (estimation: ISbStoryData<EstimationContent>) => {
   const { sections, description, title } = estimation.content;
 
   const sectionsData = useMemo(() => {
@@ -55,9 +55,7 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
           }
         );
 
-        function parseSum(sum: number) {
-          return parseFloat(sum.toFixed(1));
-        }
+        const parseSum = (sum: number) => parseFloat(sum.toFixed(1));
 
         return {
           data,
@@ -74,6 +72,6 @@ export function mapEstimationData(estimation: ISbStoryData<EstimationContent>) {
   }, [sections]);
 
   return { sectionsData, description, title };
-}
+};
 
-export type SectionsData = ReturnType<typeof mapEstimationData>["sectionsData"];
+export type SectionsData = ReturnType<typeof useMapEstimationData>["sectionsData"];
