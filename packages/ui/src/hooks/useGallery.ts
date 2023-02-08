@@ -23,7 +23,7 @@ export const useGallery = () => {
     (images: GalleryImage[], initialImageIndex: number) => {
       setGalleryState({ initialImageIndex, images });
     },
-    []
+    [setGalleryState]
   );
 
   const close = useCallback(() => {
