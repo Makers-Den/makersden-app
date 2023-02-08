@@ -18,12 +18,12 @@ export interface ImageGalleryProps {
   onClose?: () => void;
 }
 
-export const ImageGallery: FC<ImageGalleryProps> = ({
+export const ImageGallery = ({
   isOpen,
   images,
   initialImageIndex,
   onClose,
-}) => {
+}: ImageGalleryProps) => {
   const [slideIndex, setSlideIndex] = useState(initialImageIndex);
 
   useEffect(() => {

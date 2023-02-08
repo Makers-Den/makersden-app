@@ -17,12 +17,12 @@ export interface EstimationRowContentProps {
   onImageClick?: (imageIndex: number) => void;
 }
 
-export const EstimationRowContent: React.FC<EstimationRowContentProps> = ({
+export const EstimationRowContent = ({
   description,
   images,
   onImageClick,
   wrapperProps = {},
-}) => {
+}: EstimationRowContentProps) => {
   const styles = useBreakpointValue({
     base: {
       imageWrapper: {},

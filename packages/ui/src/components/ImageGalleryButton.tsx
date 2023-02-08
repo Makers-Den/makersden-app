@@ -6,10 +6,10 @@ export interface ImageGalleryButtonProps extends PropsWithChildren {
   onPress?: () => void;
 }
 
-export const ImageGalleryButton: React.FC<ImageGalleryButtonProps> = ({
+export const ImageGalleryButton = ({
   text,
   onPress,
-}) => {
+}: ImageGalleryButtonProps) => {
   return (
     <Button width="8" size="sm" onPress={onPress}>
       {text}

@@ -11,9 +11,10 @@ export interface EstimationDetailsScreenProps {
   isLoading: boolean;
 }
 
-export const EstimationDetailsScreen: React.FC<
-  EstimationDetailsScreenProps
-> = ({ estimation, isLoading }) => {
+export const EstimationDetailsScreen = ({
+  estimation,
+  isLoading,
+}: EstimationDetailsScreenProps) => {
   if (isLoading) {
     return <EstimationLoader />;
   }

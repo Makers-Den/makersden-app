@@ -14,14 +14,14 @@ export interface EstimationRowHeaderProps {
   wrapperProps?: IHStackProps;
 }
 
-export const EstimationRowHeader: React.FC<EstimationRowHeaderProps> = ({
+export const EstimationRowHeader = ({
   nominalDays,
   order,
   text,
   isIncluded,
   isHighlighted = false,
   wrapperProps = {},
-}) => {
+}: EstimationRowHeaderProps) => {
   const textStyles = useBreakpointValue({
     base: {
       fontSize: "sm",
