@@ -1,9 +1,9 @@
 import { useArray } from "@md/client-logic";
+import { EstimationContent } from "@md/storyblok-types";
 import { Divider, useBreakpointValue } from "native-base";
 import React, { useMemo } from "react";
 import * as R from "remeda";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "@md/storyblok-types";
 
 import { useGallery } from "../../hooks/useGallery";
 import { useMapEstimationData } from "../../utils/useMapEstimationData";
@@ -11,18 +11,18 @@ import { EstimationRowContent } from "../EstimationRowContent";
 import { EstimationRowHeader } from "../EstimationRowHeader";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
 import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
-import { ExpandableComponent } from "./ExpandableComponent";
-import { ImageGallery } from "./ImageGallery";
 import { Logo } from "../Logo";
 import { LogoWrapper } from "../LogoWrapper";
+import { ExpandableComponent } from "./ExpandableComponent";
+import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
 }
 
-export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
+export const EstimationDetails  = ({
   estimation,
-}) => {
+}: EstimationDetailsProps) => {
   const { title, description, sectionsData } = useMapEstimationData(estimation);
 
   const itemKeys = useMemo(

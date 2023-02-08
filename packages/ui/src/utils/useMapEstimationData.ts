@@ -1,7 +1,7 @@
+import { EstimationContent } from "@md/storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "@md/storyblok-types";
 
 export const useMapEstimationData = (estimation: ISbStoryData<EstimationContent>) => {
   const { sections, description, title } = estimation.content;

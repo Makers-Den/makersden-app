@@ -1,13 +1,14 @@
 {
   "name": "@md/ui",
   "version": "0.0.0",
+  "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
-    "link": "eslint . --fix"
+    "lint": "eslint . --fix"
   },
   "devDependencies": {
     "@md/client-logic": "*",

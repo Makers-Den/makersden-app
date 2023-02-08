@@ -9,6 +9,7 @@ import {
 } from "native-base";
 import React from "react";
 import { Platform } from "react-native";
+
 import { Logo } from "../components/Logo";
 import { LogoWrapper } from "../components/LogoWrapper";
 
