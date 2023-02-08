@@ -4,6 +4,7 @@ import { EstimationSheetDownloadResult } from "./types";
 
 const BATCH_SIZE = 40;
 const BATCH_ARRAY = Object.freeze(new Array(BATCH_SIZE).fill(0));
+const DESCRIPTION_ROW_INDEX = 2;
 
 const isRowEmpty = (
   row: unknown[][] | undefined | null
@@ -16,6 +17,7 @@ export const downloadEstimationSheet = async (
   let hasMoreRows = true;
   let rows: unknown[][] = [];
   let rangeStart = 1;
+  let emptySpreadsheetRowIndex: number | null = null;
 
   while (hasMoreRows) {
     const ranges = BATCH_ARRAY.map((_, index) => rangeStart + index).map(
@@ -48,33 +50,39 @@ export const downloadEstimationSheet = async (
 
     const processedBatchRows: unknown[][] = [];
 
-    for (let i = 0; i < batchRows.length; i += 1) {
-      const currentBatchRow = batchRows[i];
+    for (
+      let loopRowIndex = 0;
+      loopRowIndex < batchRows.length;
+      loopRowIndex += 1
+    ) {
+      const spreadsheetRowIndex = rangeStart + loopRowIndex;
+      const currentBatchRow = batchRows[loopRowIndex];
 
-      if (isRowEmpty(currentBatchRow)) {
-        const nextBatchRowIndex = i + 1;
-        if (nextBatchRowIndex === batchRows.length) {
-          break;
-        }
+      if (!isRowEmpty(currentBatchRow)) {
+        processedBatchRows.push(currentBatchRow);
+        continue;
+      }
 
-        const nextBatchRow = batchRows[nextBatchRowIndex];
-        if (isRowEmpty(nextBatchRow)) {
-          break;
-        }
-
+      const isDescriptionRow = spreadsheetRowIndex === DESCRIPTION_ROW_INDEX;
+      if (isDescriptionRow) {
         processedBatchRows.push([]);
         continue;
       }
 
-      processedBatchRows.push(currentBatchRow);
+      const wasPreviousRowEmpty =
+        emptySpreadsheetRowIndex === spreadsheetRowIndex - 1;
+      if (wasPreviousRowEmpty) {
+        hasMoreRows = false;
+        break;
+      }
+
+      emptySpreadsheetRowIndex = spreadsheetRowIndex;
     }
 
     rows.push(...processedBatchRows);
 
-    if (processedBatchRows.length === BATCH_SIZE) {
+    if (hasMoreRows) {
       rangeStart += BATCH_SIZE;
-    } else {
-      hasMoreRows = false;
     }
   }
 

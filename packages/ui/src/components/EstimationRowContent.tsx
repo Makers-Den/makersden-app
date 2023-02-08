@@ -43,7 +43,9 @@ export const EstimationRowContent: React.FC<EstimationRowContentProps> = ({
       {isRichTextEmpty(description) ? (
         <Text>No description available</Text>
       ) : (
-        <RichTextResolver richText={description} />
+        <Box flexGrow={1} flexShrink={1}>
+          <RichTextResolver richText={description} />
+        </Box>
       )}
     </Stack>
   );

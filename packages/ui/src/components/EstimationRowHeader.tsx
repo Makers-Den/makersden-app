@@ -5,7 +5,7 @@ import { RichTextResolver } from "./RichTextResolver";
 import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 
 export interface EstimationRowHeaderProps {
-  nominalDays: number;
+  expectedDays: number;
   order: string | number;
   text: StoryblockRichTextContent;
   isIncluded: boolean;
@@ -14,7 +14,7 @@ export interface EstimationRowHeaderProps {
 }
 
 export const EstimationRowHeader: React.FC<EstimationRowHeaderProps> = ({
-  nominalDays,
+  expectedDays,
   order,
   text,
   isIncluded,
@@ -45,7 +45,7 @@ export const EstimationRowHeader: React.FC<EstimationRowHeaderProps> = ({
         <RichTextResolver richText={text} textProps={textStyles} />
       </HStack>
       <Text flexBasis={"auto"} strikeThrough={!isIncluded} {...textStyles}>
-        {nominalDays} days
+        {expectedDays} days
       </Text>
     </HStack>
   );

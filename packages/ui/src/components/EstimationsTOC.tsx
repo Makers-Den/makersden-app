@@ -2,7 +2,7 @@ import { Box, Heading, HStack, Text, useBreakpointValue } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { StoryblockRichTextContent } from "storyblok-types";
-import { SectionsData } from "../utils/mapEstimationData";
+import { Sections } from "../utils/mapEstimationData";
 import { RichTextResolver } from "./RichTextResolver";
 
 export type SectionLinkData = { sectionIndex: number; key?: string };
@@ -10,14 +10,14 @@ export type SectionLinkData = { sectionIndex: number; key?: string };
 export type EstimationsTOCProps = {
   title: string;
   description: StoryblockRichTextContent;
-  sectionsData: SectionsData;
+  sections: Sections;
   onSectionLinkClick: (args: SectionLinkData) => void;
 };
 
 export function EstimationsTOC({
   title,
   description,
-  sectionsData,
+  sections,
   onSectionLinkClick,
 }: EstimationsTOCProps) {
   const styles = useBreakpointValue({
@@ -91,8 +91,8 @@ export function EstimationsTOC({
         </Text>
       </HStack>
       <Box px={4} py={2}>
-        {sectionsData.map(
-          ({ title, nominalDaysSum, listIndex, key }, sectionIndex) => {
+        {sections.map(
+          ({ title, expectedDays, listIndex, key }, sectionIndex) => {
             return (
               <TouchableOpacity
                 key={key}
@@ -115,7 +115,7 @@ export function EstimationsTOC({
                     </Text>
                   </HStack>
                   <Text flexBasis={"auto"} {...styles.item}>
-                    {nominalDaysSum} days
+                    {expectedDays} days
                   </Text>
                 </HStack>
               </TouchableOpacity>
