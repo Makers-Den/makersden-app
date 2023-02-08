@@ -134,8 +134,8 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
           },
         }) => (
           <ExpandableComponent
-            isExpanded={expandedKeys.includes(itemKey!)}
-            onClick={itemClickHandler(itemKey!)}
+            isExpanded={expandedKeys.includes(itemKey)}
+            onClick={itemClickHandler(itemKey)}
             wrapperProps={{
               px: 4,
               py: 2,
