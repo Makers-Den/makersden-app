@@ -20,9 +20,7 @@ export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
 }
 
-export const EstimationDetails  = ({
-  estimation,
-}) => {
+export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
   const { title, description, sections } = useMapEstimationData(estimation);
 
   const itemKeys = useMemo(
