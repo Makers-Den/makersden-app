@@ -4,7 +4,7 @@ const withImages = require("next-images");
 const { withExpo } = require("@expo/next-adapter");
 
 module.exports = withNativebase({
-  dependencies: ["@expo/next-adapter", "ui"],
+  dependencies: ["@expo/next-adapter", "@md/ui"],
   plugins: [
     withFonts,
     [withExpo, { projectRoot: __dirname }],

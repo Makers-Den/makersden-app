@@ -1,8 +1,8 @@
+import type { AppRouter } from "@md/api";
+import { transformer } from "@md/api/transformer";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import type { AppRouter } from "api";
-import { transformer } from "api/transformer";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url

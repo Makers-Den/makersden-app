@@ -1,5 +1,5 @@
+import { appRouter, createTRPCContext } from "@md/api";
 import { createNextApiHandler } from "@trpc/server/adapters/next";
-import { appRouter, createTRPCContext } from "api";
 
 import { apiModules } from "../../../utils/apiModules";
 

@@ -1,4 +1,5 @@
-import { useArray } from "client-logic";
+import { useArray } from "@md/client-logic";
+import { EstimationContent } from "@md/storyblok-types";
 import { Divider } from "native-base";
 import React, { useRef } from "react";
 import {
@@ -8,7 +9,6 @@ import {
   UIManager,
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
 
 import { useGallery } from "../../hooks/useGallery";
 import { useMapEstimationData } from "../../utils/useMapEstimationData";

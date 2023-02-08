@@ -1,3 +1,4 @@
+import { StoryblockRichTextContent } from "@md/storyblok-types";
 import {
   Divider,
   Heading,
@@ -30,7 +31,6 @@ import {
   render,
   RenderOptions,
 } from "storyblok-rich-text-react-renderer";
-import { StoryblockRichTextContent } from "storyblok-types";
 
 export type RichTextResolverProps = {
   richText: StoryblockRichTextContent;

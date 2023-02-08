@@ -1,7 +1,7 @@
+import { useTheme } from "@md/ui/src/hooks/useTheme";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Linking from "expo-linking";
-import { useTheme } from "ui/src/hooks/useTheme";
 
 import { EstimationDetailsScreen } from "./screens/EstimationDetailsScreen";
 import { EstimationGateScreen } from "./screens/EstimationGateScreen";

@@ -1,9 +1,9 @@
-import { useArray } from "client-logic";
+import { useArray } from "@md/client-logic";
 import { Divider, useBreakpointValue } from "native-base";
 import React, { useMemo } from "react";
 import * as R from "remeda";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
+import { EstimationContent } from "@md/storyblok-types";
 
 import { useGallery } from "../../hooks/useGallery";
 import { useMapEstimationData } from "../../utils/useMapEstimationData";
