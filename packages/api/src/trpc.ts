@@ -39,6 +39,7 @@ import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   errorFormatter({ shape }) {
     return shape;
   },

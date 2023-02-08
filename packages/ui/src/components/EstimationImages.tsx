@@ -1,7 +1,7 @@
+import { StoryblockAssetContent } from "@md/storyblok-types";
 import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { StoryblockAssetContent } from "storyblok-types";
 
 export interface EstimationImagesProps {
   images: StoryblockAssetContent[];

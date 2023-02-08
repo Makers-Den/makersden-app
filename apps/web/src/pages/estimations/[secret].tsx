@@ -1,7 +1,7 @@
-import { useEstimationDetailsScreen } from "client-logic";
+import { useEstimationDetailsScreen } from "@md/client-logic";
+import { EstimationDetailsScreen } from "@md/ui/src/screens/web/EstimationDetailsScreen";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { EstimationDetailsScreen } from "ui/src/screens/web/EstimationDetailsScreen";
 
 import { api } from "../../utils/api";
 

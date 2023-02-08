@@ -4,7 +4,7 @@ import React from "react";
 import {
   StoryblockAssetContent,
   StoryblockRichTextContent,
-} from "storyblok-types";
+} from "@md/storyblok-types";
 
 import { isRichTextEmpty } from "../utils/isRichTextEmpty";
 import { EstimationImages } from "./EstimationImages";

@@ -1,4 +1,4 @@
-import { AppRouter as ApiAppRouter } from "api";
+import { AppRouter as ApiAppRouter } from "@md/api";
 
 export { useEstimationDetailsScreen } from "./hooks/screens/useEstimationDetailsScreen";
 export { useEstimationGateScreen } from "./hooks/screens/useEstimationGateScreen";

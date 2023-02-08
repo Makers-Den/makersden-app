@@ -1,5 +1,5 @@
+import { EstimationContent } from "@md/storyblok-types";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
 
 export type EstimationFindResult =
   | EstimationFindErrorResult

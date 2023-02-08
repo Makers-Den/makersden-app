@@ -1,7 +1,7 @@
+import { StoryblockRichTextContent } from "@md/storyblok-types";
 import { Box, Heading, HStack, Text, useBreakpointValue } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { StoryblockRichTextContent } from "storyblok-types";
 
 import { SectionsData } from "../utils/useMapEstimationData";
 import { RichTextResolver } from "./RichTextResolver";

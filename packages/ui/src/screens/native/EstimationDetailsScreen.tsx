@@ -1,6 +1,6 @@
 import React from "react";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
+import { EstimationContent } from "@md/storyblok-types";
 
 import { EstimationLoader } from "../../components/EstimationLoader";
 import { EstimationNotFound } from "../../components/EstimationNotFound";
