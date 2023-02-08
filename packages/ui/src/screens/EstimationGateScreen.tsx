@@ -8,6 +8,9 @@ import {
   VStack,
 } from "native-base";
 import React from "react";
+import { Platform } from "react-native";
+import { Logo } from "../components/Logo";
+import { LogoWrapper } from "../components/LogoWrapper";
 
 export interface EstimationGateScreenProps {
   isLoading: boolean;
@@ -27,8 +30,19 @@ export const EstimationGateScreen = ({
   onShowExampleEstimation,
 }: EstimationGateScreenProps) => {
   return (
-    <View pt={40} justifyContent="center" alignItems="center">
-      <VStack space={6} justifyContent="center" alignItems="center">
+    <View justifyContent="center" alignItems="center">
+      {Platform.OS === "web" && (
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
+      )}
+
+      <VStack
+        mt={Platform.OS === "web" ? 32 : 40}
+        space={6}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Heading>Enter estimation secret</Heading>
 
         <VStack alignItems="center" space={4}>

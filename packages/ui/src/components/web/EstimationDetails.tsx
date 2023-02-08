@@ -13,6 +13,8 @@ import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
 import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
+import { Logo } from "../Logo";
+import { LogoWrapper } from "../LogoWrapper";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -47,6 +49,10 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
 
   return (
     <div>
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
+
       <EstimationsTOC
         title={title}
         description={description}
