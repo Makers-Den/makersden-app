@@ -32,10 +32,6 @@ export const ImageGallery = ({
     }
   }, [isOpen, initialImageIndex]);
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <Modal
       animationType="none"
@@ -43,62 +39,64 @@ export const ImageGallery = ({
       visible={isOpen}
       onRequestClose={onClose}
     >
-      <Box background="black.200">
-        <Box maxW="2xl" width="100%" marginX="auto" position="relative">
-          <Carousel
-            slideIndex={slideIndex}
-            renderCenterLeftControls={({ previousSlide, previousDisabled }) =>
-              previousDisabled ? null : (
-                <Box ml={2}>
-                  <ImageGalleryButton onPress={previousSlide} text="<" />
-                </Box>
-              )
-            }
-            renderCenterRightControls={({ nextSlide, nextDisabled }) =>
-              nextDisabled ? null : (
-                <Box mr={2}>
-                  <ImageGalleryButton onPress={nextSlide} text=">" />
-                </Box>
-              )
-            }
-            renderBottomCenterControls={({ currentSlide, goToSlide }) => (
-              <HStack space={2}>
-                {images.map((image, index) => (
-                  <Pressable
-                    key={image.id}
-                    w={3}
-                    h={3}
-                    borderRadius="full"
-                    onPress={() => goToSlide(index)}
-                    background={
-                      currentSlide === index ? "green.400" : "gray.400"
-                    }
-                    mb={4}
+      {isOpen && (
+        <Box background="black.200">
+          <Box maxW="2xl" width="100%" marginX="auto" position="relative">
+            <Carousel
+              slideIndex={slideIndex}
+              renderCenterLeftControls={({ previousSlide, previousDisabled }) =>
+                previousDisabled ? null : (
+                  <Box ml={2}>
+                    <ImageGalleryButton onPress={previousSlide} text="<" />
+                  </Box>
+                )
+              }
+              renderCenterRightControls={({ nextSlide, nextDisabled }) =>
+                nextDisabled ? null : (
+                  <Box mr={2}>
+                    <ImageGalleryButton onPress={nextSlide} text=">" />
+                  </Box>
+                )
+              }
+              renderBottomCenterControls={({ currentSlide, goToSlide }) => (
+                <HStack space={2}>
+                  {images.map((image, index) => (
+                    <Pressable
+                      key={image.id}
+                      w={3}
+                      h={3}
+                      borderRadius="full"
+                      onPress={() => goToSlide(index)}
+                      background={
+                        currentSlide === index ? "green.400" : "gray.400"
+                      }
+                      mb={4}
+                    />
+                  ))}
+                </HStack>
+              )}
+            >
+              {images.map((image) => (
+                <Box key={image.id}>
+                  <Image
+                    source={image.source}
+                    alt={image.alt}
+                    width="100%"
+                    height="100vh"
+                    resizeMode="contain"
+                    background="black.200"
+                    marginX="auto"
                   />
-                ))}
-              </HStack>
-            )}
-          >
-            {images.map((image) => (
-              <Box key={image.id}>
-                <Image
-                  source={image.source}
-                  alt={image.alt}
-                  width="100%"
-                  height="100vh"
-                  resizeMode="contain"
-                  background="black.200"
-                  marginX="auto"
-                />
-              </Box>
-            ))}
-          </Carousel>
+                </Box>
+              ))}
+            </Carousel>
 
-          <Box position="absolute" top={6} right={2} safeArea>
-            <ImageGalleryButton onPress={onClose} text="X" />
+            <Box position="absolute" top={6} right={2} safeArea>
+              <ImageGalleryButton onPress={onClose} text="X" />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
     </Modal>
   );
 };
