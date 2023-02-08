@@ -7,7 +7,7 @@
     "dev:android": "export DEVELOPMENT=true && expo start --android",
     "dev:ios": "export DEVELOPMENT=true && expo start --ios",
     "eject": "expo eject",
-    "lint": "eslint . --fix",
+    "lint": "eslint . --fix --ext .ts,.tsx",
     "start": "export DEVELOPMENT=true && expo start",
     "web": "expo start --web"
   },

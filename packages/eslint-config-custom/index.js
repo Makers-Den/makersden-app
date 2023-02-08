@@ -1,6 +1,13 @@
 module.exports = {
-  extends: ["next", "turbo", "prettier"],
-  plugins: ["simple-import-sort", "prefer-arrow"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next",
+    "turbo",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["simple-import-sort", "prefer-arrow", "@typescript-eslint"],
   ignorePatterns: ["dist/**"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
@@ -10,10 +17,10 @@ module.exports = {
     "prefer-arrow/prefer-arrow-functions": [
       "warn",
       {
-        "disallowPrototype": true,
-        "singleReturnOnly": false,
-        "classPropertiesAllowed": false
-      }
-    ]
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
+      },
+    ],
   },
 };
