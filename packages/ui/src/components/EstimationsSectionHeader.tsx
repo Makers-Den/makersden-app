@@ -5,13 +5,13 @@ import React from "react";
 export type EstimationsSectionHeaderProps = {
   listIndex: string;
   title: string;
-  nominalDaysSum: number;
+  expectedDays: number;
 } & InterfaceHStackProps;
 
 export const EstimationsSectionHeader = ({
   listIndex,
   title,
-  nominalDaysSum,
+  expectedDays,
   ...wrapperProps
 }: EstimationsSectionHeaderProps) => {
   const textStyles = useBreakpointValue({
@@ -37,7 +37,7 @@ export const EstimationsSectionHeader = ({
         {listIndex}. {title.toUpperCase()}
       </Text>
       <Text flexBasis={"auto"} {...textStyles}>
-        {nominalDaysSum} days
+        {expectedDays} days
       </Text>
     </HStack>
   );

@@ -6,7 +6,7 @@ import React from "react";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowHeaderProps {
-  nominalDays: number;
+  expectedDays: number;
   order: string | number;
   text: StoryblockRichTextContent;
   isIncluded: boolean;
@@ -15,7 +15,7 @@ export interface EstimationRowHeaderProps {
 }
 
 export const EstimationRowHeader = ({
-  nominalDays,
+  expectedDays,
   order,
   text,
   isIncluded,
@@ -46,7 +46,7 @@ export const EstimationRowHeader = ({
         <RichTextResolver richText={text} textProps={textStyles} />
       </HStack>
       <Text flexBasis={"auto"} strikeThrough={!isIncluded} {...textStyles}>
-        {nominalDays} days
+        {expectedDays} days
       </Text>
     </HStack>
   );

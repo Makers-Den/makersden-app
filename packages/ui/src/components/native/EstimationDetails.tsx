@@ -1,7 +1,7 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
 import { Divider } from "native-base";
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import {
   LayoutAnimation,
   Platform,
@@ -26,9 +26,17 @@ export interface EstimationDetailsProps {
 export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
   const sectionListRef = useRef<SectionList | null>(null);
 
-  const { title, description, sectionsData } = useMapEstimationData(estimation);
+  const { title, description, sections } = useMapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
+  const sectionListSections = useMemo(
+    () =>
+      sections.map((section) => ({
+        ...section,
+        data: section.rows,
+      })),
+    [sections]
+  );
 
   if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -77,9 +85,9 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
     let sectionIndex = 0;
     let itemsLengthSum = 0;
 
-    while (sectionsData[sectionIndex] && index > itemsLengthSum) {
+    while (sections[sectionIndex] && index > itemsLengthSum) {
       sectionIndex++;
-      itemsLengthSum += sectionsData[sectionIndex].data.length + 1;
+      itemsLengthSum += sections[sectionIndex].rows.length + 1;
     }
 
     sectionListRef.current?.scrollToLocation({
@@ -100,24 +108,24 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
     <>
       <SectionList
         ref={sectionListRef}
-        sections={sectionsData}
+        sections={sectionListSections}
         onScrollToIndexFailed={handleScrollToIndexFailed}
         keyExtractor={({ key }, index) => key || `${index}`}
         ListHeaderComponent={
           <EstimationsTOC
             title={title}
             description={description}
-            sectionsData={sectionsData}
+            sections={sections}
             onSectionLinkClick={sectionLinkHandler}
           />
         }
         stickySectionHeadersEnabled
         renderSectionHeader={({
-          section: { title, nominalDaysSum, listIndex },
+          section: { title, expectedDays, listIndex },
         }) => (
           <EstimationsSectionHeader
             title={title}
-            nominalDaysSum={nominalDaysSum}
+            expectedDays={expectedDays}
             listIndex={listIndex}
           />
         )}
@@ -127,7 +135,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             task,
             description,
             key: itemKey,
-            nominalDays,
+            expectedDays,
             images,
             isIncluded,
             listIndex,
@@ -142,7 +150,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             }}
             headerComponent={
               <EstimationRowHeader
-                nominalDays={nominalDays}
+                expectedDays={expectedDays}
                 order={listIndex}
                 text={task}
                 isIncluded={isIncluded}
