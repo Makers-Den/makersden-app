@@ -26,11 +26,7 @@ export interface EstimationDetailsProps {
 export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
   const sectionListRef = useRef<SectionList | null>(null);
 
-<<<<<<< HEAD
-  const { title, description, sections } = mapEstimationData(estimation);
-=======
-  const { title, description, sectionsData } = useMapEstimationData(estimation);
->>>>>>> development
+  const { title, description, sections } = useMapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
   const sectionListSections = useMemo(
