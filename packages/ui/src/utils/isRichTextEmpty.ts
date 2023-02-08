@@ -1,5 +1,3 @@
-import { StoryblockRichTextContent } from "storyblok-types";
+import { StoryblockRichTextContent } from "@md/storyblok-types";
 
-export function isRichTextEmpty(richText: StoryblockRichTextContent) {
-  return richText.content.length <= 0;
-}
+export const isRichTextEmpty = (richText: StoryblockRichTextContent) => richText.content.length <= 0;

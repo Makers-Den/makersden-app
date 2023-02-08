@@ -1,8 +1,9 @@
+import { StoryblockRichTextContent } from "@md/storyblok-types";
 import { HStack, Text, useBreakpointValue } from "native-base";
-import React from "react";
-import { StoryblockRichTextContent } from "storyblok-types";
-import { RichTextResolver } from "./RichTextResolver";
 import { IHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
+import React from "react";
+
+import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowHeaderProps {
   expectedDays: number;
@@ -13,14 +14,14 @@ export interface EstimationRowHeaderProps {
   wrapperProps?: IHStackProps;
 }
 
-export const EstimationRowHeader: React.FC<EstimationRowHeaderProps> = ({
+export const EstimationRowHeader = ({
   expectedDays,
   order,
   text,
   isIncluded,
   isHighlighted = false,
   wrapperProps = {},
-}) => {
+}: EstimationRowHeaderProps) => {
   const textStyles = useBreakpointValue({
     base: {
       fontSize: "sm",

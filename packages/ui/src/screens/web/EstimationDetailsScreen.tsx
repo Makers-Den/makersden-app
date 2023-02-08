@@ -1,6 +1,7 @@
+import { EstimationContent } from "@md/storyblok-types";
 import React from "react";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
+
 import { EstimationLoader } from "../../components/EstimationLoader";
 import { EstimationNotFound } from "../../components/EstimationNotFound";
 import { EstimationDetails } from "../../components/web/EstimationDetails";
@@ -10,9 +11,10 @@ export interface EstimationDetailsScreenProps {
   isLoading: boolean;
 }
 
-export const EstimationDetailsScreen: React.FC<
-  EstimationDetailsScreenProps
-> = ({ estimation, isLoading }) => {
+export const EstimationDetailsScreen = ({
+  estimation,
+  isLoading,
+}: EstimationDetailsScreenProps) => {
   if (isLoading) {
     return <EstimationLoader />;
   }

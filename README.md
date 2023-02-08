@@ -13,6 +13,7 @@
 - `client-logic`: re-usable client logic shared by both `expo` and `native` applications
 - `storyblok-types`: types for our [Storyblok](https://www.storyblok.com/) content
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `eslint-config-custom`: custom [eslint](https://eslint.org/) config used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -34,4 +35,8 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    or
    ```sh
    yarn dev:android
+   ```
+5. To lint the codebase, run:
+   ```sh
+   yarn lint
    ```

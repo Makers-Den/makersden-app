@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base",
+  "extends": "@md/tsconfig/base",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {

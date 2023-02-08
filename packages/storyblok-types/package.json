@@ -1,21 +1,21 @@
 {
-  "name": "storyblok-types",
+  "name": "@md/storyblok-types",
   "version": "0.0.0",
+  "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "clean": "rm -rf dist",
-    "lint": "eslint",
+    "lint": "eslint . --fix --ext .ts,.tsx",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "storyblok-js-client": "^5.2.5"
   },
   "devDependencies": {
-    "eslint": "^8.28.0",
+    "@md/eslint-config-custom": "*",
     "tsup": "^6.5.0",
     "typescript": "^4.9.3"
   }

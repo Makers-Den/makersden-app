@@ -14,25 +14,23 @@ export type ExpandableComponentProps = {
   wrapperProps?: InterfaceBoxProps;
 };
 
-export function ExpandableComponent({
+export const ExpandableComponent = ({
   isExpanded,
   onClick,
   headerComponent,
   hideableComponent,
   wrapperProps,
-}: ExpandableComponentProps) {
-  return (
-    <Box {...wrapperProps}>
-      <Pressable onPress={onClick}>{headerComponent}</Pressable>
-      <div
-        style={{
-          maxHeight: isExpanded ? "500px" : "0px",
-          transition: "max-height 0.8s ease-out",
-          overflow: "hidden",
-        }}
-      >
-        {hideableComponent}
-      </div>
-    </Box>
-  );
-}
+}: ExpandableComponentProps) => (
+  <Box {...wrapperProps}>
+    <Pressable onPress={onClick}>{headerComponent}</Pressable>
+    <div
+      style={{
+        maxHeight: isExpanded ? "500px" : "0px",
+        transition: "max-height 0.8s ease-out",
+        overflow: "hidden",
+      }}
+    >
+      {hideableComponent}
+    </div>
+  </Box>
+);

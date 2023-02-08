@@ -1,7 +1,7 @@
-import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent, EstimationRowContent } from "storyblok-types";
+import { EstimationContent, EstimationRowContent } from "@md/storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
+import { ISbStoryData } from "storyblok-js-client";
 
 const ROUND_PLACES_AFTER_COMMA = 1;
 
@@ -26,7 +26,7 @@ const mapRow =
     listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
   });
 
-export const mapEstimationData = (
+export const useMapEstimationData = (
   estimation: ISbStoryData<EstimationContent>
 ) => {
   const { sections: initialSections, description, title } = estimation.content;
@@ -60,4 +60,4 @@ export const mapEstimationData = (
   return { sections, description, title };
 };
 
-export type Sections = ReturnType<typeof mapEstimationData>["sections"];
+export type Sections = ReturnType<typeof useMapEstimationData>["sections"];

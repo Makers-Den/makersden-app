@@ -1,33 +1,36 @@
+import { useArray } from "@md/client-logic";
+import { EstimationContent } from "@md/storyblok-types";
 import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
   LayoutAnimation,
   Platform,
-  UIManager,
   SectionList,
+  UIManager,
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
-import { EstimationContent } from "storyblok-types";
-import { useArray } from "client-logic";
-import { mapEstimationData } from "../../utils/mapEstimationData";
-import { ExpandableComponent } from "./ExpandableComponent";
-import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
-import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
-import { EstimationRowHeader } from "../EstimationRowHeader";
-import { EstimationRowContent } from "../EstimationRowContent";
-import { ImageGallery } from "./ImageGallery";
+
 import { useGallery } from "../../hooks/useGallery";
+import { useMapEstimationData } from "../../utils/useMapEstimationData";
+import { EstimationRowContent } from "../EstimationRowContent";
+import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
+import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
+import { ExpandableComponent } from "./ExpandableComponent";
+import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
 }
 
-export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
-  estimation,
-}) => {
-  const sectionListRef = useRef<any>(null);
+export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
+  const sectionListRef = useRef<SectionList | null>(null);
 
+<<<<<<< HEAD
   const { title, description, sections } = mapEstimationData(estimation);
+=======
+  const { title, description, sectionsData } = useMapEstimationData(estimation);
+>>>>>>> development
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
   const sectionListSections = useMemo(
@@ -43,28 +46,26 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  function itemClickHandler(itemKey: string) {
-    return () => {
-      LayoutAnimation.configureNext({
+  const itemClickHandler = (itemKey: string) => () => {
+    LayoutAnimation.configureNext({
+      duration: 150,
+      create: {
+        type: "easeOut",
         duration: 150,
-        create: {
-          type: "easeOut",
-          duration: 150,
-          property: "opacity",
-          delay: 0,
-        },
-        update: {
-          type: "easeOut",
-          duration: 150,
-          delay: 0,
-        },
-      });
+        property: "opacity",
+        delay: 0,
+      },
+      update: {
+        type: "easeOut",
+        duration: 150,
+        delay: 0,
+      },
+    });
 
-      expandedKeys.toggle(itemKey);
-    };
-  }
+    expandedKeys.toggle(itemKey);
+  };
 
-  function sectionLinkHandler({ sectionIndex }: SectionLinkData) {
+  const sectionLinkHandler = ({ sectionIndex }: SectionLinkData) => {
     if (sectionListRef.current) {
       expandedKeys.clear();
       sectionListRef.current.scrollToLocation({
@@ -75,7 +76,7 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
         viewPosition: 0,
       });
     }
-  }
+  };
 
   const handleScrollToIndexFailed = ({
     index,
@@ -93,14 +94,14 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
       itemsLengthSum += sections[sectionIndex].rows.length + 1;
     }
 
-    sectionListRef.current.scrollToLocation({
+    sectionListRef.current?.scrollToLocation({
       itemIndex: 1,
       sectionIndex: 0,
       viewOffset: Math.abs(averageItemLength * index),
     });
 
     setTimeout(() => {
-      sectionListRef.current.scrollToLocation({
+      sectionListRef.current?.scrollToLocation({
         itemIndex: 1,
         sectionIndex,
       });
@@ -145,8 +146,8 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
           },
         }) => (
           <ExpandableComponent
-            isExpanded={expandedKeys.includes(itemKey!)}
-            onClick={itemClickHandler(itemKey!)}
+            isExpanded={expandedKeys.includes(itemKey)}
+            onClick={itemClickHandler(itemKey)}
             wrapperProps={{
               px: 4,
               py: 2,

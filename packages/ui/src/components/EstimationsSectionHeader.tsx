@@ -8,12 +8,12 @@ export type EstimationsSectionHeaderProps = {
   expectedDays: number;
 } & InterfaceHStackProps;
 
-export function EstimationsSectionHeader({
+export const EstimationsSectionHeader = ({
   listIndex,
   title,
   expectedDays,
   ...wrapperProps
-}: EstimationsSectionHeaderProps) {
+}: EstimationsSectionHeaderProps) => {
   const textStyles = useBreakpointValue({
     base: { fontSize: "md" },
     lg: { fontSize: "lg" },
@@ -41,4 +41,4 @@ export function EstimationsSectionHeader({
       </Text>
     </HStack>
   );
-}
+};

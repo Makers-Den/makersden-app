@@ -1,5 +1,6 @@
 import { GaxiosResponse } from "gaxios";
 import { sheets_v4 } from "googleapis";
+
 import { EstimationSheetDownloadResult } from "./types";
 
 const BATCH_SIZE = 40;
@@ -15,7 +16,7 @@ export const downloadEstimationSheet = async (
   spreadsheetId: string
 ): Promise<EstimationSheetDownloadResult> => {
   let hasMoreRows = true;
-  let rows: unknown[][] = [];
+  const rows: unknown[][] = [];
   let rangeStart = 1;
   let emptySpreadsheetRowIndex: number | null = null;
 
@@ -44,9 +45,10 @@ export const downloadEstimationSheet = async (
       };
     }
 
-    const batchRows = batchSpreadsheetResponse.data.valueRanges!.flatMap(
-      (valueRange) => valueRange.values
-    );
+    const batchRows =
+      batchSpreadsheetResponse.data.valueRanges?.flatMap(
+        (valueRange) => valueRange.values
+      ) ?? [];
 
     const processedBatchRows: unknown[][] = [];
 

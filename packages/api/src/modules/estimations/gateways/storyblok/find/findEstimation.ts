@@ -1,4 +1,5 @@
 import StoryblokClient from "storyblok-js-client";
+
 import { EstimationFindResult } from "./types";
 
 interface FindEstimationQuery {
@@ -22,6 +23,7 @@ export const findEstimation = async (
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return { isError: false, estimation: (estimations as any)?.[0] || null };
   } catch (e) {
     console.error(e);

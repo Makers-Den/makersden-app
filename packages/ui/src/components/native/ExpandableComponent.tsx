@@ -11,21 +11,19 @@ export type ExpandableComponentProps = {
   wrapperProps?: InterfaceBoxProps;
 };
 
-export function ExpandableComponent({
+export const ExpandableComponent = ({
   isExpanded,
   onClick,
   headerComponent,
   hideableComponent,
   wrapperProps,
-}: ExpandableComponentProps) {
-  return (
-    <Box {...wrapperProps}>
-      <TouchableOpacity activeOpacity={0.8} onPress={onClick}>
-        {headerComponent}
-      </TouchableOpacity>
-      <Box height={isExpanded ? undefined : 0} overflow="hidden">
-        {hideableComponent}
-      </Box>
+}: ExpandableComponentProps) => (
+  <Box {...wrapperProps}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onClick}>
+      {headerComponent}
+    </TouchableOpacity>
+    <Box height={isExpanded ? undefined : 0} overflow="hidden">
+      {hideableComponent}
     </Box>
-  );
-}
+  </Box>
+);

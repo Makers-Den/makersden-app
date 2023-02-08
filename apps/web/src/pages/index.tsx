@@ -1,7 +1,7 @@
-import { useEstimationGateScreen } from "client-logic";
+import { useEstimationGateScreen } from "@md/client-logic";
+import { EstimationGateScreen } from "@md/ui/src/screens/EstimationGateScreen";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { EstimationGateScreen } from "ui/src/screens/EstimationGateScreen";
 
 import { api } from "../utils/api";
 import { clientEnvironment } from "../utils/clientEnvironment";

@@ -1,12 +1,13 @@
-import React from "react";
-import { Stack, Text, useBreakpointValue, Box } from "native-base";
-import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
-import { EstimationImages } from "./EstimationImages";
 import {
   StoryblockAssetContent,
   StoryblockRichTextContent,
-} from "storyblok-types";
+} from "@md/storyblok-types";
+import { Box,Stack, Text, useBreakpointValue } from "native-base";
+import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
+import React from "react";
+
 import { isRichTextEmpty } from "../utils/isRichTextEmpty";
+import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {
@@ -16,12 +17,12 @@ export interface EstimationRowContentProps {
   onImageClick?: (imageIndex: number) => void;
 }
 
-export const EstimationRowContent: React.FC<EstimationRowContentProps> = ({
+export const EstimationRowContent = ({
   description,
   images,
   onImageClick,
   wrapperProps = {},
-}) => {
+}: EstimationRowContentProps) => {
   const styles = useBreakpointValue({
     base: {
       imageWrapper: {},

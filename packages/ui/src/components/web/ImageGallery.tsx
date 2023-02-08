@@ -1,7 +1,8 @@
-import { ImageSourcePropType, Modal } from "react-native";
 import { Box, HStack, Image, Pressable } from "native-base";
-import React, { FC, useEffect, useState } from "react";
 import Carousel from "nuka-carousel";
+import React, { useEffect, useState } from "react";
+import { ImageSourcePropType, Modal } from "react-native";
+
 import { ImageGalleryButton } from "../ImageGalleryButton";
 
 interface GalleryImage {
@@ -17,12 +18,12 @@ export interface ImageGalleryProps {
   onClose?: () => void;
 }
 
-export const ImageGallery: FC<ImageGalleryProps> = ({
+export const ImageGallery = ({
   isOpen,
   images,
   initialImageIndex,
   onClose,
-}) => {
+}: ImageGalleryProps) => {
   const [slideIndex, setSlideIndex] = useState(initialImageIndex);
 
   useEffect(() => {

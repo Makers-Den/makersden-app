@@ -34,11 +34,12 @@ export const createTRPCContext = async (apiModules: ApiModules) => {
  * This is where the trpc api is initialized, connecting the context and
  * transformer
  */
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   errorFormatter({ shape }) {
     return shape;
   },
