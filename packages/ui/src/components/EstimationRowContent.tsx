@@ -1,12 +1,13 @@
-import React from "react";
-import { Stack, Text, useBreakpointValue, Box } from "native-base";
+import { Box,Stack, Text, useBreakpointValue } from "native-base";
 import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
-import { EstimationImages } from "./EstimationImages";
+import React from "react";
 import {
   StoryblockAssetContent,
   StoryblockRichTextContent,
 } from "storyblok-types";
+
 import { isRichTextEmpty } from "../utils/isRichTextEmpty";
+import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {

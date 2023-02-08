@@ -7,11 +7,12 @@
     ]
   },
   "scripts": {
-    "dev": "turbo run dev",
-    "dev:ios": "cd apps/native && yarn dev:ios",
-    "dev:android": "cd apps/native && yarn dev:android",
     "clean": "turbo run clean && rm -rf node_modules",
+    "dev": "turbo run dev",
+    "dev:android": "cd apps/native && yarn dev:android",
+    "dev:ios": "cd apps/native && yarn dev:ios",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
+    "lint": "turbo run lint",
     "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
   },
   "devDependencies": {

@@ -1,4 +1,15 @@
 import {
+  Divider,
+  Heading,
+  Image,
+  ITextProps,
+  Link,
+  Text,
+  VStack,
+} from "native-base";
+import { ThemeComponentSizeType } from "native-base/lib/typescript/components/types";
+import React, { useMemo } from "react";
+import {
   MARK_BOLD,
   MARK_CODE,
   MARK_ITALIC,
@@ -21,27 +32,15 @@ import {
 } from "storyblok-rich-text-react-renderer";
 import { StoryblockRichTextContent } from "storyblok-types";
 
-import React, { useMemo } from "react";
-import {
-  Heading,
-  Link,
-  Text,
-  Image,
-  VStack,
-  Divider,
-  ITextProps,
-} from "native-base";
-import { ThemeComponentSizeType } from "native-base/lib/typescript/components/types";
-
 export type RichTextResolverProps = {
   richText: StoryblockRichTextContent;
   textProps?: ITextProps;
 };
 
-export function RichTextResolver({
+export const RichTextResolver = ({
   richText,
   textProps = {},
-}: RichTextResolverProps) {
+}: RichTextResolverProps) => {
   const defaultRenderOptions: RenderOptions = useMemo(
     () => ({
       markResolvers: {
@@ -113,7 +112,7 @@ export function RichTextResolver({
         [NODE_QUOTE]: (children) => {
           return (
             <Text italic {...textProps}>
-              "{children}"
+              `&quot;`{children}`&quot;`
             </Text>
           );
         },
@@ -138,4 +137,4 @@ export function RichTextResolver({
   );
 
   return <>{render(richText, defaultRenderOptions)}</>;
-}
+};

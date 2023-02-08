@@ -1,7 +1,8 @@
-import { ImageSourcePropType, Modal } from "react-native";
 import { Box, HStack, Image, Pressable } from "native-base";
-import React, { FC, useEffect, useState } from "react";
 import Carousel from "nuka-carousel";
+import React, { FC, useEffect, useState } from "react";
+import { ImageSourcePropType, Modal } from "react-native";
+
 import { ImageGalleryButton } from "../ImageGalleryButton";
 
 interface GalleryImage {

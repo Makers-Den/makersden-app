@@ -3,13 +3,14 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
     "eslint-config-turbo": "latest",
     "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-react": "latest",
-    "eslint-plugin-simple-import-sort": "latest",
-    "eslint-plugin-unused-imports": "latest"
+    "eslint-plugin-simple-import-sort": "latest"
   }
 }

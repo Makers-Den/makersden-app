@@ -1,16 +1,17 @@
+import { useArray } from "client-logic";
 import { Divider, useBreakpointValue } from "native-base";
-import * as R from "remeda";
 import React, { useMemo } from "react";
+import * as R from "remeda";
 import { ISbStoryData } from "storyblok-js-client";
 import { EstimationContent } from "storyblok-types";
-import { mapEstimationData } from "../../utils/mapEstimationData";
-import { ExpandableComponent } from "./ExpandableComponent";
-import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
-import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
-import { EstimationRowHeader } from "../EstimationRowHeader";
-import { EstimationRowContent } from "../EstimationRowContent";
-import { useArray } from "client-logic";
+
 import { useGallery } from "../../hooks/useGallery";
+import { useMapEstimationData } from "../../utils/useMapEstimationData";
+import { EstimationRowContent } from "../EstimationRowContent";
+import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
+import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
+import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationDetailsProps {
@@ -20,7 +21,7 @@ export interface EstimationDetailsProps {
 export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   estimation,
 }) => {
-  const { title, description, sectionsData } = mapEstimationData(estimation);
+  const { title, description, sectionsData } = useMapEstimationData(estimation);
 
   const itemKeys = useMemo(
     () =>
@@ -36,13 +37,13 @@ export const EstimationDetails: React.FC<EstimationDetailsProps> = ({
   const expandedKeys = useArray<string>(initiallyExpandedKeys);
   const gallery = useGallery();
 
-  function sectionLinkHandler({ key }: SectionLinkData) {
+  const sectionLinkHandler = ({ key }: SectionLinkData) => {
     if (key) {
       const element = document.getElementById(key);
 
       element?.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div>

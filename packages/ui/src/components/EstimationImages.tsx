@@ -25,10 +25,10 @@ const getSecondaryImages = (images: StoryblockAssetContent[]) => {
 const getAdditionalImageCount = (images: StoryblockAssetContent[]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
 
-export const EstimationImages: React.FC<EstimationImagesProps> = ({
+export const EstimationImages = ({
   images,
   onImageClick,
-}) => {
+}: EstimationImagesProps) => {
   const primaryImage = images[0];
   const secondaryImages = getSecondaryImages(images);
   const additionalImageCount = getAdditionalImageCount(images);

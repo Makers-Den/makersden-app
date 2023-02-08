@@ -1,5 +1,6 @@
 import { NativeBaseProvider } from "native-base";
 import React from "react";
+
 import { theme } from "../../theme/theme";
 
 export type ThemeProviderProps = {
@@ -7,10 +8,8 @@ export type ThemeProviderProps = {
   isSSR?: boolean;
 };
 
-export function ThemeProvider({ children, isSSR }: ThemeProviderProps) {
-  return (
-    <NativeBaseProvider theme={theme} isSSR={isSSR}>
-      {children}
-    </NativeBaseProvider>
-  );
-}
+export const ThemeProvider = ({ children, isSSR }: ThemeProviderProps) => (
+  <NativeBaseProvider theme={theme} isSSR={isSSR}>
+    {children}
+  </NativeBaseProvider>
+);

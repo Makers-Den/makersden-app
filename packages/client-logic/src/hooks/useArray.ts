@@ -8,7 +8,7 @@ export const useArray = <T>(
 
   const includes = useCallback(
     (item: T) => items.some((anotherItem) => equals(item, anotherItem)),
-    [items]
+    [equals, items]
   );
 
   const remove = useCallback(
@@ -17,7 +17,7 @@ export const useArray = <T>(
         prevItems.filter((anotherItem) => !equals(item, anotherItem))
       );
     },
-    [items]
+    [equals]
   );
 
   const insert = useCallback(
