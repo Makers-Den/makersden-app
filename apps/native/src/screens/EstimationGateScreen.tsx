@@ -13,7 +13,6 @@ export type EstimationGateScreenProps = NativeStackScreenProps<
   Screens.EstimationGate
 >;
 
-
 export const EstimationGateScreen = ({
   navigation,
 }: EstimationGateScreenProps) => {

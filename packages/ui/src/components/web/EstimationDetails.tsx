@@ -82,8 +82,8 @@ export const EstimationDetails  = ({
               }) => (
                 <React.Fragment key={itemKey}>
                   <ExpandableComponent
-                    isExpanded={expandedKeys.includes(itemKey!)}
-                    onClick={() => expandedKeys.toggle(itemKey!)}
+                    isExpanded={expandedKeys.includes(itemKey)}
+                    onClick={() => expandedKeys.toggle(itemKey)}
                     headerComponent={({ isHovered, isPressed }) => (
                       <EstimationRowHeader
                         nominalDays={nominalDays}

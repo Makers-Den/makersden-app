@@ -42,7 +42,7 @@ export const useMapEstimationData = (estimation: ISbStoryData<EstimationContent>
             itemIndex
           ) => {
             return {
-              key: _uid,
+              key: _uid as string,
               description,
               task,
               nominalDays,

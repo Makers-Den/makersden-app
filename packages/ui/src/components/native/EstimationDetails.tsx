@@ -23,10 +23,8 @@ export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
 }
 
-export const EstimationDetails = ({
-  estimation,
-}: EstimationDetailsProps) => {
-  const sectionListRef = useRef<any>(null);
+export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
+  const sectionListRef = useRef<SectionList | null>(null);
 
   const { title, description, sectionsData } = useMapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
@@ -84,14 +82,14 @@ export const EstimationDetails = ({
       itemsLengthSum += sectionsData[sectionIndex].data.length + 1;
     }
 
-    sectionListRef.current.scrollToLocation({
+    sectionListRef.current?.scrollToLocation({
       itemIndex: 1,
       sectionIndex: 0,
       viewOffset: Math.abs(averageItemLength * index),
     });
 
     setTimeout(() => {
-      sectionListRef.current.scrollToLocation({
+      sectionListRef.current?.scrollToLocation({
         itemIndex: 1,
         sectionIndex,
       });
@@ -136,8 +134,8 @@ export const EstimationDetails = ({
           },
         }) => (
           <ExpandableComponent
-            isExpanded={expandedKeys.includes(itemKey!)}
-            onClick={itemClickHandler(itemKey!)}
+            isExpanded={expandedKeys.includes(itemKey)}
+            onClick={itemClickHandler(itemKey)}
             wrapperProps={{
               px: 4,
               py: 2,
