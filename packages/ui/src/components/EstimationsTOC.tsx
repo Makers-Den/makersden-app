@@ -27,13 +27,13 @@ export const EstimationsTOC = ({
         fontSize: "sm",
       },
       heading: {
-        fontSize: "md",
+        fontSize: "xl",
       },
       item: {
         fontSize: "sm",
       },
       mainHeading: {
-        fontSize: "md",
+        fontSize: "xl",
       },
     },
     lg: {
@@ -41,18 +41,19 @@ export const EstimationsTOC = ({
         fontSize: "sm",
       },
       heading: {
-        fontSize: "md",
+        fontSize: "xl",
       },
       item: {
         fontSize: "md",
       },
       mainHeading: {
-        fontSize: "lg",
+        fontSize: "xl",
       },
     },
   });
 
-  const sectionLinkHandler = (args: SectionLinkData) => () => onSectionLinkClick(args);
+  const sectionLinkHandler = (args: SectionLinkData) => () =>
+    onSectionLinkClick(args);
 
   return (
     <Box>
@@ -85,9 +86,9 @@ export const EstimationsTOC = ({
         borderColor={"gray.400"}
         borderRadius="sm"
       >
-        <Text color="green.400" {...styles.mainHeading}>
+        <Heading color="green.400" mt={0.5} {...styles.mainHeading}>
           TABLE OF CONTENTS
-        </Text>
+        </Heading>
       </HStack>
       <Box px={4} py={2}>
         {sectionsData.map(

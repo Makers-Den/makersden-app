@@ -44,7 +44,7 @@ export const EstimationGateScreen = ({
         justifyContent="center"
         alignItems="center"
       >
-        <Heading>Enter estimation secret</Heading>
+        <Heading fontSize="3xl">Enter estimation secret</Heading>
 
         <VStack alignItems="center" space={4}>
           <FormControl isInvalid={isInvalid}>

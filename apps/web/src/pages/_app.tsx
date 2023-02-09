@@ -1,3 +1,5 @@
+import "../styles/global.css";
+
 import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { ThemeProvider } from "@md/ui/src/components/providers/ThemeProvider";
 import type { AppProps } from "next/app";

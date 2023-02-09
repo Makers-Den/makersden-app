@@ -1,4 +1,4 @@
-import { HStack, Text, useBreakpointValue } from "native-base";
+import { Heading, HStack, Text, useBreakpointValue } from "native-base";
 import { InterfaceHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack";
 import React from "react";
 
@@ -14,9 +14,9 @@ export const EstimationsSectionHeader = ({
   nominalDaysSum,
   ...wrapperProps
 }: EstimationsSectionHeaderProps) => {
-  const textStyles = useBreakpointValue({
-    base: { fontSize: "md" },
-    lg: { fontSize: "lg" },
+  const styles = useBreakpointValue({
+    base: { days: { fontSize: "md" }, heading: { fontSize: "lg" } },
+    lg: { days: { fontSize: "md" }, heading: { fontSize: "xl" } },
   });
 
   return (
@@ -33,10 +33,16 @@ export const EstimationsSectionHeader = ({
       borderRadius="sm"
       {...wrapperProps}
     >
-      <Text bold color={"green.400"} flexBasis={"70%"} {...textStyles}>
+      <Heading
+        bold
+        color={"green.400"}
+        flexBasis={"70%"}
+        mt={0.5}
+        {...styles.heading}
+      >
         {listIndex}. {title.toUpperCase()}
-      </Text>
-      <Text flexBasis={"auto"} {...textStyles}>
+      </Heading>
+      <Text flexBasis={"auto"} mt={-1} {...styles.days}>
         {nominalDaysSum} days
       </Text>
     </HStack>
