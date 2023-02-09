@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "IBMPlexMono";
+  font-weight: 100 300;
+  src: url("/fonts/IBMPlexMono-Light.ttf");
+}
+
+@font-face {
+  font-family: "IBMPlexMono";
+  font-weight: 400 900;
+  src: url("/fonts/IBMPlexMono-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 300;
+  src: url("/fonts/Inter-ExtraLight.otf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400 900;
+  src: url("/fonts/Inter-Regular.otf");
+}
+
+@font-face {
+  font-family: "PPFormula";
+  font-weight: 100 700;
+  src: url("/fonts/PPFormula-CondensedBlack.ttf");
+}
+
+@font-face {
+  font-family: "PPFormula";
+  font-weight: 800 900;
+  src: url("/fonts/PPFormula-CondensedExtrabold.ttf");
+}
+
+/* Format required by native base */
+
+@font-face {
+  font-family: "IBMPlexMono-Light";
+  src: url("/fonts/IBMPlexMono-Light.ttf");
+}
+
+@font-face {
+  font-family: "IBMPlexMono-Regular";
+  src: url("/fonts/IBMPlexMono-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Inter-ExtraLight";
+  src: url("/fonts/Inter-ExtraLight.otf");
+}
+
+@font-face {
+  font-family: "Inter-Regular";
+  src: url("/fonts/Inter-Regular.otf");
+}
+
+@font-face {
+  font-family: "PPFormula-CondensedBlack";
+  src: url("/fonts/PPFormula-CondensedBlack.ttf");
+}
+
+@font-face {
+  font-family: "PPFormula-CondensedExtrabold";
+  src: url("/fonts/PPFormula-CondensedExtrabold.ttf");
+}
