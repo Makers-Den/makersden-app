@@ -8,7 +8,9 @@
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
-    "lint": "eslint . --fix --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "ts:check": "tsc --noEmit"
   },
   "devDependencies": {
     "@md/client-logic": "*",

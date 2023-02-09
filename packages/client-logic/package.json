@@ -8,7 +8,9 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "clean": "rm -rf dist",
-    "lint": "eslint . --fix --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "ts:check": "tsc --noEmit"
   },
   "devDependencies": {
     "@md/api": "*",

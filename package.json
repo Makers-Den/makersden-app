@@ -13,7 +13,9 @@
     "dev:ios": "cd apps/native && yarn dev:ios",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
     "lint": "turbo run lint",
-    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
+    "lint:fix": "turbo run lint:fix",
+    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic",
+    "ts:check": "turbo run ts:check"
   },
   "devDependencies": {
     "prettier": "^2.7.1",

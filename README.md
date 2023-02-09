@@ -38,5 +38,5 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    ```
 5. To lint the codebase, run:
    ```sh
-   yarn lint
+   yarn lint:fix
    ```
