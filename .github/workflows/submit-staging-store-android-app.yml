@@ -1,0 +1,30 @@
+name: submit-staging-store-android-app
+on:
+  workflow_dispatch:
+   inputs:
+      id:
+        description: "EAS Build id"
+        required: true
+jobs:
+  submit-staging-store-android-app:
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/development'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Create service-account.json file
+        working-directory: ./apps/native
+        run: echo {{ secrets.GOOGLE_PLAY_KEY }} | base64 -w0 --decode >> service-account.json
+      - name: Submit staging store Android app
+        working-directory: ./apps/native
+        run: eas submit -p android --profile staging-store --id "{{ github.event.inputs.id }}"
