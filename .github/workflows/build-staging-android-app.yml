@@ -3,7 +3,7 @@ on: workflow_dispatch
 jobs:
   build-staging-android-app:
     runs-on: ubuntu-22.04
-    if: github.ref != 'refs/heads/development'
+    if: github.ref == 'refs/heads/development'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
