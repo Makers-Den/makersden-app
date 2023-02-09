@@ -24,7 +24,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Create service-account.json file
         working-directory: ./apps/native
-        run: echo {{ secrets.GOOGLE_PLAY_KEY }} | base64 -w0 --decode >> service-account.json
+        run: echo ${{ secrets.GOOGLE_PLAY_KEY }} | base64 -w0 --decode >> service-account.json
       - name: Submit staging store Android app
         working-directory: ./apps/native
         run: eas submit -p android --profile staging-store --id "{{ github.event.inputs.id }}"
