@@ -1,7 +1,7 @@
-name: build-staging-android-app
+name: build-staging-store-ios-app
 on: workflow_dispatch
 jobs:
-  build-staging-android-app:
+  build-staging-store-ios-app:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/development'
     steps:
@@ -19,6 +19,6 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Install dependencies
         run: yarn --immutable
-      - name: Build staging Android app
+      - name: Build staging store iOS app
         working-directory: ./apps/native
-        run: eas build --platform android --profile staging-store --non-interactive --no-wait
+        run: eas build --platform ios --profile staging-store --non-interactive --no-wait
