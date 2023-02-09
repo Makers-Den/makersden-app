@@ -1,0 +1,23 @@
+name: build-staging-android-app
+on: workflow_dispatch
+jobs:
+  build-staging-android-app:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: yarn --immutable
+      - name: Build staging Android app
+        working-directory: ./apps/native
+        run: eas build --platform android --profile staging-store --non-interactive --no-wait
