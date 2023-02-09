@@ -3,15 +3,20 @@ import { EstimationContent } from "@md/storyblok-types";
 import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
+  DefaultSectionT,
   LayoutAnimation,
   Platform,
   SectionList,
+  SectionListRenderItemInfo,
   UIManager,
 } from "react-native";
 import { ISbStoryData } from "storyblok-js-client";
 
 import { useGallery } from "../../hooks/useGallery";
-import { useMapEstimationData } from "../../utils/useMapEstimationData";
+import {
+  SectionRow,
+  useMapEstimationData,
+} from "../../utils/useMapEstimationData";
 import { EstimationRowContent } from "../EstimationRowContent";
 import { EstimationRowHeader } from "../EstimationRowHeader";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
@@ -140,7 +145,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             isIncluded,
             listIndex,
           },
-        }) => (
+        }: SectionListRenderItemInfo<SectionRow, DefaultSectionT>) => (
           <ExpandableComponent
             isExpanded={expandedKeys.includes(itemKey)}
             onClick={itemClickHandler(itemKey)}

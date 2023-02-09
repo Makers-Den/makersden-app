@@ -8,8 +8,9 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "clean": "rm -rf dist",
-    "lint": "eslint . --fix --ext .ts,.tsx",
-    "type-check": "tsc --noEmit"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "ts:check": "tsc --noEmit"
   },
   "dependencies": {
     "storyblok-js-client": "^5.2.5"

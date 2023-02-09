@@ -14,7 +14,7 @@ const roundDays = (days: number) =>
 
 const mapRow =
   (sectionIndex: number) => (row: EstimationRowContent, rowIndex: number) => ({
-    key: row._uid,
+    key: row._uid ?? "",
     description: row.description,
     task: row.task,
     nominalDays: row.nominalDays,
@@ -61,3 +61,7 @@ export const useMapEstimationData = (
 };
 
 export type Sections = ReturnType<typeof useMapEstimationData>["sections"];
+
+export type SectionRow = ReturnType<
+  typeof useMapEstimationData
+>["sections"][0]["rows"][0];
