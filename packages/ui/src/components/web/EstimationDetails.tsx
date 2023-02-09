@@ -20,20 +20,18 @@ export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
 }
 
-export const EstimationDetails  = ({
-  estimation,
-}: EstimationDetailsProps) => {
-  const { title, description, sectionsData } = useMapEstimationData(estimation);
+export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
+  const { title, description, sections } = useMapEstimationData(estimation);
 
   const itemKeys = useMemo(
     () =>
       R.pipe(
-        sectionsData,
-        R.flatMap((sectionData) => sectionData.data),
+        sections,
+        R.flatMap((section) => section.rows),
         R.filter((item) => !!item.key),
         R.map((item) => item.key as string)
       ),
-    [sectionsData]
+    [sections]
   );
   const initiallyExpandedKeys = useBreakpointValue({ base: [], lg: itemKeys });
   const expandedKeys = useArray<string>(initiallyExpandedKeys);
@@ -56,26 +54,26 @@ export const EstimationDetails  = ({
       <EstimationsTOC
         title={title}
         description={description}
-        sectionsData={sectionsData}
+        sections={sections}
         onSectionLinkClick={sectionLinkHandler}
       />
-      {sectionsData.map(({ data, nominalDaysSum, title, listIndex, key }) => {
+      {sections.map(({ rows, expectedDays, title, listIndex, key }) => {
         return (
           <div key={key} id={key}>
             <EstimationsSectionHeader
               title={title}
               listIndex={listIndex}
-              nominalDaysSum={nominalDaysSum}
+              expectedDays={expectedDays}
               position={"sticky"}
               zIndex={10}
               top={0}
             />
-            {data.map(
+            {rows.map(
               ({
                 task,
                 description,
                 key: itemKey,
-                nominalDays,
+                expectedDays,
                 images,
                 isIncluded,
                 listIndex,
@@ -86,7 +84,7 @@ export const EstimationDetails  = ({
                     onClick={() => expandedKeys.toggle(itemKey)}
                     headerComponent={({ isHovered, isPressed }) => (
                       <EstimationRowHeader
-                        nominalDays={nominalDays}
+                        expectedDays={expectedDays}
                         order={listIndex}
                         text={task}
                         isHighlighted={isHovered || isPressed}

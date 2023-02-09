@@ -32,10 +32,6 @@ export const ImageGallery = ({
     }
   }, [isOpen, initialImageIndex]);
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <Modal
       animationType="none"
