@@ -27,4 +27,4 @@ jobs:
         run: echo ${{ secrets.GOOGLE_PLAY_KEY }} | base64 -w0 --decode >> service-account.json
       - name: Submit staging store Android app
         working-directory: ./apps/native
-        run: eas submit -p android --profile staging-store --id "${{ github.event.inputs.id }}"
+        run: eas submit -p android --profile staging-store --non-interactive --no-wait --id "${{ github.event.inputs.id }}"
