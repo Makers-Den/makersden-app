@@ -1,6 +1,5 @@
 import "../styles/global.css";
 
-import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { ThemeProvider } from "@md/ui/src/components/providers/ThemeProvider";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -13,9 +12,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <title>Makers&apos; Den App</title>
     </Head>
     <ThemeProvider isSSR>
-      <ContentWrapper>
-        <Component {...pageProps} />
-      </ContentWrapper>
+      <Component {...pageProps} />
     </ThemeProvider>
   </>
 );

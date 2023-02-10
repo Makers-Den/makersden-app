@@ -1,4 +1,5 @@
 import { useEstimationGateScreen } from "@md/client-logic";
+import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { EstimationGateScreen } from "@md/ui/src/screens/EstimationGateScreen";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -25,14 +26,16 @@ const EstimationGatePage = () => {
   });
 
   return (
-    <EstimationGateScreen
-      estimationSecret={estimationSecret}
-      isInvalid={isSecretInvalid}
-      isLoading={isEstimationLoading}
-      onEnter={handleEnter}
-      onEstimationSecretChange={handleEstimationSecretChange}
-      onShowExampleEstimation={handleShowExampleEstimation}
-    />
+    <ContentWrapper>
+      <EstimationGateScreen
+        estimationSecret={estimationSecret}
+        isInvalid={isSecretInvalid}
+        isLoading={isEstimationLoading}
+        onEnter={handleEnter}
+        onEstimationSecretChange={handleEstimationSecretChange}
+        onShowExampleEstimation={handleShowExampleEstimation}
+      />
+    </ContentWrapper>
   );
 };
 
