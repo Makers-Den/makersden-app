@@ -9,14 +9,14 @@ const getEnvironment = () => {
   const channel = Updates.channel;
 
   if (channel === "production") {
-    return validateEnvVars.parse(productionEnvironmentVariables);
+    return validateEnvVars.parse(productionEnvironmentVariables());
   }
 
   if (channel === "staging" || channel === "staging-store") {
-    return validateEnvVars.parse(stagingEnvironmentVariables);
+    return validateEnvVars.parse(stagingEnvironmentVariables());
   }
 
-  return validateEnvVars.parse(developmentEnvironmentVariables);
+  return validateEnvVars.parse(developmentEnvironmentVariables());
 };
 
 export const environment = getEnvironment();
