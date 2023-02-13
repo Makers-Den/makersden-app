@@ -20,7 +20,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "io.makersden.app"
+      "bundleIdentifier": "io.makersden.app",
+      "associatedDomains": ["applinks:staging.app.makersden.io", "applinks:app.makersden.io"]
     },
     "android": {
       "intentFilters": [
