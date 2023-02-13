@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "W37F3S2LNB.io.makersden.app",
+        "paths": ["*"]
+      }
+    ]
+  }
+}

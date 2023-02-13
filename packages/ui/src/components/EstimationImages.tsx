@@ -1,11 +1,11 @@
+import { StoryblockAssetContent } from "@md/storyblok-types";
 import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { TouchableOpacity } from "react-native";
-import { StoryblockAssetContent } from "storyblok-types";
-import { ImageGallery } from "./ImageGallery";
 
 export interface EstimationImagesProps {
   images: StoryblockAssetContent[];
+  onImageClick?: (imageIndex: number) => void;
 }
 
 const SECONDARY_IMAGE_COUNT = 2;
@@ -25,10 +25,10 @@ const getSecondaryImages = (images: StoryblockAssetContent[]) => {
 const getAdditionalImageCount = (images: StoryblockAssetContent[]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
 
-export const EstimationImages: React.FC<EstimationImagesProps> = ({
+export const EstimationImages = ({
   images,
-}) => {
-  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  onImageClick,
+}: EstimationImagesProps) => {
   const primaryImage = images[0];
   const secondaryImages = getSecondaryImages(images);
   const additionalImageCount = getAdditionalImageCount(images);
@@ -39,7 +39,7 @@ export const EstimationImages: React.FC<EstimationImagesProps> = ({
       return;
     }
 
-    setActiveImageIndex(imageIndex);
+    onImageClick?.(imageIndex);
   };
 
   if (images.length === 0) {
@@ -95,17 +95,6 @@ export const EstimationImages: React.FC<EstimationImagesProps> = ({
             </Box>
           </HStack>
         )}
-
-        <ImageGallery
-          initialImageIndex={activeImageIndex ?? 0}
-          isOpen={activeImageIndex !== null}
-          images={images.map((image) => ({
-            alt: image.alt,
-            source: { uri: image.filename },
-            id: image.id,
-          }))}
-          onClose={() => setActiveImageIndex(null)}
-        />
       </VStack>
     </Flex>
   );

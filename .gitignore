@@ -16,6 +16,7 @@ build
 
 # expo
 .expo
+service-account.json
 
 # misc
 .DS_Store
@@ -35,3 +36,9 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# typescript
+tsconfig.tsbuildinfo
+
+# webstorm
+.idea

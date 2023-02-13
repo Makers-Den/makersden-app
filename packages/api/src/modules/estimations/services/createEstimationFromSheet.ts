@@ -1,6 +1,7 @@
 import { sheets_v4 } from "googleapis";
 import randomstring from "randomstring";
 import StoryblokClient from "storyblok-js-client";
+
 import { estimationFromSheet } from "../factories/estimationFromSheet";
 import { downloadEstimationSheet } from "../gateways/sheets/download/downloadEstimationSheet";
 import { parseEstimationSheet } from "../gateways/sheets/parse/parseEstimationSheet";
@@ -38,7 +39,7 @@ export const createEstimationFromSheet = async (
     command.spreadsheetId
   );
 
-  if (estimationSheetDownloadResult.isError === true) {
+  if (estimationSheetDownloadResult.isError) {
     return estimationSheetDownloadResult;
   }
 
@@ -46,7 +47,7 @@ export const createEstimationFromSheet = async (
     estimationSheetDownloadResult.rows
   );
 
-  if (estimationSheetParseResult.isError === true) {
+  if (estimationSheetParseResult.isError) {
     return estimationSheetParseResult;
   }
 
@@ -64,7 +65,7 @@ export const createEstimationFromSheet = async (
     spaceId: command.storyblokSpaceId,
   });
 
-  if (createEstimationResult.isError === true) {
+  if (createEstimationResult.isError) {
     return createEstimationResult;
   }
 

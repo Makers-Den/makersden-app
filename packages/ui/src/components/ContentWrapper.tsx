@@ -1,14 +1,22 @@
-import { Box } from "native-base";
+import { Box, useBreakpointValue } from "native-base";
 import React, { ReactNode } from "react";
 
 export type ContentWrapperProps = {
   children: ReactNode;
 };
 
-export function ContentWrapper({ children }: ContentWrapperProps) {
+export const ContentWrapper = ({ children }: ContentWrapperProps) => {
+  const containerStyles = useBreakpointValue({
+    base: {},
+    lg: {
+      maxW: "1300px",
+      mx: "auto",
+    },
+  });
+
   return (
-    <Box minH={"full"} bg="black.200">
-      {children}
+    <Box minH={"full"} _web={{ minH: "100vh" }} bg="black.200">
+      <Box {...containerStyles}>{children}</Box>
     </Box>
   );
-}
+};

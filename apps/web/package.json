@@ -1,20 +1,23 @@
 {
-  "name": "web",
+  "name": "@md/web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "ts:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@md/api": "*",
+    "@md/client-logic": "*",
+    "@md/ui": "*",
     "@tanstack/react-query": "^4.22.0",
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
-    "api": "*",
-    "client-logic": "*",
     "googleapis": "^110.0.0",
     "next": "12.3.2",
     "react": "18.1.0",
@@ -22,22 +25,22 @@
     "react-native-safe-area-context": "4.4.1",
     "react-native-web": "0.18.10",
     "storyblok-js-client": "^5.2.5",
-    "ui": "*",
     "zod": "^3.20.2"
   },
   "devDependencies": {
     "@expo/next-adapter": "^5.0.0",
+    "@md/eslint-config-custom": "*",
+    "@md/tsconfig": "*",
     "@native-base/next-adapter": "^2.3.0",
     "@types/node": "^18.11.5",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "babel-plugin-react-native-web": "0.18.10",
     "babel-preset-expo": "^9.2.2",
-    "eslint": "^8.19.0",
     "next-compose-plugins": "^2.2.1",
     "next-fonts": "^1.5.1",
+    "next-images": "^1.8.4",
     "next-transpile-modules": "^10.0.0",
-    "tsconfig": "*",
     "typescript": "^4.7.4"
   }
 }

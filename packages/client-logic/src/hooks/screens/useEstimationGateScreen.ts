@@ -1,23 +1,48 @@
-import { useState } from "react";
-import { Api } from "../types/api";
+import { useEffect, useState } from "react";
 
-interface UseEstimationScreenDeps {
+import { Api } from "../../types/api";
+
+export interface UseEstimationGateScreenDeps {
   api: Api;
   exampleEstimationSecret: string;
+  onSuccess?: (secret: string) => void;
 }
 
-export const useEstimationScreen = ({
+export const useEstimationGateScreen = ({
   api,
   exampleEstimationSecret,
-}: UseEstimationScreenDeps) => {
+  onSuccess,
+}: UseEstimationGateScreenDeps) => {
+  const trpcContext = api.useContext();
   const [isSecretInvalid, setIsSecretInvalid] = useState(false);
   const [estimationSecret, setEstimationSecret] = useState("");
   const [enteredEstimationSecret, setEnteredEstimationSecret] = useState("");
+
+  useEffect(() => {
+    trpcContext.estimations.findOne.invalidate();
+  }, [trpcContext.estimations.findOne]);
 
   const handleEstimationListQueryError = () => {
     setEnteredEstimationSecret("");
     setIsSecretInvalid(true);
   };
+
+  const estimationListQuery = api.estimations.findOne.useQuery(
+    { secret: enteredEstimationSecret },
+    {
+      enabled: !!enteredEstimationSecret,
+      onError: handleEstimationListQueryError,
+      onSuccess: (data) => {
+        if (data.isError === true || !data.estimation) {
+          handleEstimationListQueryError();
+        } else {
+          setEstimationSecret("");
+          setEnteredEstimationSecret("");
+          onSuccess?.(enteredEstimationSecret);
+        }
+      },
+    }
+  );
 
   const handleEnter = () => {
     setIsSecretInvalid(false);
@@ -34,28 +59,9 @@ export const useEstimationScreen = ({
     setEnteredEstimationSecret(exampleEstimationSecret);
   };
 
-  const estimationListQuery = api.estimations.findOne.useQuery(
-    { secret: enteredEstimationSecret },
-    {
-      enabled: !!enteredEstimationSecret,
-      onError: handleEstimationListQueryError,
-      onSuccess: (data) => {
-        if (data.isError === true || !data.estimation) {
-          handleEstimationListQueryError();
-        }
-      },
-    }
-  );
-
-  const estimation =
-    estimationListQuery.data && !estimationListQuery.data.isError
-      ? estimationListQuery.data.estimation
-      : null;
-
   return {
     isSecretInvalid,
     isEstimationLoading: estimationListQuery.isFetching,
-    estimation,
     estimationSecret,
     handleEnter,
     handleEstimationSecretChange,

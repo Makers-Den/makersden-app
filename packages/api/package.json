@@ -1,30 +1,31 @@
 {
-  "name": "api",
+  "name": "@md/api",
   "version": "0.0.0",
+  "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "clean": "rm -rf dist",
-    "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "ts:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@md/storyblok-types": "*",
+    "@md/tsconfig": "*",
     "@trpc/client": "^10.1.0",
     "@trpc/server": "^10.1.0",
     "googleapis": "^110.0.0",
     "randomstring": "^1.2.3",
     "storyblok-js-client": "^5.2.5",
-    "storyblok-types": "*",
     "superjson": "^1.9.1",
-    "tsconfig": "*",
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@md/eslint-config-custom": "*",
     "@types/randomstring": "^1.1.8",
-    "eslint": "^8.28.0",
     "tsup": "^6.5.0",
     "typescript": "^4.9.3"
   }

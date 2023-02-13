@@ -1,5 +1,5 @@
+import type { AppRouter } from "@md/api";
 import { createTRPCReact } from "@trpc/react-query";
-import type { AppRouter } from "api";
 /**
  * A set of typesafe hooks for consuming your API.
  */
@@ -21,11 +21,12 @@ export type RouterOutputs = inferRouterOutputs<AppRouter>;
  * A wrapper for your app that provides the TRPC context.
  * Use only in _app.tsx
  */
-import React from "react";
+import { transformer } from "@md/api/transformer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import { transformer } from "api/transformer";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import React from "react";
+
 import { environment } from "./environment";
 
 export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({

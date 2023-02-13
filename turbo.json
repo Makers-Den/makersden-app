@@ -1,9 +1,38 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "GOOGLE_SHEETS_API_KEY",
+    "NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET",
+    "NODE_ENV",
+    "PORT",
+    "STORYBLOK_ACCESS_TOKEN",
+    "STORYBLOK_ENVIRONMENT_FOLDER_NAME",
+    "STORYBLOK_ESTIMATIONS_FOLDER_ID",
+    "STORYBLOK_OAUTH_TOKEN",
+    "STORYBLOK_SPACE_ID",
+    "VERCEL_URL",
+    "DEVELOPMENT"
+  ],
+  "globalEnv": [
+    "GOOGLE_SHEETS_API_KEY",
+    "NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET",
+    "NODE_ENV",
+    "PORT",
+    "STORYBLOK_ACCESS_TOKEN",
+    "STORYBLOK_ENVIRONMENT_FOLDER_NAME",
+    "STORYBLOK_ESTIMATIONS_FOLDER_ID",
+    "STORYBLOK_OAUTH_TOKEN",
+    "STORYBLOK_SPACE_ID",
+    "VERCEL_URL",
+    "DEVELOPMENT"
+  ],
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "clean": {
+      "cache": false
     },
     "dev": {
       "cache": false
@@ -11,8 +40,11 @@
     "lint": {
       "outputs": []
     },
-    "clean": {
-      "cache": false
+    "lint:fix": {
+      "outputs": []
+    },
+    "ts:check": {
+      "outputs": []
     }
   }
 }

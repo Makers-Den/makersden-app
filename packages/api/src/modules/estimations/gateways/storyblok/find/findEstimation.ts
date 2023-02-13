@@ -1,4 +1,5 @@
 import StoryblokClient from "storyblok-js-client";
+
 import { EstimationFindResult } from "./types";
 
 interface FindEstimationQuery {
@@ -16,11 +17,13 @@ export const findEstimation = async (
       per_page: 1,
       starts_with: `${query.environmentFolderName}/estimations`,
       page: 1,
+      cv: Date.now(),
       filter_query: {
         secret: { in: query.secret },
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return { isError: false, estimation: (estimations as any)?.[0] || null };
   } catch (e) {
     console.error(e);

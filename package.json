@@ -7,10 +7,15 @@
     ]
   },
   "scripts": {
-    "dev": "turbo run dev",
     "clean": "turbo run clean && rm -rf node_modules",
+    "dev": "turbo run dev",
+    "dev:android": "cd apps/native && yarn dev:android",
+    "dev:ios": "cd apps/native && yarn dev:ios",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic"
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic",
+    "ts:check": "turbo run ts:check"
   },
   "devDependencies": {
     "prettier": "^2.7.1",

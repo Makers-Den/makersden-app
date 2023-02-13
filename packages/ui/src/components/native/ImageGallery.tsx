@@ -1,8 +1,9 @@
-import { Box, Image } from "native-base";
+import { Box, Image, Pressable } from "native-base";
 import React from "react";
-import { Modal, ImageSourcePropType } from "react-native";
+import { ImageSourcePropType, Modal } from "react-native";
 import Swiper from "react-native-web-swiper";
-import { ImageGalleryButton } from "./ImageGalleryButton";
+
+import { ImageGalleryButton } from "../ImageGalleryButton";
 
 interface GalleryImage {
   id: string | number;
@@ -40,12 +41,26 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           dotsTouchable: true,
           prevPos: "left",
           nextPos: "right",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           NextComponent: (({ onPress }: any) => (
             <ImageGalleryButton onPress={onPress} text=">" />
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           PrevComponent: (({ onPress }: any) => (
             <ImageGalleryButton onPress={onPress} text="<" />
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,
+          DotComponent: ({ isActive, onPress }) => (
+            <Pressable px={1} mb={4} onPress={onPress}>
+              <Box
+                w={3}
+                h={3}
+                borderRadius="full"
+                background={isActive ? "green.400" : "gray.400"}
+              />
+            </Pressable>
+          ),
         }}
       >
         {images.map((image) => (
@@ -60,7 +75,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           />
         ))}
       </Swiper>
-
       <Box position="absolute" top="6" right="4" safeArea>
         <ImageGalleryButton onPress={onClose} text="X" />
       </Box>

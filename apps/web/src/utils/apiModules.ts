@@ -1,6 +1,7 @@
-import { ApiModules, estimationsModule } from "api";
+import { ApiModules, estimationsModule } from "@md/api";
 import { google } from "googleapis";
 import StoryblokClient from "storyblok-js-client";
+
 import { serverEnvironment } from "./serverEnvironment";
 
 const sheetsClient = google.sheets({

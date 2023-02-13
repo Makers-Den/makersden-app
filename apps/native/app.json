@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "Makers' Den App",
+    "slug": "makers-den-app",
+    "scheme": "makers-den-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#131825",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#131825"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/83d2d396-105f-48c9-aa90-973cb4170235",
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "io.makersden.app",
+      "associatedDomains": ["applinks:staging.app.makersden.io", "applinks:app.makersden.io"]
+    },
+    "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": {
+            "scheme": "https",
+            "host": "staging.app.makersden.io"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": {
+            "scheme": "https",
+            "host": "app.makersden.io"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#131825"
+      },
+      "package": "io.makersden.app"
+    },
+    "extra": {
+      "expoGo": {
+        "runtimeVersion": { "policy": "sdkVersion" }
+      },
+      "build": {
+        "runtimeVersion": "1.0.8"
+      },
+      "eas": {
+        "projectId": "83d2d396-105f-48c9-aa90-973cb4170235"
+      }
+    },
+    "owner": "makers-den"
+  }
+}

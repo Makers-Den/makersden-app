@@ -1,22 +1,37 @@
-import React from "react";
-import { ThemeProvider } from "ui/src/components/providers/ThemeProvider";
-import { ContentWrapper } from "ui/src/components/ContentWrapper";
-import { TRPCProvider } from "./utils/api";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { EstimationScreen } from "./screens/EstimationScreen";
+import { ThemeProvider } from "@md/ui/src/components/providers/ThemeProvider";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import React, { useCallback } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export default function () {
+import { fonts } from "./fonts";
+import { Navigation } from "./Navigation";
+import { TRPCProvider } from "./utils/api";
+
+SplashScreen.preventAutoHideAsync();
+
+const App = () => {
+  const [fontsLoaded] = useFonts(fonts);
+
+  const handleLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <TRPCProvider>
-      <ThemeProvider>
-        <SafeAreaProvider>
-          <SafeAreaView>
-            <ContentWrapper>
-              <EstimationScreen />
-            </ContentWrapper>
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </ThemeProvider>
+      <SafeAreaProvider onLayout={handleLayoutRootView}>
+        <ThemeProvider>
+          <Navigation />
+        </ThemeProvider>
+      </SafeAreaProvider>
     </TRPCProvider>
   );
-}
+};
+
+export default App;

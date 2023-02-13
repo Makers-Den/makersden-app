@@ -1,4 +1,4 @@
 {
-  "extends": "tsconfig/base",
+  "extends": "@md/tsconfig/base",
   "include": ["src", "src/index.ts", "transformer.ts"]
 }

@@ -1,4 +1,5 @@
-import { EstimationContent, StoryblockRichTextContent } from "storyblok-types";
+import { EstimationContent, StoryblockRichTextContent } from "@md/storyblok-types";
+
 import { EstimationSheet } from "../gateways/sheets/parse/types";
 
 const richTextFromString = (s: string): StoryblockRichTextContent => ({
