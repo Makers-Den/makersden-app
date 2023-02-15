@@ -57,7 +57,12 @@ export const useMapEstimationData = (
     [initialSections]
   );
 
-  return { sections, description, title };
+  const sumOfExpectedDays = useMemo(
+    () => roundDays(R.sumBy(sections, (section) => section.expectedDays)),
+    [sections]
+  );
+
+  return { sections, description, title, sumOfExpectedDays };
 };
 
 export type Sections = ReturnType<typeof useMapEstimationData>["sections"];
