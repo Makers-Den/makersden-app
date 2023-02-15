@@ -7,6 +7,7 @@ import { ISbStoryData } from "storyblok-js-client";
 
 import { useGallery } from "../../hooks/useGallery";
 import { useMapEstimationData } from "../../utils/useMapEstimationData";
+import { Copyright } from "../Copyright";
 import { EstimationRowContent } from "../EstimationRowContent";
 import { EstimationRowHeader } from "../EstimationRowHeader";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
@@ -21,7 +22,8 @@ export interface EstimationDetailsProps {
 }
 
 export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
-  const { title, description, sections } = useMapEstimationData(estimation);
+  const { title, description, sections, sumOfExpectedDays } =
+    useMapEstimationData(estimation);
 
   const itemKeys = useMemo(
     () =>
@@ -56,6 +58,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
         description={description}
         sections={sections}
         onSectionLinkClick={sectionLinkHandler}
+        sumOfExpectedDays={sumOfExpectedDays}
       />
       {sections.map(({ rows, expectedDays, title, listIndex, key }) => {
         return (
@@ -119,7 +122,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
           </div>
         );
       })}
-
+      <Copyright />
       <ImageGallery
         initialImageIndex={gallery.initialImageIndex ?? 0}
         isOpen={gallery.isOpen}
