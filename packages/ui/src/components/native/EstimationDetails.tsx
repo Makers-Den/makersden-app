@@ -1,9 +1,8 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
-import { Divider } from "native-base";
+import { Box, Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
-  DefaultSectionT,
   LayoutAnimation,
   Platform,
   SectionList,
@@ -31,7 +30,8 @@ export interface EstimationDetailsProps {
 export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
   const sectionListRef = useRef<SectionList | null>(null);
 
-  const { title, description, sections } = useMapEstimationData(estimation);
+  const { title, description, sections, sumOfExpectedDays } =
+    useMapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
   const sectionListSections = useMemo(
@@ -122,6 +122,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             description={description}
             sections={sections}
             onSectionLinkClick={sectionLinkHandler}
+            sumOfExpectedDays={sumOfExpectedDays}
           />
         }
         stickySectionHeadersEnabled
@@ -145,7 +146,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             isIncluded,
             listIndex,
           },
-        }: SectionListRenderItemInfo<SectionRow, DefaultSectionT>) => (
+        }: SectionListRenderItemInfo<SectionRow>) => (
           <ExpandableComponent
             isExpanded={expandedKeys.includes(itemKey)}
             onClick={itemClickHandler(itemKey)}

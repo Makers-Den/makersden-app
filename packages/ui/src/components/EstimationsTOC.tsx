@@ -9,10 +9,11 @@ import { RichTextResolver } from "./RichTextResolver";
 export type SectionLinkData = { sectionIndex: number; key?: string };
 
 export type EstimationsTOCProps = {
-  title: string;
   description: StoryblockRichTextContent;
-  sections: Sections;
   onSectionLinkClick: (args: SectionLinkData) => void;
+  sections: Sections;
+  sumOfExpectedDays: number;
+  title: string;
 };
 
 export const EstimationsTOC = ({
@@ -20,6 +21,7 @@ export const EstimationsTOC = ({
   description,
   sections,
   onSectionLinkClick,
+  sumOfExpectedDays,
 }: EstimationsTOCProps) => {
   const styles = useBreakpointValue({
     base: {
@@ -56,7 +58,7 @@ export const EstimationsTOC = ({
     onSectionLinkClick(args);
 
   return (
-    <Box>
+    <>
       <HStack
         minH={16}
         px={4}
@@ -80,7 +82,7 @@ export const EstimationsTOC = ({
         minH={12}
         bg="darkBlue.400"
         py={2}
-        justifyContent="flex-start"
+        justifyContent="space-between"
         alignItems={"center"}
         borderWidth="0.5"
         borderColor={"gray.400"}
@@ -89,6 +91,7 @@ export const EstimationsTOC = ({
         <Heading color="green.400" mt={0.5} {...styles.mainHeading}>
           TABLE OF CONTENTS
         </Heading>
+        <Text color={"green.400"}>Estimated sum: {sumOfExpectedDays} days</Text>
       </HStack>
       <Box px={4} py={2}>
         {sections.map(
@@ -123,6 +126,6 @@ export const EstimationsTOC = ({
           }
         )}
       </Box>
-    </Box>
+    </>
   );
 };
