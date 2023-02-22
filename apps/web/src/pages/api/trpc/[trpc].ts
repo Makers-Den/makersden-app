@@ -6,5 +6,5 @@ import { apiModules } from "../../../utils/apiModules";
 // export API handler
 export default createNextApiHandler({
   router: appRouter,
-  createContext: () => createTRPCContext(apiModules),
+  createContext: (options) => createTRPCContext(options, apiModules),
 });

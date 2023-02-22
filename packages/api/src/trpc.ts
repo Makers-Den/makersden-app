@@ -1,3 +1,6 @@
+import { CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { z } from "zod";
+
 import { estimationsModule } from "./modules/estimations/estimationsModule";
 
 export interface ApiModules {
@@ -13,9 +16,13 @@ export interface ApiModules {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (apiModules: ApiModules) => {
+const createInnerTRPCContext = (
+  apiModules: ApiModules,
+  ipAddress: string | null
+) => {
   return {
     estimations: apiModules.estimations,
+    ipAddress,
   };
 };
 
@@ -24,8 +31,16 @@ const createInnerTRPCContext = (apiModules: ApiModules) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async (apiModules: ApiModules) => {
-  return createInnerTRPCContext(apiModules);
+export const createTRPCContext = async (
+  { req }: CreateNextContextOptions,
+  apiModules: ApiModules
+) => {
+  const forwarded = z.string().safeParse(req.headers["x-forwarded-for"]);
+  const ipAddress = forwarded.success
+    ? forwarded.data
+    : req.socket.remoteAddress;
+
+  return createInnerTRPCContext(apiModules, ipAddress || null);
 };
 
 /**
