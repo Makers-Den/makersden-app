@@ -2,8 +2,8 @@ import { z } from "zod";
 
 const validateEnvVars = z.object({
   APP_ENVIRONMENT: z.enum(["development", "staging", "production"]),
-  SLACK_WEBHOOK_URL: z.string().url(),
   GOOGLE_SHEETS_API_KEY: z.string().min(1),
+  SLACK_WEBHOOK_URL: z.string().url(),
   STORYBLOK_ACCESS_TOKEN: z.string().min(1),
   STORYBLOK_ENVIRONMENT_FOLDER_NAME: z.string().min(1),
   STORYBLOK_ESTIMATIONS_FOLDER_ID: z.string().min(1),
