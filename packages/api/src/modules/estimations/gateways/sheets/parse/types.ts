@@ -1,3 +1,5 @@
+import { type ZodError } from "zod";
+
 export type EstimationSheetParseResult =
   | EstimationSheetParseErrorResult
   | EstimationSheetParseSuccessResult;
@@ -18,6 +20,9 @@ export type EstimationSheetParseError =
 export interface EstimationSheetParseRowParseFailureError {
   type: "ROW_PARSE_FAILURE";
   row: unknown[];
+  rowIndex: number;
+  zodError?: ZodError<unknown>;
+  message?: string;
 }
 
 export interface EstimationSheet {
