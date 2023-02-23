@@ -35,9 +35,11 @@ export const createTRPCContext = async (
   { req }: CreateNextContextOptions,
   apiModules: ApiModules
 ) => {
-  const forwarded = z.string().safeParse(req.headers["x-forwarded-for"]);
-  const ipAddress = forwarded.success
-    ? forwarded.data
+  const forwardedValidation = z
+    .string()
+    .safeParse(req.headers["x-forwarded-for"]);
+  const ipAddress = forwardedValidation.success
+    ? forwardedValidation.data
     : req.socket.remoteAddress;
 
   return createInnerTRPCContext(apiModules, ipAddress || null);
