@@ -29,7 +29,12 @@ const mapRow =
 export const useMapEstimationData = (
   estimation: ISbStoryData<EstimationContent>
 ) => {
-  const { sections: initialSections, description, title } = estimation.content;
+  const {
+    sections: initialSections,
+    description,
+    title,
+    loomVideo,
+  } = estimation.content;
 
   const sections = useMemo(
     () =>
@@ -62,7 +67,7 @@ export const useMapEstimationData = (
     [sections]
   );
 
-  return { sections, description, title, sumOfExpectedDays };
+  return { sections, description, title, sumOfExpectedDays, loomVideo };
 };
 
 export type Sections = ReturnType<typeof useMapEstimationData>["sections"];
