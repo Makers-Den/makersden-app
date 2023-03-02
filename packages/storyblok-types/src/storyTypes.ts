@@ -8,5 +8,6 @@ export interface EstimationContent {
   description: StoryblockRichTextContent;
   secret: string;
   sections: EstimationSectionContent[];
+  loomVideo?: string;
   component: "Estimation";
 }

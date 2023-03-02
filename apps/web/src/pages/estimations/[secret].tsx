@@ -8,9 +8,15 @@ import { api } from "../../utils/api";
 
 const EstimationDetailsPage = () => {
   const router = useRouter();
-  const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
+  const {
+    estimation,
+    isEstimationLoading,
+    loomVideoHtml,
+    isLoomVideoHtmlLoading,
+  } = useEstimationDetailsScreen({
     api,
     estimationSecret: router.query.secret as string,
+    fetchLoomVideo: true,
   });
 
   return (
@@ -18,6 +24,8 @@ const EstimationDetailsPage = () => {
       <EstimationDetailsScreen
         estimation={estimation}
         isLoading={isEstimationLoading}
+        loomVideoHtml={loomVideoHtml}
+        isLoomVideoHtmlLoading={isLoomVideoHtmlLoading}
       />
     </ContentWrapper>
   );
