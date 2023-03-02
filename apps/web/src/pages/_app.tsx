@@ -8,7 +8,7 @@ import { QueryClient,QueryClientProvider } from "react-query";
 
 import { api } from "../utils/api";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MakersDenApp = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -25,4 +25,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default api.withTRPC(MyApp);
+export default api.withTRPC(MakersDenApp);
