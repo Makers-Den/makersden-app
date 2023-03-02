@@ -21,4 +21,4 @@ jobs:
         run: yarn --immutable
       - name: Build staging store Android app
         working-directory: ./apps/native
-        run: eas build --platform android --profile staging-store --non-interactive --no-wait
+        run: SENTRY_ORG="${{ vars.SENTRY_ORG }}" SENTRY_PROJECT="${{ vars.SENTRY_PROJECT_STAGING }}" SENTRY_AUTH_TOKEN="${{ secrets.SENTRY_AUTH_TOKEN }}" eas build --platform android --profile staging-store --non-interactive --no-wait

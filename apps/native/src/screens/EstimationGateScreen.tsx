@@ -3,6 +3,8 @@ import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { EstimationGateScreen as UiEstimationGateScreen } from "@md/ui/src/screens/EstimationGateScreen";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
+import { Button } from "react-native";
+import * as Sentry from "sentry-expo";
 
 import { RootStackParamList, Screens } from "../types";
 import { api } from "../utils/api";
@@ -33,6 +35,20 @@ export const EstimationGateScreen = ({
 
   return (
     <ContentWrapper>
+      <Button
+        title="Test thrown error"
+        onPress={() => {
+          throw new Error("Test thrown error");
+        }}
+      />
+
+      <Button
+        title="Test captured exception"
+        onPress={() => {
+          Sentry.Native.captureException(new Error("Test captured exception"));
+        }}
+      />
+
       <UiEstimationGateScreen
         estimationSecret={estimationSecret}
         isInvalid={isSecretInvalid}

@@ -16,5 +16,6 @@ export const developmentEnvironmentVariables =
   (): Partial<EnvironmentVariables> => ({
     API_URL: `http://${getLocalIp()}:3000/api`,
     EXAMPLE_ESTIMATION_SECRET: "marketing-comp-1fz1",
+    SENTRY_DSN: undefined,
     WEB_LINKING_URL: `http://${getLocalIp()}:3000`,
   });

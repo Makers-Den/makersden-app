@@ -1,6 +1,6 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
-import { Box, Divider } from "native-base";
+import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
   LayoutAnimation,
