@@ -32,7 +32,7 @@ export const useEstimationDetailsScreen = ({
 
     isNotificationSent.current = true;
     estimationNotifyOpenedMutation.mutate({ secret: estimationSecret,preview });
-  }, [estimationNotifyOpenedMutation, estimation, estimationSecret]);
+  }, [estimationNotifyOpenedMutation, estimation, estimationSecret,preview]);
 
   return {
     isEstimationLoading: estimationListQuery.isLoading,

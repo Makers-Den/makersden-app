@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ISbStoryData } from 'storyblok-js-client';
 
-import { storyblokClient } from './storyBlokClient';
 import { createNamedLogger } from './log';
+import { storyblokClient } from './storyBlokClient';
 
 const RESOLVED_RELATIONS='';
 const STORYBLOK_ACCESS_TOKEN='UPai44i0RiwXVLpXXRxeBgtt';
@@ -123,7 +123,7 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
       });
 
     });
-  }, [locale, storyContentUid]);
+  }, [locale]);
 
   useEffect(() => {
     // only load inside preview mode
