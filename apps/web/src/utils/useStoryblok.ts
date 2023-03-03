@@ -9,9 +9,10 @@ const STORYBLOK_ACCESS_TOKEN='UPai44i0RiwXVLpXXRxeBgtt';
 
 const log = createNamedLogger('SB Bridge');
 
+
 declare global {
   interface Window {
-    StoryblokBridge: StoryblokBridge;
+    StoryblokBridge;
   }
 }
 
