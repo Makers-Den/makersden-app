@@ -4,18 +4,20 @@ import { Api } from "../../types/api";
 
 interface UseEstimationDetailsScreenDeps {
   api: Api;
+  preview?:boolean,
   estimationSecret: string;
 }
 
 export const useEstimationDetailsScreen = ({
   api,
+  preview=false,
   estimationSecret,
 }: UseEstimationDetailsScreenDeps) => {
   const isNotificationSent = useRef<boolean>(false);
   const estimationNotifyOpenedMutation =
     api.estimations.notifyOpened.useMutation();
   const estimationListQuery = api.estimations.findOne.useQuery({
-    secret: estimationSecret,
+    secret: estimationSecret,preview
   });
 
   const estimation =
@@ -29,7 +31,7 @@ export const useEstimationDetailsScreen = ({
     }
 
     isNotificationSent.current = true;
-    estimationNotifyOpenedMutation.mutate({ secret: estimationSecret });
+    estimationNotifyOpenedMutation.mutate({ secret: estimationSecret,preview });
   }, [estimationNotifyOpenedMutation, estimation, estimationSecret]);
 
   return {
