@@ -1,7 +1,7 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
 import * as WebBrowser from "expo-web-browser";
-import { Divider, Text } from "native-base";
+import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
   LayoutAnimation,
@@ -121,10 +121,6 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
 
   return (
     <>
-      <Text style={{ color: "white" }}>
-        {loomVideo ? `Loom video is ${loomVideo}` : "Loom video is missing"}
-      </Text>
-
       <SectionList
         ref={sectionListRef}
         sections={sectionListSections}
