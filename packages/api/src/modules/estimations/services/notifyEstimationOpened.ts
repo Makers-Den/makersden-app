@@ -11,7 +11,6 @@ interface NotifyEstimationOpenedCommand {
   storyblokReadClient: StoryblokClient;
   storyblokEnvironmentFolderName: string;
   slackWebhookUrl: string;
-  preview:boolean;
 }
 
 export const notifyEstimationOpened = async (
@@ -21,7 +20,6 @@ export const notifyEstimationOpened = async (
     client: command.storyblokReadClient,
     environmentFolderName: command.storyblokEnvironmentFolderName,
     secret: command.estimationSecret,
-    preview:command.preview
   });
 
   if (findEstimationResult.isError) {

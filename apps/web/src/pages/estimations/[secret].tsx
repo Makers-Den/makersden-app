@@ -8,7 +8,9 @@ import { useRouter } from "next/router";
 import { api } from "../../utils/api";
 import { useStoryblok } from "../../utils/useStoryblok";
 
-const EstimationDetailsPage = ({preview}:{preview:boolean}) => {
+const EstimationDetailsPage = ({
+  preview
+}:{preview:boolean}) => {
   const router = useRouter();
   const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
     api,

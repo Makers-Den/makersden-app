@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { serverEnvironment } from '../../utils/serverEnvironment';
 
-import { PREVIEW_SECRET } from '../../utils/constants';
 
 /**
  * Change cookie SameSite policy from `SameSite=Lax` to `SameSite=None;Secure`,
@@ -31,7 +31,7 @@ const preview = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Check the secret and next parameters
   // This secret should only be known to this API route and the CMS
-  if (secret !== PREVIEW_SECRET) {
+  if (secret !== serverEnvironment.STORYBLOK_PREVIEW_SECRET) {
     return res.status(401).json({ message: 'Invalid token' });
   }
 

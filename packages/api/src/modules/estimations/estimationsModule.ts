@@ -29,7 +29,7 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,
       }),
-    notifyEstimationOpened: (secret: string, preview:boolean, ipAddress: string | null) => {
+    notifyEstimationOpened: (secret: string, ipAddress: string | null) => {
       if (deps.appEnvironment === "development") {
         return { isError: false };
       }
@@ -41,7 +41,6 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         slackWebhookUrl: deps.slackWebhookUrl,
         storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokReadClient: deps.storyblokReadClient,
-        preview
       });
     },
     findEstimation: (secret: string,preview:boolean) =>

@@ -17,7 +17,8 @@ export const useEstimationDetailsScreen = ({
   const estimationNotifyOpenedMutation =
     api.estimations.notifyOpened.useMutation();
   const estimationListQuery = api.estimations.findOne.useQuery({
-    secret: estimationSecret,preview
+    secret: estimationSecret,
+    preview
   });
 
   const estimation =
@@ -31,8 +32,8 @@ export const useEstimationDetailsScreen = ({
     }
 
     isNotificationSent.current = true;
-    estimationNotifyOpenedMutation.mutate({ secret: estimationSecret,preview });
-  }, [estimationNotifyOpenedMutation, estimation, estimationSecret,preview]);
+    estimationNotifyOpenedMutation.mutate({ secret: estimationSecret });
+  }, [estimationNotifyOpenedMutation, estimation, estimationSecret]);
 
   return {
     isEstimationLoading: estimationListQuery.isLoading,

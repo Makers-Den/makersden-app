@@ -1,11 +1,9 @@
 import StoryblokClient from 'storyblok-js-client';
-
-import { STORYBLOK_ACCESS_TOKEN } from './constants';
-
+import { clientEnvironment } from './clientEnvironment';
 
 
 export const storyblokClient = new StoryblokClient({
-  accessToken: STORYBLOK_ACCESS_TOKEN,
+  accessToken: clientEnvironment.STORYBLOK_ACCESS_TOKEN,
   cache: {
     clear: 'auto',
     type: 'memory',
