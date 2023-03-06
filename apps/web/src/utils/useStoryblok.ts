@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ISbStoryData } from 'storyblok-js-client';
-import { clientEnvironment } from './clientEnvironment';
 
+import { clientEnvironment } from './clientEnvironment';
 import { createNamedLogger } from './log';
 import { storyblokClient } from './storyBlokClient';
 
