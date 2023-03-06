@@ -1,16 +1,19 @@
 import { useEstimationDetailsScreen } from "@md/client-logic";
 import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { EstimationDetailsScreen } from "@md/ui/src/screens/web/EstimationDetailsScreen";
-import { GetStaticPropsContext } from "next";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import { api } from "../../utils/api";
 import { useStoryblok } from "../../utils/useStoryblok";
 
+interface EstimationDetailsPageProps {
+  preview:boolean
+}
+
 const EstimationDetailsPage = ({
   preview
-}:{preview:boolean}) => {
+}:EstimationDetailsPageProps) => {
   const router = useRouter();
   const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
     api,
@@ -35,7 +38,7 @@ export default dynamic(() => Promise.resolve(EstimationDetailsPage), {
 });
 
 
-export const getStaticProps = async (args:GetStaticPropsContext) => {
+export const getStaticProps = async (args:EstimationDetailsPageProps) => {
   const {
     preview: isPreview,
   } = args;

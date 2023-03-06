@@ -17,7 +17,6 @@ export const estimationsRouter = createTRPCRouter({
     .input(
       z.object({
         secret: z.string().trim().min(1),
-        preview: z.boolean().optional(),
       })
     )
     .mutation(({ ctx, input }) =>
