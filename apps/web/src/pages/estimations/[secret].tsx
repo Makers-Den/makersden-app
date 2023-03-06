@@ -17,9 +17,8 @@ const EstimationDetailsPage = ({
     preview,
     estimationSecret: router.query.secret as string,
   });
-const enableBridge=preview;
 
-const liveEstimation= useStoryblok(estimation,enableBridge);
+const liveEstimation= useStoryblok(estimation,preview);
 
   return (
     <ContentWrapper>
