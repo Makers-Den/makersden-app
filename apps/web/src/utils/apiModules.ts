@@ -19,7 +19,9 @@ const StoryblockReadClient = new StoryblokClient({
 
 export const apiModules: ApiModules = {
   estimations: estimationsModule({
+    appEnvironment: serverEnvironment.APP_ENVIRONMENT,
     sheetsClient: sheetsClient,
+    slackWebhookUrl: serverEnvironment.SLACK_WEBHOOK_URL,
     storyblokEnvironmentFolderName:
       serverEnvironment.STORYBLOK_ENVIRONMENT_FOLDER_NAME,
     storyblokEstimationsFolderId:

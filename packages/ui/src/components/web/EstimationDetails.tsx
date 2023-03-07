@@ -10,18 +10,25 @@ import { useMapEstimationData } from "../../utils/useMapEstimationData";
 import { Copyright } from "../Copyright";
 import { EstimationRowContent } from "../EstimationRowContent";
 import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationsHeader, SectionLinkData } from "../EstimationsHeader";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
-import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { Logo } from "../Logo";
 import { LogoWrapper } from "../LogoWrapper";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
+import { LoomSection } from "./LoomSection";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
+  loomVideoHtml: string | null;
+  isLoomVideoHtmlLoading: boolean;
 }
 
-export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
+export const EstimationDetails = ({
+  estimation,
+  loomVideoHtml,
+  isLoomVideoHtmlLoading,
+}: EstimationDetailsProps) => {
   const { title, description, sections, sumOfExpectedDays } =
     useMapEstimationData(estimation);
 
@@ -53,12 +60,20 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
         <Logo />
       </LogoWrapper>
 
-      <EstimationsTOC
+      <EstimationsHeader
         title={title}
         description={description}
         sections={sections}
         onSectionLinkClick={sectionLinkHandler}
         sumOfExpectedDays={sumOfExpectedDays}
+        loomSection={
+          isLoomVideoHtmlLoading || loomVideoHtml ? (
+            <LoomSection
+              isLoomVideoHtmlLoading={isLoomVideoHtmlLoading}
+              loomVideoHtml={loomVideoHtml}
+            />
+          ) : null
+        }
       />
       {sections.map(({ rows, expectedDays, title, listIndex, key }) => {
         return (

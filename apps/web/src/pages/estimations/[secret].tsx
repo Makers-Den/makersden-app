@@ -5,19 +5,37 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import { api } from "../../utils/api";
+import { useStoryblok } from "../../utils/useStoryblok";
 
-const EstimationDetailsPage = () => {
+interface EstimationDetailsPageProps {
+  preview:boolean
+}
+
+const EstimationDetailsPage = ({
+  preview
+}:EstimationDetailsPageProps) => {
   const router = useRouter();
-  const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
+  const {
+    estimation,
+    isEstimationLoading,
+    loomVideoHtml,
+    isLoomVideoHtmlLoading,
+  } = useEstimationDetailsScreen({
     api,
+    preview,
     estimationSecret: router.query.secret as string,
+    fetchLoomVideo: true,
   });
+
+const liveEstimation= useStoryblok(estimation,preview);
 
   return (
     <ContentWrapper>
       <EstimationDetailsScreen
-        estimation={estimation}
+        estimation={preview?liveEstimation:estimation}
         isLoading={isEstimationLoading}
+        loomVideoHtml={loomVideoHtml}
+        isLoomVideoHtmlLoading={isLoomVideoHtmlLoading}
       />
     </ContentWrapper>
   );
@@ -26,3 +44,26 @@ const EstimationDetailsPage = () => {
 export default dynamic(() => Promise.resolve(EstimationDetailsPage), {
   ssr: false,
 });
+
+
+export const getStaticProps = async (args:EstimationDetailsPageProps) => {
+  const {
+    preview: isPreview,
+  } = args;
+
+  const props = {
+    preview: !!isPreview,
+  };
+
+  return {
+    props: {
+      ...props,
+    },
+  }
+}
+export const getStaticPaths=async() =>{
+  return {
+    paths: [],
+    fallback: false, 
+  }
+}
