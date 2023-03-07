@@ -5,15 +5,14 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import { api } from "../../utils/api";
-import { useStoryblok } from "../../utils/useStoryblok";
+// import { useStoryblok } from "../../utils/useStoryblok";
 
-interface EstimationDetailsPageProps {
-  preview:boolean
-}
+// interface EstimationDetailsPageProps {
+//   preview: boolean;
+// }
 
-const EstimationDetailsPage = ({
-  preview
-}:EstimationDetailsPageProps) => {
+// const EstimationDetailsPage = ({ preview }: EstimationDetailsPageProps) => {
+const EstimationDetailsPage = () => {
   const router = useRouter();
   const {
     estimation,
@@ -22,17 +21,17 @@ const EstimationDetailsPage = ({
     isLoomVideoHtmlLoading,
   } = useEstimationDetailsScreen({
     api,
-    preview,
+    // preview,
     estimationSecret: router.query.secret as string,
     fetchLoomVideo: true,
   });
 
-const liveEstimation= useStoryblok(estimation,preview);
+  // const liveEstimation = useStoryblok(estimation, preview);
 
   return (
     <ContentWrapper>
       <EstimationDetailsScreen
-        estimation={preview?liveEstimation:estimation}
+        estimation={estimation}
         isLoading={isEstimationLoading}
         loomVideoHtml={loomVideoHtml}
         isLoomVideoHtmlLoading={isLoomVideoHtmlLoading}
@@ -45,25 +44,23 @@ export default dynamic(() => Promise.resolve(EstimationDetailsPage), {
   ssr: false,
 });
 
+// export const getStaticProps = async (args: EstimationDetailsPageProps) => {
+//   const { preview: isPreview } = args;
 
-export const getStaticProps = async (args:EstimationDetailsPageProps) => {
-  const {
-    preview: isPreview,
-  } = args;
+//   const props = {
+//     preview: !!isPreview,
+//   };
 
-  const props = {
-    preview: !!isPreview,
-  };
+//   return {
+//     props: {
+//       ...props,
+//     },
+//   };
+// };
 
-  return {
-    props: {
-      ...props,
-    },
-  }
-}
-export const getStaticPaths=async() =>{
-  return {
-    paths: [],
-    fallback: false, 
-  }
-}
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [],
+//     fallback: false,
+//   };
+// };
