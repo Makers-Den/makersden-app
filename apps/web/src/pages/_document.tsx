@@ -25,6 +25,7 @@ const Document = () => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#131825" />
         <meta name="msapplication-TileColor" content="#131825" />
         <meta name="theme-color" content="#6DDA84" />
+        <meta name="robots" content="noindex" />
       </Head>
       <body>
         <Main />

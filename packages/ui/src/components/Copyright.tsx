@@ -1,4 +1,4 @@
-import { Box, Text } from "native-base";
+import { Text } from "native-base";
 import React from "react";
 
 export const Copyright = () => {

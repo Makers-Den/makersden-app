@@ -1,6 +1,6 @@
 import { StoryblockRichTextContent } from "@md/storyblok-types";
 import { Box, Heading, HStack, Text, useBreakpointValue } from "native-base";
-import React from "react";
+import React, { ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
 
 import { Sections } from "../utils/useMapEstimationData";
@@ -8,21 +8,23 @@ import { RichTextResolver } from "./RichTextResolver";
 
 export type SectionLinkData = { sectionIndex: number; key?: string };
 
-export type EstimationsTOCProps = {
+export type EstimationsHeaderProps = {
   description: StoryblockRichTextContent;
   onSectionLinkClick: (args: SectionLinkData) => void;
   sections: Sections;
   sumOfExpectedDays: number;
   title: string;
+  loomSection?: ReactNode;
 };
 
-export const EstimationsTOC = ({
+export const EstimationsHeader = ({
   title,
   description,
   sections,
   onSectionLinkClick,
   sumOfExpectedDays,
-}: EstimationsTOCProps) => {
+  loomSection,
+}: EstimationsHeaderProps) => {
   const styles = useBreakpointValue({
     base: {
       description: {
@@ -59,24 +61,27 @@ export const EstimationsTOC = ({
 
   return (
     <>
-      <HStack
-        minH={16}
-        px={4}
-        space={2}
-        py={2}
-        justifyContent="space-between"
-        alignItems={"center"}
-      >
-        <Heading {...styles.heading}>{title}</Heading>
-      </HStack>
-      {description && (
-        <Box px={4} mb={4}>
-          <RichTextResolver
-            richText={description}
-            textProps={styles.description}
-          />
-        </Box>
-      )}
+      <Box px={4} mb={loomSection ? 8 : 4}>
+        <HStack
+          minH={16}
+          space={2}
+          py={2}
+          justifyContent="space-between"
+          alignItems={"center"}
+        >
+          <Heading {...styles.heading}>{title}</Heading>
+        </HStack>
+        {description && (
+          <Box mb={loomSection ? 8 : 0}>
+            <RichTextResolver
+              richText={description}
+              textProps={styles.description}
+            />
+          </Box>
+        )}
+        {loomSection}
+      </Box>
+
       <HStack
         px={3}
         minH={12}

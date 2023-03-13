@@ -1,6 +1,7 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
-import { Box, Divider } from "native-base";
+import * as WebBrowser from "expo-web-browser";
+import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
 import {
   LayoutAnimation,
@@ -18,10 +19,11 @@ import {
 } from "../../utils/useMapEstimationData";
 import { EstimationRowContent } from "../EstimationRowContent";
 import { EstimationRowHeader } from "../EstimationRowHeader";
+import { EstimationsHeader, SectionLinkData } from "../EstimationsHeader";
 import { EstimationsSectionHeader } from "../EstimationsSectionHeader";
-import { EstimationsTOC, SectionLinkData } from "../EstimationsTOC";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
+import { LoomSection } from "./LoomSection";
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -30,7 +32,7 @@ export interface EstimationDetailsProps {
 export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
   const sectionListRef = useRef<SectionList | null>(null);
 
-  const { title, description, sections, sumOfExpectedDays } =
+  const { title, description, sections, sumOfExpectedDays, loomVideo } =
     useMapEstimationData(estimation);
   const expandedKeys = useArray<string>([]);
   const gallery = useGallery();
@@ -109,6 +111,14 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
     }, 10);
   };
 
+  const handleOpenVideo = () => {
+    if (!loomVideo) {
+      return;
+    }
+
+    WebBrowser.openBrowserAsync(loomVideo);
+  };
+
   return (
     <>
       <SectionList
@@ -117,12 +127,15 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
         onScrollToIndexFailed={handleScrollToIndexFailed}
         keyExtractor={({ key }, index) => key || `${index}`}
         ListHeaderComponent={
-          <EstimationsTOC
+          <EstimationsHeader
             title={title}
             description={description}
             sections={sections}
             onSectionLinkClick={sectionLinkHandler}
             sumOfExpectedDays={sumOfExpectedDays}
+            loomSection={
+              loomVideo ? <LoomSection onOpenVideo={handleOpenVideo} /> : null
+            }
           />
         }
         stickySectionHeadersEnabled
