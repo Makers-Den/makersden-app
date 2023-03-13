@@ -6,7 +6,6 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, Screens } from "../types";
 import { api } from "../utils/api";
 
-
 export type EstimationDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   Screens.EstimationDetails
@@ -18,6 +17,7 @@ export const EstimationDetailsScreen = ({
   const { estimation, isEstimationLoading } = useEstimationDetailsScreen({
     api,
     estimationSecret: route.params.secret,
+    fetchLoomVideo: false,
   });
 
   return (

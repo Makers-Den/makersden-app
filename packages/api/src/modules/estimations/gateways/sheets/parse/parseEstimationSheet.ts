@@ -13,6 +13,7 @@ import {
 import { EstimationSheetParseResult, EstimationSheetSection } from "./types";
 
 const COLUMN_COUNT = 6;
+const ROW_START_INDEX = 1;
 
 export const parseEstimationSheet = (
   rows: unknown[][]
@@ -28,7 +29,13 @@ export const parseEstimationSheet = (
   if (!parsedPrimaryHeaderRow.success) {
     return {
       isError: true,
-      error: { type: "ROW_PARSE_FAILURE", row: primaryHeaderRow },
+      error: {
+        type: "ROW_PARSE_FAILURE",
+        row: primaryHeaderRow,
+        rowIndex: ROW_START_INDEX + 0,
+        zodError: parsedPrimaryHeaderRow.error,
+        message: "The estimation name/estimation company row is invalid",
+      },
     };
   }
 
@@ -38,7 +45,13 @@ export const parseEstimationSheet = (
   if (!parsedSecondaryHeaderRow.success) {
     return {
       isError: true,
-      error: { type: "ROW_PARSE_FAILURE", row: secondaryHeaderRow },
+      error: {
+        type: "ROW_PARSE_FAILURE",
+        row: secondaryHeaderRow,
+        rowIndex: ROW_START_INDEX + 1,
+        zodError: parsedSecondaryHeaderRow.error,
+        message: "The estimation description row is invalid",
+      },
     };
   }
 
@@ -48,7 +61,13 @@ export const parseEstimationSheet = (
   if (!parsedFirstSectionRow.success) {
     return {
       isError: true,
-      error: { type: "ROW_PARSE_FAILURE", row: firstSectionRow },
+      error: {
+        type: "ROW_PARSE_FAILURE",
+        row: firstSectionRow,
+        rowIndex: ROW_START_INDEX + 3,
+        zodError: parsedFirstSectionRow.error,
+        message: "The first section row is invalid",
+      },
     };
   }
 
@@ -92,7 +111,12 @@ export const parseEstimationSheet = (
 
     return {
       isError: true,
-      error: { type: "ROW_PARSE_FAILURE", row },
+      error: {
+        type: "ROW_PARSE_FAILURE",
+        row,
+        rowIndex: ROW_START_INDEX + i,
+        message: "Row doesn't match any of the currently supported row schemas",
+      },
     };
   }
 

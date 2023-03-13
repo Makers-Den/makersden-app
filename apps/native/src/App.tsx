@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@md/ui/src/components/providers/ThemeProvider";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Sentry from "sentry-expo";
+import { QueryClient,QueryClientProvider } from "react-query";
 
 import { fonts } from "./fonts";
 import { Navigation } from "./Navigation";
@@ -17,6 +18,7 @@ if (environment.SENTRY_DSN) {
 }
 
 const App = () => {
+  const [queryClient] = useState(() => new QueryClient());
   const [fontsLoaded] = useFonts(fonts);
 
   const handleLayoutRootView = useCallback(async () => {
@@ -31,11 +33,13 @@ const App = () => {
 
   return (
     <TRPCProvider>
-      <SafeAreaProvider onLayout={handleLayoutRootView}>
-        <ThemeProvider>
-          <Navigation />
-        </ThemeProvider>
-      </SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider onLayout={handleLayoutRootView}>
+          <ThemeProvider>
+            <Navigation />
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </TRPCProvider>
   );
 };
