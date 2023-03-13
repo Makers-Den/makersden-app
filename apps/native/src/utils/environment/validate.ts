@@ -14,5 +14,9 @@ export const validateEnvVars = z.object({
   /**
    * @TODO Add env description
    */
+  SENTRY_DSN: z.string().min(1).optional(),
+  /**
+   * @TODO Add env description
+   */
   WEB_LINKING_URL: z.string().url(),
 });

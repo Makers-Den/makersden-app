@@ -18,10 +18,21 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "plugins": ["sentry-expo"],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "io.makersden.app",
-      "associatedDomains": ["applinks:staging.app.makersden.io", "applinks:app.makersden.io"]
+      "associatedDomains": [
+        "applinks:staging.app.makersden.io",
+        "applinks:app.makersden.io"
+      ]
     },
     "android": {
       "intentFilters": [
@@ -55,7 +66,7 @@
         "runtimeVersion": { "policy": "sdkVersion" }
       },
       "build": {
-        "runtimeVersion": "1.0.9"
+        "runtimeVersion": "1.0.10"
       },
       "eas": {
         "projectId": "83d2d396-105f-48c9-aa90-973cb4170235"
