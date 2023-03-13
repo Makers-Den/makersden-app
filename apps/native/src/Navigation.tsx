@@ -5,6 +5,7 @@ import * as Linking from "expo-linking";
 
 import { EstimationDetailsScreen } from "./screens/EstimationDetailsScreen";
 import { EstimationGateScreen } from "./screens/EstimationGateScreen";
+import { SentryErrorsScreen } from "./screens/SentryErrorsScreen";
 import { RootStackParamList, Screens } from "./types";
 import { environment } from "./utils/environment";
 
@@ -21,6 +22,7 @@ export const Navigation = () => {
       screens: {
         [Screens.EstimationGate]: "",
         [Screens.EstimationDetails]: "estimations/:secret",
+        [Screens.SentryErrors]: "sentry-errors",
       },
     },
   };
@@ -49,6 +51,10 @@ export const Navigation = () => {
           options={{ title: "Details" }}
           name={Screens.EstimationDetails}
           component={EstimationDetailsScreen}
+        />
+        <Stack.Screen
+          name={Screens.SentryErrors}
+          component={SentryErrorsScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

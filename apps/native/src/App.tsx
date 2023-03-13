@@ -3,8 +3,8 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import * as Sentry from "sentry-expo";
 import { QueryClient,QueryClientProvider } from "react-query";
+import * as Sentry from "sentry-expo";
 
 import { fonts } from "./fonts";
 import { Navigation } from "./Navigation";
