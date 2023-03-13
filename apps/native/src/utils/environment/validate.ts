@@ -4,15 +4,15 @@ export type EnvironmentVariables = z.infer<typeof validateEnvVars>;
 
 export const validateEnvVars = z.object({
   /**
-   * @TODO Add env description
+   * Base API URL
    */
   API_URL: z.string().url(),
   /**
-   * @TODO Add env description
+   * Estimation secret that will be used when user clicks "See example estimation"
    */
   EXAMPLE_ESTIMATION_SECRET: z.string().min(1),
   /**
-   * @TODO Add env description
+   * Base app URL used for the deep linking https://reactnavigation.org/docs/deep-linking/#setup-with-expo-projects
    */
   WEB_LINKING_URL: z.string().url(),
 });
