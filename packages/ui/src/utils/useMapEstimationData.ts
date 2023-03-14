@@ -24,8 +24,9 @@ const mapRow =
     isIncluded: row.isIncluded,
     images: row.images || [],
     listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
+    _editable:row._editable||"",
   });
-
+  
 export const useMapEstimationData = (
   estimation: ISbStoryData<EstimationContent>
 ) => {
@@ -40,7 +41,7 @@ export const useMapEstimationData = (
     () =>
       R.map.indexed(
         initialSections,
-        ({ rows: initialRows, title, description, _uid }, sectionIndex) => {
+        ({ rows: initialRows, title, description, _uid,_editable='' }, sectionIndex) => {
           const rows = R.map.indexed(initialRows, mapRow(sectionIndex));
 
           return {
@@ -48,6 +49,7 @@ export const useMapEstimationData = (
             title: title.substring(1).trim(),
             description,
             key: _uid,
+            _editable,
             expectedDays: roundDays(
               R.pipe(
                 initialRows,
