@@ -35,7 +35,7 @@ export const EstimationDetails = ({
   const { title, description, sections, sumOfExpectedDays } =
     useMapEstimationData(estimation);
 
-    const itemKeys = useMemo(
+  const itemKeys = useMemo(
     () =>
       R.pipe(
         sections,
@@ -82,8 +82,7 @@ export const EstimationDetails = ({
       {sections.map((section) => {
         const { rows, expectedDays, title, listIndex, key }=section;
         return (
-          <div key={key} id={key} {...storyblokEditable(section)}
-          >
+          <div key={key} id={key} {...storyblokEditable(section)}>
             <EstimationsSectionHeader
               title={title}
               listIndex={listIndex}
@@ -139,7 +138,7 @@ export const EstimationDetails = ({
                     }
                   />
                   <Divider bg="gray.400" />
-                  </div>
+                </div>
               )}
             )}
           </div>

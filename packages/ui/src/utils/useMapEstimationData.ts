@@ -24,7 +24,7 @@ const mapRow =
     isIncluded: row.isIncluded,
     images: row.images || [],
     listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
-    _editable:row._editable||"",
+    _editable: row._editable || "",
   });
   
 export const useMapEstimationData = (
@@ -41,7 +41,7 @@ export const useMapEstimationData = (
     () =>
       R.map.indexed(
         initialSections,
-        ({ rows: initialRows, title, description, _uid,_editable='' }, sectionIndex) => {
+        ({ rows: initialRows, title, description, _uid, _editable= '' }, sectionIndex) => {
           const rows = R.map.indexed(initialRows, mapRow(sectionIndex));
 
           return {
