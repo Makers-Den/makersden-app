@@ -22,6 +22,8 @@ jobs:
           expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: yarn --immutable
       - name: Create service-account.json file
         working-directory: ./apps/native
         run: echo ${{ secrets.GOOGLE_PLAY_KEY }} | base64 -w0 --decode >> service-account.json
