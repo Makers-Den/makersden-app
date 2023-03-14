@@ -21,4 +21,4 @@ jobs:
         run: yarn --immutable
       - name: Build staging store iOS app
         working-directory: ./apps/native
-        run: SENTRY_ORG="${{ vars.SENTRY_ORG }}" SENTRY_PROJECT="${{ vars.SENTRY_PROJECT_APP_STAGING }}" SENTRY_AUTH_TOKEN="${{ secrets.SENTRY_AUTH_TOKEN }}" eas build --platform ios --profile staging-store --non-interactive --no-wait
+        run: eas build --platform ios --profile staging-store --non-interactive --no-wait
