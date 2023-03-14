@@ -9,7 +9,6 @@ export const clientEnvironment = validateEnvVars.parse(
   Object.freeze({
     EXAMPLE_ESTIMATION_SECRET:
       process.env.NEXT_PUBLIC_EXAMPLE_ESTIMATION_SECRET,
-    STORYBLOK_ACCESS_TOKEN:
-       process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+    STORYBLOK_ACCESS_TOKEN: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
   })
 );

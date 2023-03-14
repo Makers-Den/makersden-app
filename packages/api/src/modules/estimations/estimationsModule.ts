@@ -43,12 +43,12 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         storyblokReadClient: deps.storyblokReadClient,
       });
     },
-    findEstimation: (secret: string,preview:boolean) =>
+    findEstimation: (secret: string, preview: boolean) =>
       findEstimation({
         client: deps.storyblokReadClient,
         environmentFolderName: deps.storyblokEnvironmentFolderName,
         secret,
-        preview
+        preview,
       }),
   };
 };

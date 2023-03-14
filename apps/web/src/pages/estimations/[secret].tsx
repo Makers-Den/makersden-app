@@ -30,7 +30,7 @@ const EstimationDetailsPage = ({ preview }: EstimationDetailsPageProps) => {
   return (
     <ContentWrapper>
       <EstimationDetailsScreen
-        estimation={preview? liveEstimation : estimation}
+        estimation={preview ? liveEstimation : estimation}
         isLoading={isEstimationLoading}
         loomVideoHtml={loomVideoHtml}
         isLoomVideoHtmlLoading={isLoomVideoHtmlLoading}
@@ -54,13 +54,13 @@ export const getStaticProps = async (args: EstimationDetailsPageProps) => {
     props: {
       ...props,
     },
-    revalidate:1
+    revalidate: 1,
   };
 };
 
 export const getStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
