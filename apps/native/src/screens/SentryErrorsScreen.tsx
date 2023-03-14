@@ -7,16 +7,16 @@ export const SentryErrorsScreen = () => {
   return (
     <ContentWrapper>
       <Button
-        title="Test thrown error 2"
+        title="Test thrown error 3"
         onPress={() => {
-          throw new Error("Test thrown error 2");
+          throw new Error("Test thrown error 3");
         }}
       />
 
       <Button
-        title="Test captured exception 2"
+        title="Test captured exception 3"
         onPress={() => {
-          Sentry.Native.captureException(new Error("Test captured exception 2"));
+          Sentry.Native.captureException(new Error("Test captured exception 3"));
         }}
       />
     </ContentWrapper>

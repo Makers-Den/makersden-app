@@ -32,7 +32,7 @@ jobs:
         run: yarn --immutable
       - name: Update production app
         working-directory: ./apps/native
-        run: SENTRY_ORG="${{ vars.SENTRY_ORG }}" SENTRY_PROJECT="${{ vars.SENTRY_PROJECT_APP_PRODUCTION }}" SENTRY_AUTH_TOKEN="${{ secrets.SENTRY_AUTH_TOKEN }}" eas update --branch production --message "${{ github.event.inputs.message }}"
+        run: eas update --branch production --message "${{ github.event.inputs.message }}"
       - name: Install Sentry CLI
         run: curl -sL https://sentry.io/get-cli/ | bash
       - name: Update Sentry source maps
