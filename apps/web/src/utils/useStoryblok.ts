@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ISbStoryData } from 'storyblok-js-client';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { ISbStoryData } from "storyblok-js-client";
 
-import { clientEnvironment } from './clientEnvironment';
-import { createNamedLogger } from './log';
-import { storyblokClient } from './storyBlokClient';
+import { clientEnvironment } from "./clientEnvironment";
+import { createNamedLogger } from "./log";
+import { storyblokClient } from "./storyBlokClient";
 
-const RESOLVED_RELATIONS='';
+const RESOLVED_RELATIONS = "";
 
-const log = createNamedLogger('SB Bridge');
+const log = createNamedLogger("SB Bridge");
 
 declare global {
   interface Window {
@@ -20,12 +20,12 @@ declare global {
 const loadStoryblokBridgeJavascript = (callback: () => void) => {
   // check if the script is already present
 
-  const existingScript = document.getElementById('storyblokBridge');
+  const existingScript = document.getElementById("storyblokBridge");
   if (!existingScript) {
-    log.info('Loading storyblock bridge JS bundle');
-    const script = document.createElement('script');
-    script.src = '//app.storyblok.com/f/storyblok-v2-latest.js';
-    script.id = 'storyblokBridge';
+    log.info("Loading storyblock bridge JS bundle");
+    const script = document.createElement("script");
+    script.src = "//app.storyblok.com/f/storyblok-v2-latest.js";
+    script.id = "storyblokBridge";
     document.body.appendChild(script);
     script.onload = () => {
       // once the script is loaded, init the event listeners
@@ -61,11 +61,11 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
   // adds the events for updating the visual editor
   // see https://www.storyblok.com/docs/guide/essentials/visual-editor#initializing-the-storyblok-js-bridge
   const initEventListeners = useCallback(() => {
-    log.debug('Initing storyblok bridge listeners');
+    log.debug("Initing storyblok bridge listeners");
 
     const { StoryblokBridge } = window;
-    if (typeof StoryblokBridge === 'undefined') {
-      log.error('StoryblokBridge not found on window');
+    if (typeof StoryblokBridge === "undefined") {
+      log.error("StoryblokBridge not found on window");
       return;
     }
 
@@ -81,46 +81,42 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
     });
 
     // reload on Next.js page on save or publish event in the Visual Editor
-    storyblokInstance.on(
-      ['change', 'published'],
-      (event) => {
-        log.debug('change or published', event);
+    storyblokInstance.on(["change", "published"], (event) => {
+      log.debug("change or published", event);
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore forceReload bool is deprecated and missing from types
-        location.reload(true);
-      }
-    );
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore forceReload bool is deprecated and missing from types
+      location.reload(true);
+    });
     // live update the story on input events
-    storyblokInstance.on('input', async (event) => {
-      log.debug('input', event);
+    storyblokInstance.on("input", async (event) => {
+      log.debug("input", event);
 
       // check if the ids of the event and the passed story match, todo:uncomment if
 
       // if (event.story && event.story.content._uid === storyContentUid) {
-        // change the story content through the setStory function
-        setStory(event.story);
+      // change the story content through the setStory function
+      setStory(event.story);
       //}
     });
 
-    storyblokInstance.on('enterEditmode', (event) => {
-    //   // loading the draft version on initial enter of editor
-      log.debug('Entering edit mode');
-      console.log("event",event);
+    storyblokInstance.on("enterEditmode", (event) => {
+      //   // loading the draft version on initial enter of editor
+      log.debug("Entering edit mode");
+      console.log("event", event);
       //const SECRET='example-company-fsav';
       storyblokClient
-      .get(`cdn/stories/${event.storyId}`, {
-        version: 'draft',
-      })
-      .then(async ({ data }) => {
-        if (data.story) {
-          setStory(data.story);
-        }
-      })
-      .catch((error) => {
-        log.error('Caught error loading story on entering edit mode', error);
-      });
-
+        .get(`cdn/stories/${event.storyId}`, {
+          version: "draft",
+        })
+        .then(async ({ data }) => {
+          if (data.story) {
+            setStory(data.story);
+          }
+        })
+        .catch((error) => {
+          log.error("Caught error loading story on entering edit mode", error);
+        });
     });
   }, [locale]);
 
@@ -135,7 +131,6 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
   useEffect(() => {
     setStory(originalStory);
   }, [originalStory]);
-
 
   // Ensure we don't return a old story if the original story changed.
   // This is important during client side routing, so we don't get the story of the previous page

@@ -4,7 +4,7 @@ import { ThemeProvider } from "@md/ui/src/components/providers/ThemeProvider";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useState } from "react";
-import { QueryClient,QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { api } from "../utils/api";
 

@@ -38,7 +38,7 @@ export const components = {
   Heading: {
     baseStyle: {
       color: "white",
-      fontFamily: 'heading'
+      fontFamily: "heading",
     },
   },
 };

@@ -6,14 +6,14 @@ import { Api } from "../../types/api";
 
 interface UseEstimationDetailsScreenDeps {
   api: Api;
-  preview?:boolean,
+  preview?: boolean;
   estimationSecret: string;
   fetchLoomVideo: boolean;
 }
 
 export const useEstimationDetailsScreen = ({
   api,
-  preview=false,
+  preview = false,
   estimationSecret,
   fetchLoomVideo,
 }: UseEstimationDetailsScreenDeps) => {
@@ -22,7 +22,7 @@ export const useEstimationDetailsScreen = ({
     api.estimations.notifyOpened.useMutation();
   const estimationListQuery = api.estimations.findOne.useQuery({
     secret: estimationSecret,
-    preview
+    preview,
   });
 
   const estimation =

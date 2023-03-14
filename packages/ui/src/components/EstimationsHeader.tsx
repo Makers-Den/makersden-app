@@ -104,7 +104,10 @@ export const EstimationsHeader = ({
             return (
               <TouchableOpacity
                 key={key}
-                onPress={sectionLinkHandler({ sectionIndex, key })}
+                onPress={sectionLinkHandler({
+                  sectionIndex,
+                  key,
+                })}
               >
                 <HStack
                   px={2}

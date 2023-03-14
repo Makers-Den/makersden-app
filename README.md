@@ -21,9 +21,9 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 1. Copy the `.env` file to `.env.local` and fill in the values in `web` directory. You can find secrets in our company Bitwarden vault.
 2. Run the following command to install dependencies:
-    ```sh
-    yarn
-    ```
+   ```sh
+   yarn
+   ```
 3. Run the following command to start the NextJS app:
    ```sh
    yarn dev
@@ -40,4 +40,3 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    ```sh
    yarn lint:fix
    ```
- 

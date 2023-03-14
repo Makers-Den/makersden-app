@@ -6,11 +6,11 @@ interface FindEstimationQuery {
   client: StoryblokClient;
   environmentFolderName: string;
   secret: string;
-  preview?:boolean;
+  preview?: boolean;
 }
 
 export const findEstimation = async (
-  query: FindEstimationQuery,
+  query: FindEstimationQuery
 ): Promise<EstimationFindResult> => {
   try {
     const estimations = await query.client.getAll(`cdn/stories`, {

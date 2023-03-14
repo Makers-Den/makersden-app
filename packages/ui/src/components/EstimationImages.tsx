@@ -73,7 +73,9 @@ export const EstimationImages = ({
                   onPress={() => handleImagePress(1 + index)}
                 >
                   <Image
-                    source={{ uri: secondaryImage.filename }}
+                    source={{
+                      uri: secondaryImage.filename,
+                    }}
                     alt={secondaryImage.alt}
                     width="40px"
                     height="30px"
