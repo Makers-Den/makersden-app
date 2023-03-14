@@ -1,5 +1,6 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
+import { storyblokEditable } from "@storyblok/react";
 import { Divider, useBreakpointValue } from "native-base";
 import React, { useMemo } from "react";
 import * as R from "remeda";
@@ -17,6 +18,8 @@ import { LogoWrapper } from "../LogoWrapper";
 import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
 import { LoomSection } from "./LoomSection";
+
+
 
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
@@ -54,8 +57,9 @@ export const EstimationDetails = ({
     }
   };
 
+   const estimationContent=estimation.content;
   return (
-    <div>
+    <div {...storyblokEditable(estimationContent as any)}>
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
@@ -75,9 +79,10 @@ export const EstimationDetails = ({
           ) : null
         }
       />
-      {sections.map(({ rows, expectedDays, title, listIndex, key }) => {
+      {sections.map((section) => {
+        const { rows, expectedDays, title, listIndex, key }=section;
         return (
-          <div key={key} id={key}>
+          <div key={key} id={key} {...storyblokEditable(section)}>
             <EstimationsSectionHeader
               title={title}
               listIndex={listIndex}
@@ -87,16 +92,18 @@ export const EstimationDetails = ({
               top={0}
             />
             {rows.map(
-              ({
-                task,
-                description,
-                key: itemKey,
-                expectedDays,
-                images,
-                isIncluded,
-                listIndex,
-              }) => (
-                <React.Fragment key={itemKey}>
+              (row) =>{
+                  const {
+                    task,
+                    description,
+                    key: itemKey,
+                    expectedDays,
+                    images,
+                    isIncluded,
+                    listIndex,
+                  }=row;
+              return(
+                  <div key={itemKey} {...storyblokEditable(row)}>
                   <ExpandableComponent
                     isExpanded={expandedKeys.includes(itemKey)}
                     onClick={() => expandedKeys.toggle(itemKey)}
@@ -131,8 +138,8 @@ export const EstimationDetails = ({
                     }
                   />
                   <Divider bg="gray.400" />
-                </React.Fragment>
-              )
+                </div>
+              )}
             )}
           </div>
         );

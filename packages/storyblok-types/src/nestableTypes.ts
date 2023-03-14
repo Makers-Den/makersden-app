@@ -9,6 +9,7 @@ export interface EstimationSectionContent {
   title: string;
   description: StoryblockRichTextContent;
   component: "EstimationSection";
+  _editable?: string;
 }
 
 export interface EstimationRowContent {
@@ -21,4 +22,5 @@ export interface EstimationRowContent {
   optimisticDays: number;
   pessimisticDays: number;
   images?: StoryblockAssetContent[];
+  _editable?: string;
 }
