@@ -49,6 +49,9 @@
     "lint:fix": {
       "outputs": []
     },
+    "proxy": {
+      "outputs": []
+    },
     "ts:check": {
       "outputs": []
     }

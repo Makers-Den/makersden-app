@@ -19,8 +19,6 @@ import { ExpandableComponent } from "./ExpandableComponent";
 import { ImageGallery } from "./ImageGallery";
 import { LoomSection } from "./LoomSection";
 
-
-
 export interface EstimationDetailsProps {
   estimation: ISbStoryData<EstimationContent>;
   loomVideoHtml: string | null;
@@ -57,8 +55,9 @@ export const EstimationDetails = ({
     }
   };
 
-   const estimationContent=estimation.content;
+  const estimationContent = estimation.content;
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <div {...storyblokEditable(estimationContent as any)}>
       <LogoWrapper>
         <Logo />
@@ -80,7 +79,7 @@ export const EstimationDetails = ({
         }
       />
       {sections.map((section) => {
-        const { rows, expectedDays, title, listIndex, key }=section;
+        const { rows, expectedDays, title, listIndex, key } = section;
         return (
           <div key={key} id={key} {...storyblokEditable(section)}>
             <EstimationsSectionHeader
@@ -91,19 +90,18 @@ export const EstimationDetails = ({
               zIndex={10}
               top={0}
             />
-            {rows.map(
-              (row) =>{
-                  const {
-                    task,
-                    description,
-                    key: itemKey,
-                    expectedDays,
-                    images,
-                    isIncluded,
-                    listIndex,
-                  }=row;
-              return(
-                  <div key={itemKey} {...storyblokEditable(row)}>
+            {rows.map((row) => {
+              const {
+                task,
+                description,
+                key: itemKey,
+                expectedDays,
+                images,
+                isIncluded,
+                listIndex,
+              } = row;
+              return (
+                <div key={itemKey} {...storyblokEditable(row)}>
                   <ExpandableComponent
                     isExpanded={expandedKeys.includes(itemKey)}
                     onClick={() => expandedKeys.toggle(itemKey)}
@@ -139,8 +137,8 @@ export const EstimationDetails = ({
                   />
                   <Divider bg="gray.400" />
                 </div>
-              )}
-            )}
+              );
+            })}
           </div>
         );
       })}

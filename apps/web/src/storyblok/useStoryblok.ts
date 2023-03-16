@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ISbStoryData } from "storyblok-js-client";
 
-import { clientEnvironment } from "./clientEnvironment";
-import { createNamedLogger } from "./log";
-import { storyblokClient } from "./storyBlokClient";
-
-const RESOLVED_RELATIONS = "";
+import { clientEnvironment } from "../utils/clientEnvironment";
+import { STORYBLOK_RESOLVED_RELATIONS } from "../utils/consts";
+import { createNamedLogger } from "../utils/log";
+import { storyblokClient } from "./storyblokClient";
 
 const log = createNamedLogger("SB Bridge");
 
@@ -74,7 +73,7 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
     // @ts-ignore Shitty types
     const storyblokInstance = new StoryblokBridge({
       accessToken: clientEnvironment.STORYBLOK_ACCESS_TOKEN,
-      resolveRelations: RESOLVED_RELATIONS,
+      resolveRelations: STORYBLOK_RESOLVED_RELATIONS,
       // TODO: hard coded localhost, need to look into what the significance of this was
       // customParent: 'https://localhost:3010/',
       language: locale,
