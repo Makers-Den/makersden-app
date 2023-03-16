@@ -15,6 +15,7 @@
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "postinstall": "turbo run build --filter ui --filter api --filter storyblok-types --filter client-logic",
+    "proxy": "turbo run proxy",
     "ts:check": "turbo run ts:check"
   },
   "devDependencies": {
