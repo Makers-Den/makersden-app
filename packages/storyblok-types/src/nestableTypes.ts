@@ -1,4 +1,4 @@
-import { ISbRichtext } from "storyblok-js-client";
+import { ISbRichtext, ISbStoryData } from "storyblok-js-client";
 
 import type {
   StoryblockAssetContent,
@@ -12,7 +12,7 @@ export type BlockComponent = (props: any) => JSX.Element;
  * The types of components/blocks we support.
  * The are usually in the 'body' field of a page.
  */
-export type ComponentBlockType = "RichTextContent" | "SOWEstimationSection";
+export type ComponentBlockType = "RichTextContent" | "SoWEstimationSection";
 
 export interface RichTextContentContent {
   _uid?: string;
@@ -21,10 +21,27 @@ export interface RichTextContentContent {
   _editable?: string;
 }
 
-export interface SOWEstimationSectionContent {
+export interface SoWEstimationSectionContent {
   _uid?: string;
-  estimation: EstimationSectionContent;
-  component: "SOWEstimationSection";
+  estimation: ISbStoryData<EstimationContent>;
+  component: "SoWEstimationSection";
+  _editable?: string;
+}
+
+export interface CardContent {
+  _uid?: string;
+  title: string;
+  subTitle: string;
+  image?: StoryblockAssetContent;
+  body: ISbRichtext;
+  component: "Card";
+  _editable?: string;
+}
+
+export interface CardSectionContent {
+  _uid?: string;
+  cards: CardContent[];
+  component: "CardSection";
   _editable?: string;
 }
 

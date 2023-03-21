@@ -6,4 +6,4 @@
  * If a relation isn't resolved, it'll just be an array of uuids.
  * If a relation is resolved, it'll be an array of stories with content populated.
  */
-export const STORYBLOK_RESOLVED_RELATIONS = "SOWEstimationSection.estimation";
+export const STORYBLOK_RESOLVED_RELATIONS = "SoWEstimationSection.estimation";

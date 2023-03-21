@@ -8,7 +8,7 @@ type FindStoryArgs = {
   slug: string;
   locale?: string;
   isPreview?: boolean;
-  /** E.g. SOWEstimationSection.estimation, otherwise it'll just be an array of uids */
+  /** E.g. SoWEstimationSection.estimation, otherwise it'll just be an array of uids */
   resolveRelations?: string;
 };
 

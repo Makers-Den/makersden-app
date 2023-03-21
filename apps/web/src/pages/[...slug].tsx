@@ -1,8 +1,10 @@
 import { PageStory } from "@md/storyblok-types";
 import { AxiosError } from "axios";
 import { GetStaticProps, GetStaticPropsResult } from "next";
+import dynamic from "next/dynamic";
 
 import { RegularPage } from "../page-components/RegularPage";
+import { SoWPage } from "../page-components/SoWPage";
 import { findStory } from "../storyblok/storyblokRepository";
 import { useStoryblok } from "../storyblok/useStoryblok";
 import { STORYBLOK_RESOLVED_RELATIONS } from "../utils/consts";
@@ -14,6 +16,7 @@ const log = createNamedLoggerFromFilename(__filename);
  */
 const typeToPageComponent = {
   Page: RegularPage,
+  SoW: SoWPage,
 };
 
 export type PageType = keyof typeof typeToPageComponent;
@@ -28,10 +31,18 @@ const StoryblokPage = (props: StoryblokPageProps) => {
   const PageComponent = typeToPageComponent[pageType];
   const liveStory = useStoryblok(props.story, props.preview);
 
-  return <PageComponent story={liveStory} />;
+  return (
+    <PageComponent
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      story={liveStory}
+    />
+  );
 };
 
-export default StoryblokPage;
+export default dynamic(() => Promise.resolve(StoryblokPage), {
+  ssr: false,
+});
 
 export const getStaticProps: GetStaticProps<StoryblokPageProps> = async (
   args
