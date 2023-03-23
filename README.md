@@ -2,7 +2,7 @@
 
 ## Main features
 
-- [Generates estimations for a project based on google sheets data](https://github.com/Makers-Den/makersden-app/tree/main/docs/features/generate-estimation-based-on-google-sheet-data.md)
+- [Generates estimations for a project based on google sheets data](https://github.com/Makers-Den/makersden-app/blob/development/docs/features/generate-estimation-based-on-google-sheet-data.md)
 
 ## Apps and Packages
 
