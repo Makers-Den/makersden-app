@@ -40,8 +40,6 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    ```sh
    yarn lint:fix
    ```
-<<<<<<< HEAD
-=======
 ## Useful URLs
 
 ### Common
@@ -62,4 +60,3 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 - [Web](https://staging.app.makersden.io/)
 - [Google Play Store](https://play.google.com/apps/test/io.makersden.app/55) (remember to adjust the version code in the URL)
 - [Apple Store](https://appstoreconnect.apple.com/apps/1662830466/testflight/groups/54f472ec-0213-42b1-8022-333a7342f30f)
->>>>>>> main
