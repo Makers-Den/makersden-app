@@ -53,10 +53,10 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 - [Web](https://app.makersden.io/)
 - [Google Play Store](https://play.google.com/store/apps/details?id=io.makersden.app)
-- [Apple Store](@TODO Add link)
+- [Apple Store](https://apps.apple.com/us/app/makers-den-app/id1662830466)
 
 ### Staging
  
 - [Web](https://staging.app.makersden.io/)
 - [Google Play Store](https://play.google.com/apps/test/io.makersden.app/55) (remember to adjust the version code in the URL)
-- [Apple Store](@TODO Add link)
+- [Apple Store](https://appstoreconnect.apple.com/apps/1662830466/testflight/groups/54f472ec-0213-42b1-8022-333a7342f30f)
