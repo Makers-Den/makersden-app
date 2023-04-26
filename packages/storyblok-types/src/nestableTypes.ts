@@ -18,9 +18,10 @@ export interface EstimationRowContent {
   component: "EstimationRow";
   description: StoryblockRichTextContent;
   isIncluded: boolean;
-  nominalDays: number;
-  optimisticDays: number;
-  pessimisticDays: number;
+  //fields of type 'Number' in storyblok are returned as string anyway
+  nominalDays: number | string;
+  optimisticDays: number | string;
+  pessimisticDays: number | string;
   images?: StoryblockAssetContent[];
   _editable?: string;
 }
