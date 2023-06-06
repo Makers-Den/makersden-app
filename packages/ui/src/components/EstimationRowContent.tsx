@@ -14,6 +14,7 @@ export interface EstimationRowContentProps {
   images: StoryblockAssetContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
+  variant?: "sow" | "details";
   onImageClick?: (imageIndex: number) => void;
 }
 
@@ -21,6 +22,7 @@ export const EstimationRowContent = ({
   description,
   images,
   onImageClick,
+  variant = "details",
   wrapperProps = {},
 }: EstimationRowContentProps) => {
   const styles = useBreakpointValue({
@@ -42,10 +44,18 @@ export const EstimationRowContent = ({
         </Box>
       )}
       {isRichTextEmpty(description) ? (
-        <Text>No description available</Text>
+        <Text color={variant === "details" ? "white" : "black"}>
+          No description available
+        </Text>
       ) : (
         <Box flexGrow={1} flexShrink={1}>
-          <RichTextResolver richText={description} />
+          <RichTextResolver
+            richText={description}
+            textProps={{
+              fontSize: "sm",
+              color: variant === "details" ? "white" : "black",
+            }}
+          />
         </Box>
       )}
     </Stack>

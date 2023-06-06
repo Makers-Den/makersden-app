@@ -60,7 +60,7 @@ export const EstimationDetails = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <div {...storyblokEditable(estimationContent as any)}>
       <LogoWrapper>
-        <Logo />
+        <Logo isDark={false} />
       </LogoWrapper>
 
       <EstimationsHeader
@@ -78,70 +78,60 @@ export const EstimationDetails = ({
           ) : null
         }
       />
-      {sections.map((section) => {
-        const { rows, expectedDays, title, listIndex, key } = section;
-        return (
-          <div key={key} id={key} {...storyblokEditable(section)}>
-            <EstimationsSectionHeader
-              title={title}
-              listIndex={listIndex}
-              expectedDays={expectedDays}
-              position={"sticky"}
-              zIndex={10}
-              top={0}
-            />
-            {rows.map((row) => {
-              const {
-                task,
-                description,
-                key: itemKey,
-                expectedDays,
-                images,
-                isIncluded,
-                listIndex,
-              } = row;
-              return (
-                <div key={itemKey} {...storyblokEditable(row)}>
-                  <ExpandableComponent
-                    isExpanded={expandedKeys.includes(itemKey)}
-                    onClick={() => expandedKeys.toggle(itemKey)}
-                    headerComponent={({ isHovered, isPressed }) => (
-                      <EstimationRowHeader
-                        expectedDays={expectedDays}
-                        order={listIndex}
-                        text={task}
-                        isHighlighted={isHovered || isPressed}
-                        isIncluded={isIncluded}
-                        wrapperProps={{
-                          px: 4,
-                        }}
-                      />
-                    )}
-                    hideableComponent={
-                      <EstimationRowContent
-                        description={description}
-                        images={images}
-                        wrapperProps={{ px: 4 }}
-                        onImageClick={(imageIndex) => {
-                          gallery.open(
-                            images.map((image) => ({
-                              alt: image.alt,
-                              id: image.id,
-                              url: image.filename,
-                            })),
-                            imageIndex
-                          );
-                        }}
-                      />
-                    }
+      {sections.map((section) => (
+        <div key={section.key} id={section.key} {...storyblokEditable(section)}>
+          <EstimationsSectionHeader
+            title={section.title}
+            listIndex={section.listIndex}
+            expectedDays={section.expectedDays}
+            nominalDays={section.nominalDays}
+            optimisticDays={section.optimisticDays}
+            pessimisticDays={section.pessimisticDays}
+            position={"sticky"}
+            zIndex={10}
+            top={0}
+          />
+
+          {section.rows.map((row) => (
+            <div key={row.key} {...storyblokEditable(row)}>
+              <ExpandableComponent
+                isExpanded={expandedKeys.includes(row.key)}
+                onClick={() => expandedKeys.toggle(row.key)}
+                headerComponent={({ isHovered, isPressed }) => (
+                  <EstimationRowHeader
+                    expectedDays={row.expectedDays}
+                    order={row.listIndex}
+                    text={row.task}
+                    isHighlighted={isHovered || isPressed}
+                    isIncluded={row.isIncluded}
+                    wrapperProps={{
+                      px: 4,
+                    }}
                   />
-                  <Divider bg="gray.400" />
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+                )}
+                hideableComponent={
+                  <EstimationRowContent
+                    description={description}
+                    images={row.images}
+                    wrapperProps={{ px: 4 }}
+                    onImageClick={(imageIndex) => {
+                      gallery.open(
+                        row.images.map((image) => ({
+                          alt: image.alt,
+                          id: image.id,
+                          url: image.filename,
+                        })),
+                        imageIndex
+                      );
+                    }}
+                  />
+                }
+              />
+              <Divider bg="gray.400" />
+            </div>
+          ))}
+        </div>
+      ))}
       <Copyright />
       <ImageGallery
         initialImageIndex={gallery.initialImageIndex ?? 0}

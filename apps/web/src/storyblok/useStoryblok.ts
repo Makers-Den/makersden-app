@@ -107,6 +107,7 @@ export const useStoryblok = <StoryDataType extends ISbStoryData>(
       storyblokClient
         .get(`cdn/stories/${event.storyId}`, {
           version: "draft",
+          resolve_relations: STORYBLOK_RESOLVED_RELATIONS,
         })
         .then(async ({ data }) => {
           if (data.story) {

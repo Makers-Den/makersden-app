@@ -17,8 +17,21 @@ export type RegularPageStory = ISbStoryData<
   ISbComponentType<"Page"> & RegularPageContent
 >;
 
+type SoWPageContent = {
+  title: string;
+  subTitle: string;
+  author: string;
+  date: string;
+  body?: Body;
+};
+
+/** Type def for the 'SoW' component content-type in Storyblok */
+export type SowPageStory = ISbStoryData<
+  ISbComponentType<"SoW"> & SoWPageContent
+>;
+
 /**
  * This type corresponds to the possible top level stories
  * (Storyblok components tagged "Content Type" like Page) fetched from Storyblok.
  */
-export type PageStory = RegularPageStory;
+export type PageStory = RegularPageStory | SowPageStory;
