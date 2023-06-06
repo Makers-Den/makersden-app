@@ -5,28 +5,35 @@ import { ISbStoryData } from "storyblok-js-client";
 
 const ROUND_PLACES_AFTER_COMMA = 1;
 
-const calculateExpectedDays = (row: EstimationRowContent) =>
-  (row.optimisticDays + 4 * row.nominalDays + row.pessimisticDays) / 6;
+const calculateExpectedDays = (row: EstimationRowContent) => {
+  return (
+    (Number(row.optimisticDays) +
+      4 * Number(row.nominalDays) +
+      Number(row.pessimisticDays)) /
+    6
+  );
+};
 
 const roundDays = (days: number) =>
   Math.round(days * 10 * ROUND_PLACES_AFTER_COMMA) /
   (10 * ROUND_PLACES_AFTER_COMMA);
 
 const mapRow =
-  (sectionIndex: number) => (row: EstimationRowContent, rowIndex: number) => ({
-    key: row._uid ?? "",
-    description: row.description,
-    task: row.task,
-    nominalDays: row.nominalDays,
-    optimisticDays: row.optimisticDays,
-    pessimisticDays: row.pessimisticDays,
-    expectedDays: roundDays(calculateExpectedDays(row)),
-    isIncluded: row.isIncluded,
-    images: row.images || [],
-    listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
-    _editable: row._editable,
-  });
-
+  (sectionIndex: number) => (row: EstimationRowContent, rowIndex: number) => {
+    return {
+      key: row._uid ?? "",
+      description: row.description,
+      task: row.task,
+      nominalDays: Number(row.nominalDays),
+      optimisticDays: Number(row.optimisticDays),
+      pessimisticDays: Number(row.pessimisticDays),
+      expectedDays: roundDays(calculateExpectedDays(row)),
+      isIncluded: row.isIncluded,
+      images: row.images || [],
+      listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
+      _editable: row._editable,
+    };
+  };
 export const useMapEstimationData = (
   estimation: ISbStoryData<EstimationContent>
 ) => {
