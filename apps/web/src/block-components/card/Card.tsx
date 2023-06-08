@@ -1,21 +1,28 @@
 import { CardContent } from "@md/storyblok-types";
 import { RichTextResolver } from "@md/ui/src/components/RichTextResolver";
-import { Flex, Image, Text } from "native-base";
+import { Box, Flex, Text } from "native-base";
+import Image from "next/image";
 
 export const Card = ({ body, title, subTitle, image }: CardContent) => {
   return (
     <Flex width="320px" alignItems="center">
-      {image && (
-        <Image
-          source={{ uri: image.filename }}
-          alt={image.alt}
-          width="150px"
-          height="150px"
-          resizeMode="cover"
-          borderRadius="full"
-          mb="3"
-        />
-      )}
+      <Box
+        width="150px"
+        height="150px"
+        borderRadius="full"
+        mb="3"
+        overflow="hidden"
+        position="relative"
+      >
+        {image && (
+          <Image
+            src={image.filename}
+            alt={image.alt}
+            objectFit="cover"
+            layout="fill"
+          />
+        )}
+      </Box>
 
       <Flex alignItems="center" mb="6">
         <Text color="black" fontWeight="bold">

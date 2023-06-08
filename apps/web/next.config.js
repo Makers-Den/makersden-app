@@ -16,6 +16,7 @@ module.exports = withNativebase({
     webpack5: true,
     images: {
       disableStaticImages: true,
+      domains: ["a.storyblok.com"],
     },
   },
 });
