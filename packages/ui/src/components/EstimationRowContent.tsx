@@ -14,6 +14,7 @@ export interface EstimationRowContentProps {
   images: StoryblockAssetContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
+  imageWrapperProps?: IStackProps;
   variant?: "sow" | "details";
   onImageClick?: (imageIndex: number) => void;
 }
@@ -24,14 +25,15 @@ export const EstimationRowContent = ({
   onImageClick,
   variant = "details",
   wrapperProps = {},
+  imageWrapperProps = {},
 }: EstimationRowContentProps) => {
   const styles = useBreakpointValue({
     base: {
-      imageWrapper: {},
+      imageWrapper: imageWrapperProps,
       stack: { direction: "column", pb: 2 },
     },
     lg: {
-      imageWrapper: { mr: 2 },
+      imageWrapper: { mr: 2, ...imageWrapperProps },
       stack: { direction: "row", pb: 4 },
     },
   });
