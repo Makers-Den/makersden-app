@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { STORYBLOK_ESTIMATIONS_FOLDER_ID } from "./constants";
+
 const validateEnvVars = z.object({
   APP_ENVIRONMENT: z.enum(["development", "staging", "production"]),
   GOOGLE_SHEETS_API_KEY: z.string().min(1),
@@ -17,8 +19,7 @@ export const serverEnvironment = validateEnvVars.parse(
     GOOGLE_SHEETS_API_KEY: process.env.GOOGLE_SHEETS_API_KEY,
     SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
     STORYBLOK_ACCESS_TOKEN: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
-    STORYBLOK_ESTIMATIONS_FOLDER_ID:
-      process.env.STORYBLOK_ESTIMATIONS_FOLDER_ID,
+    STORYBLOK_ESTIMATIONS_FOLDER_ID,
     STORYBLOK_OAUTH_TOKEN: process.env.STORYBLOK_OAUTH_TOKEN,
     STORYBLOK_PREVIEW_SECRET: process.env.STORYBLOK_PREVIEW_SECRET,
     STORYBLOK_SPACE_ID: process.env.STORYBLOK_SPACE_ID,
