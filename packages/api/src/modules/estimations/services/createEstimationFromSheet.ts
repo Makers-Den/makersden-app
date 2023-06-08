@@ -12,7 +12,6 @@ interface CreateEstimationFromSheetCommand {
   spreadsheetId: string;
   storyblokReadClient: StoryblokClient;
   storyblokWriteClient: StoryblokClient;
-  storyblokEnvironmentFolderName: string;
   storyblokEstimationsFolderId: string;
   storyblokSpaceId: string;
 }

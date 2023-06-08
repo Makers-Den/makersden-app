@@ -13,7 +13,6 @@ export interface EstimationsModuleDeps {
   storyblokReadClient: StoryblokClient;
   storyblokWriteClient: StoryblokClient;
   storyblokEstimationsFolderId: string;
-  storyblokEnvironmentFolderName: string;
   storyblokSpaceId: string;
 }
 
@@ -26,7 +25,6 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         sheetsClient: deps.sheetsClient,
         spreadsheetId,
         storyblokEstimationsFolderId: deps.storyblokEstimationsFolderId,
-        storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokSpaceId: deps.storyblokSpaceId,
       }),
     notifyEstimationOpened: (secret: string, ipAddress: string | null) => {
@@ -39,14 +37,12 @@ export const estimationsModule = (deps: EstimationsModuleDeps) => {
         estimationSecret: secret,
         ipAddress,
         slackWebhookUrl: deps.slackWebhookUrl,
-        storyblokEnvironmentFolderName: deps.storyblokEnvironmentFolderName,
         storyblokReadClient: deps.storyblokReadClient,
       });
     },
     findEstimation: (secret: string, preview: boolean) =>
       findEstimation({
         client: deps.storyblokReadClient,
-        environmentFolderName: deps.storyblokEnvironmentFolderName,
         secret,
         preview,
       }),
