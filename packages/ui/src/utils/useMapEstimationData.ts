@@ -68,13 +68,13 @@ export const useMapEstimationData = (
               R.sumBy(includedRows, calculateExpectedDays)
             ),
             nominalDays: roundDays(
-              R.sumBy(includedRows, (row) => row.nominalDays)
+              R.sumBy(includedRows, (row) => Number(row.nominalDays))
             ),
             optimisticDays: roundDays(
-              R.sumBy(includedRows, (row) => row.optimisticDays)
+              R.sumBy(includedRows, (row) => Number(row.optimisticDays))
             ),
             pessimisticDays: roundDays(
-              R.sumBy(includedRows, (row) => row.pessimisticDays)
+              R.sumBy(includedRows, (row) => Number(row.pessimisticDays))
             ),
             listIndex: `${sectionIndex + 1}`,
           };
