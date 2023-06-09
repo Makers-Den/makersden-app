@@ -9,7 +9,6 @@ interface NotifyEstimationOpenedCommand {
   estimationSecret: string;
   ipAddress: string | null;
   storyblokReadClient: StoryblokClient;
-  storyblokEnvironmentFolderName: string;
   slackWebhookUrl: string;
 }
 
@@ -18,7 +17,6 @@ export const notifyEstimationOpened = async (
 ) => {
   const findEstimationResult = await findStoryblokEstimation({
     client: command.storyblokReadClient,
-    environmentFolderName: command.storyblokEnvironmentFolderName,
     secret: command.estimationSecret,
   });
 

@@ -14,6 +14,7 @@ module.exports = {
     "react/jsx-key": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "react/display-name": "off",
     "prefer-arrow/prefer-arrow-functions": [
       "warn",
       {

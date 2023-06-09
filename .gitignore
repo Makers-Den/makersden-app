@@ -17,6 +17,7 @@ build
 # expo
 .expo
 service-account.json
+eas-update-output.json
 
 # misc
 .DS_Store

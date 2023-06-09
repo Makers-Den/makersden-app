@@ -34,7 +34,7 @@ export const EstimationGateScreen = ({
     <View justifyContent="center" alignItems="center">
       {Platform.OS === "web" && (
         <LogoWrapper>
-          <Logo />
+          <Logo isDark={false} />
         </LogoWrapper>
       )}
 

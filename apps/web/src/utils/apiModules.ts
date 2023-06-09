@@ -22,8 +22,6 @@ export const apiModules: ApiModules = {
     appEnvironment: serverEnvironment.APP_ENVIRONMENT,
     sheetsClient: sheetsClient,
     slackWebhookUrl: serverEnvironment.SLACK_WEBHOOK_URL,
-    storyblokEnvironmentFolderName:
-      serverEnvironment.STORYBLOK_ENVIRONMENT_FOLDER_NAME,
     storyblokEstimationsFolderId:
       serverEnvironment.STORYBLOK_ESTIMATIONS_FOLDER_ID,
     storyblokReadClient: StoryblockReadClient,

@@ -1,9 +1,6 @@
 import type { ISbRichtext } from "storyblok-js-client";
 
-export interface StoryblockRichTextContent {
-  type: string;
-  content: Array<{ type: string; content: ISbRichtext[] }>;
-}
+export type StoryblockRichTextContent = ISbRichtext;
 
 export interface StoryblockAssetContent {
   id: number;

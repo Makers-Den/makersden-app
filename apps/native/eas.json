@@ -14,15 +14,27 @@
         "simulator": true
       },
       "distribution": "internal",
-      "channel": "staging"
+      "channel": "staging",
+      "env": {
+        "SENTRY_ORG": "makersden-rb",
+        "SENTRY_PROJECT": "makers-den-app-native-staging"
+      }
     },
     "staging-store": {
       "autoIncrement": true,
-      "channel": "staging-store"
+      "channel": "staging-store",
+      "env": {
+        "SENTRY_ORG": "makersden-rb",
+        "SENTRY_PROJECT": "makers-den-app-native-staging"
+      }
     },
     "production": {
       "autoIncrement": true,
-      "channel": "production"
+      "channel": "production",
+      "env": {
+        "SENTRY_ORG": "makersden-rb",
+        "SENTRY_PROJECT": "makers-den-app-native-production"
+      }
     }
   },
   "submit": {

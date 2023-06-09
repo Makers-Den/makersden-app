@@ -139,13 +139,14 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
           />
         }
         stickySectionHeadersEnabled
-        renderSectionHeader={({
-          section: { title, expectedDays, listIndex },
-        }) => (
+        renderSectionHeader={({ section }) => (
           <EstimationsSectionHeader
-            title={title}
-            expectedDays={expectedDays}
-            listIndex={listIndex}
+            title={section.title}
+            expectedDays={section.expectedDays}
+            nominalDays={section.nominalDays}
+            optimisticDays={section.optimisticDays}
+            pessimisticDays={section.pessimisticDays}
+            listIndex={section.listIndex}
           />
         )}
         ItemSeparatorComponent={() => <Divider bg="gray.400" />}

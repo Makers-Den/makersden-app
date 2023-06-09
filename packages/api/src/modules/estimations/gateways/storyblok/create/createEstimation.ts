@@ -21,7 +21,7 @@ export const createEstimation = async (
         parent_id: command.folderId,
         content: command.estimation,
       },
-      publish: 1
+      publish: 1,
     });
 
     return { isError: false };

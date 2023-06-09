@@ -2,7 +2,7 @@ import {
   StoryblockAssetContent,
   StoryblockRichTextContent,
 } from "@md/storyblok-types";
-import { Box,Stack, Text, useBreakpointValue } from "native-base";
+import { Box, Stack, Text, useBreakpointValue } from "native-base";
 import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
 import React from "react";
 
@@ -14,6 +14,8 @@ export interface EstimationRowContentProps {
   images: StoryblockAssetContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
+  imageWrapperProps?: IStackProps;
+  variant?: "sow" | "details";
   onImageClick?: (imageIndex: number) => void;
 }
 
@@ -21,15 +23,17 @@ export const EstimationRowContent = ({
   description,
   images,
   onImageClick,
+  variant = "details",
   wrapperProps = {},
+  imageWrapperProps = {},
 }: EstimationRowContentProps) => {
   const styles = useBreakpointValue({
     base: {
-      imageWrapper: {},
+      imageWrapper: imageWrapperProps,
       stack: { direction: "column", pb: 2 },
     },
     lg: {
-      imageWrapper: { mr: 2 },
+      imageWrapper: { mr: 2, ...imageWrapperProps },
       stack: { direction: "row", pb: 4 },
     },
   });
@@ -42,10 +46,18 @@ export const EstimationRowContent = ({
         </Box>
       )}
       {isRichTextEmpty(description) ? (
-        <Text>No description available</Text>
+        <Text color={variant === "details" ? "white" : "black"}>
+          No description available
+        </Text>
       ) : (
         <Box flexGrow={1} flexShrink={1}>
-          <RichTextResolver richText={description} />
+          <RichTextResolver
+            richText={description}
+            textProps={{
+              fontSize: "sm",
+              color: variant === "details" ? "white" : "black",
+            }}
+          />
         </Box>
       )}
     </Stack>

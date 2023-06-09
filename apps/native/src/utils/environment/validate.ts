@@ -14,5 +14,9 @@ export const validateEnvVars = z.object({
   /**
    * Base app URL used for the deep linking https://reactnavigation.org/docs/deep-linking/#setup-with-expo-projects
    */
+  SENTRY_DSN: z.string().min(1).optional(),
+  /**
+   * @TODO Add env description
+   */
   WEB_LINKING_URL: z.string().url(),
 });

@@ -5,6 +5,12 @@ on:
       message:
         description: "EAS Update commit message"
         required: true
+      versionCode:
+        description: "Android app version code"
+        required: true
+      buildNumber:
+        description: "iOS app build number"
+        required: true
 jobs:
   update-staging-store-app:
     runs-on: ubuntu-22.04
@@ -26,4 +32,24 @@ jobs:
         run: yarn --immutable
       - name: Update staging store app
         working-directory: ./apps/native
-        run: eas update --branch staging-store --message "${{ github.event.inputs.message }}"
+        run: eas update --branch staging-store --message "${{ github.event.inputs.message }}" --json --non-interactive >> ./eas-update-output.json
+      - name: Install Sentry CLI
+        run: curl -sL https://sentry.io/get-cli/ | bash
+      - name: Update Sentry source maps
+        working-directory: ./apps/native
+        run: |
+          version=$(jq '.expo.version' app.json | tr -d '"')
+          androidPackage=$(jq '.expo.android.package' app.json | tr -d '"')
+          androidReleaseName=${androidPackage}@${version}+${{ github.event.inputs.versionCode }}
+          androidUpdateId=$(jq '.[0].id' eas-update-output.json | tr -d '"')
+          androidJsFilename=$(find ./dist/bundles -name 'android-*.js' -print -quit)
+          androidJsHash=$(basename $androidJsFilename .js | sed 's/android-//')
+          cp ./dist/bundles/android-${androidJsHash}.js ./dist/bundles/index.android.bundle
+          bundleIdentifier=$(jq '.expo.ios.bundleIdentifier' app.json | tr -d '"')
+          iosReleaseName=${bundleIdentifier}@${version}+${{ github.event.inputs.buildNumber }}
+          iosUpdateId=$(jq '.[1].id' eas-update-output.json | tr -d '"')
+          iosJsFilename=$(find ./dist/bundles -name 'ios-*.js' -print -quit)
+          iosJsHash=$(basename $iosJsFilename .js | sed 's/ios-//')
+          cp ./dist/bundles/ios-${iosJsHash}.js ./dist/bundles/main.jsbundle
+          sentry-cli releases files ${androidReleaseName} upload-sourcemaps --dist ${androidUpdateId} --rewrite dist/bundles/index.android.bundle dist/bundles/android-${androidJsHash}.map --org ${{ vars.SENTRY_ORG }} --project ${{ vars.SENTRY_PROJECT_APP_STAGING }} --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }}
+          sentry-cli releases files ${iosReleaseName} upload-sourcemaps --dist ${iosUpdateId} --rewrite dist/bundles/main.jsbundle dist/bundles/ios-${iosJsHash}.map --org ${{ vars.SENTRY_ORG }} --project ${{ vars.SENTRY_PROJECT_APP_STAGING }} --auth-token ${{ secrets.SENTRY_AUTH_TOKEN }}

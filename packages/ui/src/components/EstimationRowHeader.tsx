@@ -12,6 +12,7 @@ export interface EstimationRowHeaderProps {
   isIncluded: boolean;
   isHighlighted?: boolean;
   wrapperProps?: IHStackProps;
+  variant?: "sow" | "details";
 }
 
 export const EstimationRowHeader = ({
@@ -21,6 +22,7 @@ export const EstimationRowHeader = ({
   isIncluded,
   isHighlighted = false,
   wrapperProps = {},
+  variant = "details",
 }: EstimationRowHeaderProps) => {
   const textStyles = useBreakpointValue({
     base: {
@@ -42,10 +44,24 @@ export const EstimationRowHeader = ({
       {...wrapperProps}
     >
       <HStack space={2} flexBasis={"60%"}>
-        <Text {...textStyles}>{order}.</Text>
-        <RichTextResolver richText={text} textProps={textStyles} />
+        <Text color={variant === "details" ? "white" : "black"} {...textStyles}>
+          {order}.
+        </Text>
+        <RichTextResolver
+          richText={text}
+          textProps={{
+            ...textStyles,
+            color: variant === "details" ? "white" : "black",
+          }}
+        />
       </HStack>
-      <Text flexBasis={"auto"} strikeThrough={!isIncluded} {...textStyles}>
+
+      <Text
+        color={variant === "details" ? "white" : "black"}
+        flexBasis={"auto"}
+        strikeThrough={!isIncluded}
+        {...textStyles}
+      >
         {expectedDays} days
       </Text>
     </HStack>

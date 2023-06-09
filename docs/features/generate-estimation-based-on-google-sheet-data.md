@@ -8,7 +8,7 @@ Each estimation starts with the estimation sheet. You can create your estimation
 
 Sheets must follow strict format requirements in order to be easily parsed by our backend. If we had to create an e-commerce website for the company selling guitars, this is how the estimation could look like [link](https://docs.google.com/spreadsheets/d/1X4semvPm9mZxQ9OyGkGG8sf-roLQ8wMuadHSYc7WYLc/edit#gid=0)
 
-![Guitarex Google Sheet](docs/images/guitarex-google-sheet.png)
+![Guitarex Google Sheet](https://github.com/Makers-Den/makersden-app/blob/development/docs/images/guitarex-google-sheet.png?raw=true)
 
 1. Title - what do we estimate
 2. Organization - for whom do we estimate

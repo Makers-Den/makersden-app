@@ -20,9 +20,6 @@ export const estimationsRouter = createTRPCRouter({
       })
     )
     .mutation(({ ctx, input }) =>
-      ctx.estimations.notifyEstimationOpened(
-        input.secret,
-        ctx.ipAddress
-      )
+      ctx.estimations.notifyEstimationOpened(input.secret, ctx.ipAddress)
     ),
 });

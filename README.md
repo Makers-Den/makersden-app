@@ -2,7 +2,7 @@
 
 ## Main features
 
-- [Generates estimations for a project based on google sheets data](https://github.com/Makers-Den/makersden-app/tree/main/docs/features/generate-estimation-based-on-google-sheet-data.md)
+- [Generates estimations for a project based on google sheets data](https://github.com/Makers-Den/makersden-app/blob/development/docs/features/generate-estimation-based-on-google-sheet-data.md)
 
 ## Apps and Packages
 
@@ -21,9 +21,9 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 1. Copy the `.env` file to `.env.local` and fill in the values in `web` directory. You can find secrets in our company Bitwarden vault.
 2. Run the following command to install dependencies:
-    ```sh
-    yarn
-    ```
+   ```sh
+   yarn
+   ```
 3. Run the following command to start the NextJS app:
    ```sh
    yarn dev
