@@ -1,16 +1,21 @@
+import Image from "next/image";
 import React from "react";
-import { Image, StyleSheet } from "react-native";
 
-export const Logo = () => {
+export interface LogoProps {
+  isDark: boolean;
+}
+
+export const Logo = ({ isDark }: LogoProps) => {
   return (
-    // eslint-disable-next-line jsx-a11y/alt-text
-    <Image style={styles.image} source={require("../../assets/logo.png")} />
+    <Image
+      width={200}
+      height={29}
+      alt="Logo"
+      src={
+        isDark
+          ? require("../../assets/logo-dark.png")
+          : require("../../assets/logo.png")
+      }
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: 200,
-    height: 29,
-  },
-});

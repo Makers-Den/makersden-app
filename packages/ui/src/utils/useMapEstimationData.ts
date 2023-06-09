@@ -53,6 +53,10 @@ export const useMapEstimationData = (
           sectionIndex
         ) => {
           const rows = R.map.indexed(initialRows, mapRow(sectionIndex));
+          const includedRows = R.pipe(
+            initialRows,
+            R.filter((row) => row.isIncluded)
+          );
 
           return {
             rows,
@@ -61,11 +65,16 @@ export const useMapEstimationData = (
             key: _uid,
             _editable,
             expectedDays: roundDays(
-              R.pipe(
-                initialRows,
-                R.filter((row) => row.isIncluded),
-                R.sumBy((row) => calculateExpectedDays(row))
-              )
+              R.sumBy(includedRows, calculateExpectedDays)
+            ),
+            nominalDays: roundDays(
+              R.sumBy(includedRows, (row) => row.nominalDays)
+            ),
+            optimisticDays: roundDays(
+              R.sumBy(includedRows, (row) => row.optimisticDays)
+            ),
+            pessimisticDays: roundDays(
+              R.sumBy(includedRows, (row) => row.pessimisticDays)
             ),
             listIndex: `${sectionIndex + 1}`,
           };

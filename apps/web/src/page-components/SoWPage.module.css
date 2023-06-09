@@ -1,0 +1,20 @@
+@media print {
+  /* target all pages */
+  @page {
+    margin: 2cm;
+    margin-bottom: 1.5cm;
+  }
+
+  /* target the first page only */
+  @page :first {
+    margin-top: 6cm;
+  }
+}
+
+.content img {
+  break-before: avoid;
+}
+
+.content h1 {
+  break-before: always;
+}
