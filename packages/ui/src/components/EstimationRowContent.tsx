@@ -1,5 +1,5 @@
 import {
-  StoryblockAssetContent,
+  PastableImageContent,
   StoryblockRichTextContent,
 } from "@md/storyblok-types";
 import { Box, Stack, Text, useBreakpointValue } from "native-base";
@@ -11,7 +11,7 @@ import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {
-  images: StoryblockAssetContent[];
+  images?: PastableImageContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
   imageWrapperProps?: IStackProps;
@@ -37,10 +37,10 @@ export const EstimationRowContent = ({
       stack: { direction: "row", pb: 4 },
     },
   });
-
+  console.log({ images });
   return (
     <Stack space={2} pt={2} {...styles.stack} {...wrapperProps}>
-      {images.length > 0 && (
+      {images && images.length > 0 && (
         <Box {...styles.imageWrapper}>
           <EstimationImages images={images} onImageClick={onImageClick} />
         </Box>

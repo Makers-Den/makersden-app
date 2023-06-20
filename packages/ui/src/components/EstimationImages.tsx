@@ -1,17 +1,16 @@
-import { StoryblockAssetContent } from "@md/storyblok-types";
+import { PastableImageContent } from "@md/storyblok-types";
 import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-
 export interface EstimationImagesProps {
-  images: StoryblockAssetContent[];
+  images: PastableImageContent[];
   onImageClick?: (imageIndex: number) => void;
 }
 
 const SECONDARY_IMAGE_COUNT = 2;
 
-const getSecondaryImages = (images: StoryblockAssetContent[]) => {
-  const secondaryImages: StoryblockAssetContent[] = [];
+const getSecondaryImages = (images: PastableImageContent[]) => {
+  const secondaryImages: PastableImageContent[] = [];
 
   for (let i = 1; i < 1 + SECONDARY_IMAGE_COUNT; i += 1) {
     if (images[i]) {
@@ -22,7 +21,7 @@ const getSecondaryImages = (images: StoryblockAssetContent[]) => {
   return secondaryImages;
 };
 
-const getAdditionalImageCount = (images: StoryblockAssetContent[]) =>
+const getAdditionalImageCount = (images: PastableImageContent[]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
 
 export const EstimationImages = ({
@@ -54,7 +53,7 @@ export const EstimationImages = ({
           onPress={() => handleImagePress(0)}
         >
           <Image
-            source={{ uri: primaryImage.filename }}
+            source={{ uri: primaryImage.url }}
             alt={primaryImage.alt}
             width="120px"
             height="80px"
@@ -68,13 +67,13 @@ export const EstimationImages = ({
             <HStack space={3}>
               {secondaryImages.map((secondaryImage, index) => (
                 <TouchableOpacity
-                  key={secondaryImage.id}
+                  key={secondaryImage.url}
                   activeOpacity={0.8}
                   onPress={() => handleImagePress(1 + index)}
                 >
                   <Image
                     source={{
-                      uri: secondaryImage.filename,
+                      uri: secondaryImage.url,
                     }}
                     alt={secondaryImage.alt}
                     width="40px"

@@ -29,6 +29,7 @@ const mapRow =
       pessimisticDays: Number(row.pessimisticDays),
       expectedDays: roundDays(calculateExpectedDays(row)),
       isIncluded: row.isIncluded,
+      pastableImage: row.pastableImage ?? { images: [], plugin: "", _uid: "" },
       images: row.images || [],
       listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
       _editable: row._editable,
@@ -43,7 +44,7 @@ export const useMapEstimationData = (
     title,
     loomVideo,
   } = estimation.content;
-
+  console.log({ initialSections });
   const sections = useMemo(
     () =>
       R.map.indexed(
