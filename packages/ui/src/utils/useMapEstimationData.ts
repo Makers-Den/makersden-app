@@ -50,7 +50,7 @@ export const useMapEstimationData = (
     title,
     loomVideo,
   } = estimation.content;
-  console.log({ initialSections });
+
   const sections = useMemo(
     () =>
       R.map.indexed(

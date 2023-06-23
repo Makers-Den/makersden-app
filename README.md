@@ -28,7 +28,13 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    ```sh
    yarn dev
    ```
-4. Run the following command to start the Expo app (we keep this separate from the NextJS app so that we can leverage the Expo interactive CLI tools and choose simulator platform):
+4. Install Expo CLI by running:
+
+   ```sh
+   npm i -g expo-cli@6.0.8
+   ```
+
+5. Run the following command to start the Expo app (we keep this separate from the NextJS app so that we can leverage the Expo interactive CLI tools and choose simulator platform):
    ```sh
    yarn dev:ios
    ```
@@ -36,10 +42,11 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
    ```sh
    yarn dev:android
    ```
-5. To lint the codebase, run:
+6. To lint the codebase, run:
    ```sh
    yarn lint:fix
    ```
+
 ## Useful URLs
 
 ### Common
@@ -56,7 +63,7 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 - [Apple Store](https://apps.apple.com/us/app/makers-den-app/id1662830466)
 
 ### Staging
- 
+
 - [Web](https://staging.app.makersden.io/)
 - [Google Play Store](https://play.google.com/apps/test/io.makersden.app/55) (remember to adjust the version code in the URL)
 - [Apple Store](https://appstoreconnect.apple.com/apps/1662830466/testflight/groups/54f472ec-0213-42b1-8022-333a7342f30f)

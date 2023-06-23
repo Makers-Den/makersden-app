@@ -156,7 +156,7 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             description,
             key: itemKey,
             expectedDays,
-            images,
+            pastableImage,
             isIncluded,
             listIndex,
           },
@@ -179,10 +179,10 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             hideableComponent={
               <EstimationRowContent
                 description={description}
-                images={images}
+                images={pastableImage.images}
                 onImageClick={(imageIndex) => {
                   gallery.open(
-                    images.map((image) => ({
+                    pastableImage.images.map((image) => ({
                       ...image,
                       id: image.url,
                     })),
