@@ -183,9 +183,8 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
                 onImageClick={(imageIndex) => {
                   gallery.open(
                     images.map((image) => ({
-                      alt: image.alt,
-                      id: image.id,
-                      url: image.filename,
+                      ...image,
+                      id: image.url,
                     })),
                     imageIndex
                   );

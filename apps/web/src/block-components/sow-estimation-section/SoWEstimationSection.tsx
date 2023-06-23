@@ -44,7 +44,7 @@ export const SoWEstimationSection = ({
 
               <EstimationRowContent
                 description={row.description}
-                images={row.images}
+                images={row.pastableImage.images}
                 wrapperProps={{
                   px: 4,
                 }}
@@ -52,10 +52,9 @@ export const SoWEstimationSection = ({
                 imageWrapperProps={{ testID: "image-gallery" }}
                 onImageClick={(imageIndex) => {
                   gallery.open(
-                    row.images.map((image) => ({
-                      alt: image.alt,
-                      id: image.id,
-                      url: image.filename,
+                    row.pastableImage.images.map((image) => ({
+                      ...image,
+                      id: image.url,
                     })),
                     imageIndex
                   );

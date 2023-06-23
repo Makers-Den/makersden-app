@@ -3,14 +3,14 @@ import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 export interface EstimationImagesProps {
-  images: PastableImageContent[];
+  images: PastableImageContent["images"];
   onImageClick?: (imageIndex: number) => void;
 }
 
 const SECONDARY_IMAGE_COUNT = 2;
 
-const getSecondaryImages = (images: PastableImageContent[]) => {
-  const secondaryImages: PastableImageContent[] = [];
+const getSecondaryImages = (images: PastableImageContent["images"]) => {
+  const secondaryImages: PastableImageContent["images"] = [];
 
   for (let i = 1; i < 1 + SECONDARY_IMAGE_COUNT; i += 1) {
     if (images[i]) {
@@ -21,7 +21,7 @@ const getSecondaryImages = (images: PastableImageContent[]) => {
   return secondaryImages;
 };
 
-const getAdditionalImageCount = (images: PastableImageContent[]) =>
+const getAdditionalImageCount = (images: PastableImageContent["images"]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
 
 export const EstimationImages = ({

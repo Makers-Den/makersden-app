@@ -1,4 +1,8 @@
-import { EstimationContent, EstimationRowContent } from "@md/storyblok-types";
+import {
+  EstimationContent,
+  EstimationRowContent,
+  PastableImageContent,
+} from "@md/storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
 import { ISbStoryData } from "storyblok-js-client";
@@ -29,7 +33,9 @@ const mapRow =
       pessimisticDays: Number(row.pessimisticDays),
       expectedDays: roundDays(calculateExpectedDays(row)),
       isIncluded: row.isIncluded,
-      pastableImage: row.pastableImage ?? { images: [], plugin: "", _uid: "" },
+      pastableImage:
+        row.pastableImage ??
+        ({ images: [], plugin: "", _uid: "" } as PastableImageContent),
       images: row.images || [],
       listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
       _editable: row._editable,

@@ -75,6 +75,16 @@ export interface EstimationRowContent {
   nominalDays: number | string;
   optimisticDays: number | string;
   pessimisticDays: number | string;
-  images?: StoryblockAssetContent[];
+  images?: PastableImageContent["images"];
+  pastableImage?: PastableImageContent;
   _editable?: string;
+}
+
+export interface PastableImageContent {
+  _uid: string;
+  plugin: string;
+  images: {
+    alt: string;
+    url: string;
+  }[];
 }

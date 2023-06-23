@@ -11,7 +11,7 @@ import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {
-  images?: PastableImageContent[];
+  images?: PastableImageContent["images"];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
   imageWrapperProps?: IStackProps;
