@@ -1,7 +1,4 @@
-import {
-  ClipboardImageContent,
-  StoryblockRichTextContent,
-} from "@md/storyblok-types";
+import { ImageContent, StoryblockRichTextContent } from "@md/storyblok-types";
 import { Box, Stack, Text, useBreakpointValue } from "native-base";
 import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
 import React from "react";
@@ -11,7 +8,7 @@ import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {
-  images?: ClipboardImageContent["images"];
+  images?: ImageContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
   imageWrapperProps?: IStackProps;

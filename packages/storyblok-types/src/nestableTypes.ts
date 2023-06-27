@@ -82,8 +82,10 @@ export interface EstimationRowContent {
 
 export interface ClipboardImageContent {
   _uid: string;
-  images: {
-    alt: string;
-    url: string;
-  }[];
+  images: ImageContent[];
+}
+
+export interface ImageContent {
+  alt: string;
+  url: string;
 }
