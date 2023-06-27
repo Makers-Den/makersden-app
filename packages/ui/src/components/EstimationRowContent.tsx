@@ -1,7 +1,4 @@
-import {
-  StoryblockAssetContent,
-  StoryblockRichTextContent,
-} from "@md/storyblok-types";
+import { ImageContent, StoryblockRichTextContent } from "@md/storyblok-types";
 import { Box, Stack, Text, useBreakpointValue } from "native-base";
 import { IStackProps } from "native-base/lib/typescript/components/primitives/Stack/Stack";
 import React from "react";
@@ -11,7 +8,7 @@ import { EstimationImages } from "./EstimationImages";
 import { RichTextResolver } from "./RichTextResolver";
 
 export interface EstimationRowContentProps {
-  images: StoryblockAssetContent[];
+  images?: ImageContent[];
   description: StoryblockRichTextContent;
   wrapperProps?: IStackProps;
   imageWrapperProps?: IStackProps;
@@ -40,7 +37,7 @@ export const EstimationRowContent = ({
 
   return (
     <Stack space={2} pt={2} {...styles.stack} {...wrapperProps}>
-      {images.length > 0 && (
+      {images && images.length > 0 && (
         <Box {...styles.imageWrapper}>
           <EstimationImages images={images} onImageClick={onImageClick} />
         </Box>
