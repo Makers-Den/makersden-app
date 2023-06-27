@@ -1,7 +1,7 @@
 import {
+  ClipboardImageContent,
   EstimationContent,
   EstimationRowContent,
-  PastableImageContent,
 } from "@md/storyblok-types";
 import { useMemo } from "react";
 import * as R from "remeda";
@@ -33,9 +33,9 @@ const mapRow =
       pessimisticDays: Number(row.pessimisticDays),
       expectedDays: roundDays(calculateExpectedDays(row)),
       isIncluded: row.isIncluded,
-      pastableImage:
-        row.pastableImage ??
-        ({ images: [], plugin: "", _uid: "" } as PastableImageContent),
+      clipboardImages:
+        row.clipboardImages ??
+        ({ images: [], plugin: "", _uid: "" } as ClipboardImageContent),
       images: row.images || [],
       listIndex: `${sectionIndex + 1}.${rowIndex + 1}`,
       _editable: row._editable,

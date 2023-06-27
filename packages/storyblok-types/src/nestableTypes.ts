@@ -75,14 +75,13 @@ export interface EstimationRowContent {
   nominalDays: number | string;
   optimisticDays: number | string;
   pessimisticDays: number | string;
-  images?: PastableImageContent["images"];
-  pastableImage?: PastableImageContent;
+  images?: StoryblockAssetContent[];
+  clipboardImages?: ClipboardImageContent;
   _editable?: string;
 }
 
-export interface PastableImageContent {
+export interface ClipboardImageContent {
   _uid: string;
-  plugin: string;
   images: {
     alt: string;
     url: string;

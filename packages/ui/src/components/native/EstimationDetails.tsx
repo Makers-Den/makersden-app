@@ -1,5 +1,6 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
+import { concatenateImages } from "@md/ui/src/utils/concatenateImages";
 import * as WebBrowser from "expo-web-browser";
 import { Divider } from "native-base";
 import React, { useMemo, useRef } from "react";
@@ -156,7 +157,8 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             description,
             key: itemKey,
             expectedDays,
-            pastableImage,
+            clipboardImages,
+            images,
             isIncluded,
             listIndex,
           },
@@ -179,13 +181,15 @@ export const EstimationDetails = ({ estimation }: EstimationDetailsProps) => {
             hideableComponent={
               <EstimationRowContent
                 description={description}
-                images={pastableImage.images}
+                images={concatenateImages(clipboardImages.images, images)}
                 onImageClick={(imageIndex) => {
                   gallery.open(
-                    pastableImage.images.map((image) => ({
-                      ...image,
-                      id: image.url,
-                    })),
+                    concatenateImages(clipboardImages.images, images).map(
+                      (image) => ({
+                        ...image,
+                        id: image.url,
+                      })
+                    ),
                     imageIndex
                   );
                 }}

@@ -1,5 +1,6 @@
 import { useArray } from "@md/client-logic";
 import { EstimationContent } from "@md/storyblok-types";
+import { concatenateImages } from "@md/ui/src/utils/concatenateImages";
 import { storyblokEditable } from "@storyblok/react";
 import { Divider, useBreakpointValue } from "native-base";
 import React, { useMemo } from "react";
@@ -56,6 +57,7 @@ export const EstimationDetails = ({
   };
 
   const estimationContent = estimation.content;
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <div {...storyblokEditable(estimationContent as any)}>
@@ -112,11 +114,17 @@ export const EstimationDetails = ({
                 hideableComponent={
                   <EstimationRowContent
                     description={description}
-                    images={row.pastableImage.images}
+                    images={concatenateImages(
+                      row.clipboardImages.images,
+                      row.images
+                    )}
                     wrapperProps={{ px: 4 }}
                     onImageClick={(imageIndex) => {
                       gallery.open(
-                        row.pastableImage.images.map((image) => ({
+                        concatenateImages(
+                          row.clipboardImages.images,
+                          row.images
+                        ).map((image) => ({
                           ...image,
                           id: image.url,
                         })),

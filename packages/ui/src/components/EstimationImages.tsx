@@ -1,16 +1,16 @@
-import { PastableImageContent } from "@md/storyblok-types";
+import { ClipboardImageContent } from "@md/storyblok-types";
 import { Box, Flex, HStack, Image, Text, VStack } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 export interface EstimationImagesProps {
-  images: PastableImageContent["images"];
+  images: ClipboardImageContent["images"];
   onImageClick?: (imageIndex: number) => void;
 }
 
 const SECONDARY_IMAGE_COUNT = 2;
 
-const getSecondaryImages = (images: PastableImageContent["images"]) => {
-  const secondaryImages: PastableImageContent["images"] = [];
+const getSecondaryImages = (images: ClipboardImageContent["images"]) => {
+  const secondaryImages: ClipboardImageContent["images"] = [];
 
   for (let i = 1; i < 1 + SECONDARY_IMAGE_COUNT; i += 1) {
     if (images[i]) {
@@ -21,7 +21,7 @@ const getSecondaryImages = (images: PastableImageContent["images"]) => {
   return secondaryImages;
 };
 
-const getAdditionalImageCount = (images: PastableImageContent["images"]) =>
+const getAdditionalImageCount = (images: ClipboardImageContent["images"]) =>
   Math.max(images.length - 1 - SECONDARY_IMAGE_COUNT, 0);
 
 export const EstimationImages = ({
