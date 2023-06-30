@@ -111,7 +111,7 @@ export const EstimationDetails = ({
                 )}
                 hideableComponent={
                   <EstimationRowContent
-                    description={description}
+                    description={row.description}
                     images={row.images}
                     wrapperProps={{ px: 4 }}
                     onImageClick={(imageIndex) => {
