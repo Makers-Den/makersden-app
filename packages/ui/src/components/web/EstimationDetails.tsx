@@ -113,7 +113,7 @@ export const EstimationDetails = ({
                 )}
                 hideableComponent={
                   <EstimationRowContent
-                    description={description}
+                    description={row.description}
                     images={concatenateImages(
                       row.clipboardImages.images,
                       row.images
