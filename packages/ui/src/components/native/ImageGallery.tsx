@@ -4,6 +4,9 @@ import { ImageSourcePropType, Modal } from "react-native";
 import Swiper from "react-native-web-swiper";
 
 import { ImageGalleryButton } from "../ImageGalleryButton";
+import { CaretLeftIcon } from "./icons/CaretLeftIcon";
+import { CaretRightIcon } from "./icons/CaretRightIcon";
+import { CloseIcon } from "./icons/CloseIcon";
 
 interface GalleryImage {
   id: string | number;
@@ -43,12 +46,16 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           nextPos: "right",
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           NextComponent: (({ onPress }: any) => (
-            <ImageGalleryButton onPress={onPress} text=">" />
+            <ImageGalleryButton onPress={onPress}>
+              <CaretRightIcon />
+            </ImageGalleryButton>
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           PrevComponent: (({ onPress }: any) => (
-            <ImageGalleryButton onPress={onPress} text="<" />
+            <ImageGalleryButton onPress={onPress}>
+              <CaretLeftIcon />
+            </ImageGalleryButton>
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,
           DotComponent: ({ isActive, onPress }) => (
@@ -76,7 +83,9 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
         ))}
       </Swiper>
       <Box position="absolute" top="6" right="4" safeArea>
-        <ImageGalleryButton onPress={onClose} text="X" />
+        <ImageGalleryButton onPress={onClose} backgroundColor="none">
+          <CloseIcon />
+        </ImageGalleryButton>
       </Box>
     </Modal>
   );
