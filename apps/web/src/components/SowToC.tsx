@@ -1,5 +1,5 @@
 import { sentenceToId } from "@md/client-logic";
-import { Box, Flex, Link, Text, VStack } from "native-base";
+import { Box, Flex, Link, VStack } from "native-base";
 import React from "react";
 
 export interface SoWToCEntry {
@@ -34,44 +34,46 @@ export const SowToC = ({ entries }: SowTocProps) => {
   const groupedEntries = groupEntries(entries);
 
   return (
-    <VStack>
-      {groupedEntries.map((groupedEntry, i) => (
-        <Box my="1" key={i}>
-          <Flex direction="row">
-            <Link
-              _text={{
-                color: "purple.400",
-                textDecoration: "underline",
-                fontSize: "md",
-                fontWeight: "bold",
-              }}
-              href={`#${sentenceToId(groupedEntry.text ?? "")}`}
-            >
-              {groupedEntry.text}
-            </Link>
-          </Flex>
+    <div style={{ pageBreakAfter: "always" }}>
+      <VStack>
+        {groupedEntries.map((groupedEntry, i) => (
+          <Box my="1" key={i}>
+            <Flex direction="row">
+              <Link
+                _text={{
+                  color: "purple.400",
+                  textDecoration: "underline",
+                  fontSize: "md",
+                  fontWeight: "bold",
+                }}
+                href={`#${sentenceToId(groupedEntry.text ?? "")}`}
+              >
+                {groupedEntry.text}
+              </Link>
+            </Flex>
 
-          {groupedEntry.children.length > 0 && (
-            <Box ml="8">
-              {groupedEntry.children.map((groupedEntryChild, i) => (
-                <Flex key={i} direction="row">
-                  <Link
-                    _text={{
-                      color: "purple.400",
-                      textDecoration: "underline",
-                      fontSize: "md",
-                      fontWeight: "normal",
-                    }}
-                    href={`#${sentenceToId(groupedEntryChild)}`}
-                  >
-                    {groupedEntryChild}
-                  </Link>
-                </Flex>
-              ))}
-            </Box>
-          )}
-        </Box>
-      ))}
-    </VStack>
+            {groupedEntry.children.length > 0 && (
+              <Box ml="8">
+                {groupedEntry.children.map((groupedEntryChild, i) => (
+                  <Flex key={i} direction="row">
+                    <Link
+                      _text={{
+                        color: "purple.400",
+                        textDecoration: "underline",
+                        fontSize: "md",
+                        fontWeight: "normal",
+                      }}
+                      href={`#${sentenceToId(groupedEntryChild)}`}
+                    >
+                      {groupedEntryChild}
+                    </Link>
+                  </Flex>
+                ))}
+              </Box>
+            )}
+          </Box>
+        ))}
+      </VStack>
+    </div>
   );
 };
