@@ -15,6 +15,7 @@ export const Logo = ({ isDark }: LogoProps) => {
           ? require("../../assets/logo-dark.png")
           : require("../../assets/logo.png")
       }
+      accessibilityLabel={"Logo"}
     />
   );
 };
