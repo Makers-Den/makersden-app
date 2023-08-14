@@ -3,6 +3,8 @@ import Carousel from "nuka-carousel";
 import React, { useEffect, useState } from "react";
 import { ImageSourcePropType, Modal } from "react-native";
 
+import { CaretIcon } from "../CaretIcon";
+import { CloseIcon } from "../CloseIcon";
 import { ImageGalleryButton } from "../ImageGalleryButton";
 
 interface GalleryImage {
@@ -46,14 +48,18 @@ export const ImageGallery = ({
             renderCenterLeftControls={({ previousSlide, previousDisabled }) =>
               previousDisabled ? null : (
                 <Box ml={2}>
-                  <ImageGalleryButton onPress={previousSlide} text="<" />
+                  <ImageGalleryButton onPress={previousSlide}>
+                    <CaretIcon />
+                  </ImageGalleryButton>
                 </Box>
               )
             }
             renderCenterRightControls={({ nextSlide, nextDisabled }) =>
               nextDisabled ? null : (
                 <Box mr={2}>
-                  <ImageGalleryButton onPress={nextSlide} text=">" />
+                  <ImageGalleryButton onPress={nextSlide}>
+                    <CaretIcon style={{ rotate: "180deg" }} />
+                  </ImageGalleryButton>
                 </Box>
               )
             }
@@ -91,7 +97,9 @@ export const ImageGallery = ({
           </Carousel>
 
           <Box position="absolute" top={6} right={2} safeArea>
-            <ImageGalleryButton onPress={onClose} text="X" />
+            <ImageGalleryButton onPress={onClose} backgroundColor="none">
+              <CloseIcon />
+            </ImageGalleryButton>
           </Box>
         </Box>
       </Box>
