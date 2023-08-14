@@ -76,5 +76,16 @@ export interface EstimationRowContent {
   optimisticDays: number | string;
   pessimisticDays: number | string;
   images?: StoryblockAssetContent[];
+  clipboardImages?: ClipboardImageContent;
   _editable?: string;
+}
+
+export interface ClipboardImageContent {
+  _uid: string;
+  images: ImageContent[];
+}
+
+export interface ImageContent {
+  alt: string;
+  url: string;
 }
