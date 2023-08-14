@@ -40,8 +40,8 @@ export const SowToC = ({ entries }: SowTocProps) => {
           <Flex direction="row">
             <Link
               _text={{
-                color: "black",
-                textDecoration: "none",
+                color: "purple.400",
+                textDecoration: "underline",
                 fontSize: "md",
                 fontWeight: "bold",
               }}
@@ -57,8 +57,8 @@ export const SowToC = ({ entries }: SowTocProps) => {
                 <Flex key={i} direction="row">
                   <Link
                     _text={{
-                      color: "black",
-                      textDecoration: "none",
+                      color: "purple.400",
+                      textDecoration: "underline",
                       fontSize: "md",
                       fontWeight: "normal",
                     }}
