@@ -12,7 +12,10 @@ export type BlockComponent = (props: any) => JSX.Element;
  * The types of components/blocks we support.
  * The are usually in the 'body' field of a page.
  */
-export type ComponentBlockType = "RichTextContent" | "SoWEstimationSection";
+export type ComponentBlockType =
+  | "RichTextContent"
+  | "SoWEstimationSection"
+  | "PageBreak";
 
 export interface RichTextContentContent {
   _uid?: string;
