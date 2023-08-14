@@ -3,9 +3,10 @@ import React from "react";
 import { ImageSourcePropType, Modal } from "react-native";
 import Swiper from "react-native-web-swiper";
 
-import { CaretIcon } from "../CaretIcon";
-import { CloseIcon } from "../CloseIcon";
 import { ImageGalleryButton } from "../ImageGalleryButton";
+import { CaretLeftIcon } from "./icons/CaretLeftIcon";
+import { CaretRightIcon } from "./icons/CaretRightIcon";
+import { CloseIcon } from "./icons/CloseIcon";
 
 interface GalleryImage {
   id: string | number;
@@ -46,14 +47,14 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           NextComponent: (({ onPress }: any) => (
             <ImageGalleryButton onPress={onPress}>
-              <CaretIcon />
+              <CaretRightIcon />
             </ImageGalleryButton>
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           PrevComponent: (({ onPress }: any) => (
             <ImageGalleryButton onPress={onPress}>
-              <CaretIcon style={{ rotate: "180deg" }} />
+              <CaretLeftIcon />
             </ImageGalleryButton>
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           )) as any,

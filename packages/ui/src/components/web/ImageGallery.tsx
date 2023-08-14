@@ -3,9 +3,9 @@ import Carousel from "nuka-carousel";
 import React, { useEffect, useState } from "react";
 import { ImageSourcePropType, Modal } from "react-native";
 
-import { CaretIcon } from "../CaretIcon";
-import { CloseIcon } from "../CloseIcon";
 import { ImageGalleryButton } from "../ImageGalleryButton";
+import { CaretIcon } from "./icons/CaretIcon";
+import { CloseIcon } from "./icons/CloseIcon";
 
 interface GalleryImage {
   id: string | number;
