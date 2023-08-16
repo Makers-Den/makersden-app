@@ -49,7 +49,7 @@ export const useMapEstimationData = (
     description,
     title,
     loomVideo,
-  } = estimation.content ?? {};
+  } = estimation?.content ?? {};
 
   const sections = useMemo(
     () =>

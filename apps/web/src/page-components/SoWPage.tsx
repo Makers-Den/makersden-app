@@ -1,7 +1,12 @@
-import { RichTextContentContent, SowPageStory } from "@md/storyblok-types";
+import {
+  RichTextContentContent,
+  SoWEstimationSectionContent,
+  SowPageStory,
+} from "@md/storyblok-types";
 import { ContentWrapper } from "@md/ui/src/components/ContentWrapper";
 import { Logo } from "@md/ui/src/components/Logo";
 import { LogoWrapper } from "@md/ui/src/components/LogoWrapper";
+import { useMapEstimationData } from "@md/ui/src/utils/useMapEstimationData";
 import { Box, Button, Flex } from "native-base";
 import Head from "next/head";
 import { useRef } from "react";
@@ -14,12 +19,21 @@ import styles from "./SoWPage.module.css";
 
 interface SoWPageProps {
   story: SowPageStory;
+  pricePerHour?: number;
 }
 
-export const SoWPage = ({ story }: SoWPageProps) => {
+export const SoWPage = ({ story, pricePerHour }: SoWPageProps) => {
   const { author, date, subTitle, title, body = [] } = story.content;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const estimation = (
+    body.filter((blok) => blok.component === "SoWEstimationSection")[0] as
+      | SoWEstimationSectionContent
+      | undefined
+  ).estimation;
+
+  const { sumOfExpectedDays } = useMapEstimationData(estimation);
+  console.log({ pricePerHour, body, sumOfExpectedDays });
 
   const tocEntries: SoWToCEntry[] = R.pipe(
     body as RichTextContentContent[],
@@ -102,7 +116,12 @@ export const SoWPage = ({ story }: SoWPageProps) => {
             </Box>
 
             {body.map((blok) => (
-              <BlockComponentRenderer content={blok} key={blok._uid} />
+              <BlockComponentRenderer
+                content={blok}
+                key={blok._uid}
+                pricePerHour={pricePerHour}
+                sumOfExpectedDays={sumOfExpectedDays}
+              />
             ))}
           </Box>
         </div>

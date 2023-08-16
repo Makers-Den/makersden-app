@@ -17,6 +17,8 @@ export type ComponentBlockType = "RichTextContent" | "SoWEstimationSection";
 export interface RichTextContentContent {
   _uid?: string;
   text: ISbRichtext;
+  pricePerHour: number;
+  sumOfExpectedDays: number;
   component: "RichTextContent";
   _editable?: string;
 }
