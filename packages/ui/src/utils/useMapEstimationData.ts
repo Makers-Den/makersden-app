@@ -45,11 +45,11 @@ export const useMapEstimationData = (
   estimation: ISbStoryData<EstimationContent>
 ) => {
   const {
-    sections: initialSections,
+    sections: initialSections = [],
     description,
     title,
     loomVideo,
-  } = estimation.content;
+  } = estimation.content ?? {};
 
   const sections = useMemo(
     () =>
