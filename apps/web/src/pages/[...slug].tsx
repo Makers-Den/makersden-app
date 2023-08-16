@@ -2,7 +2,6 @@ import { PageStory } from "@md/storyblok-types";
 import { AxiosError } from "axios";
 import { GetStaticProps, GetStaticPropsResult } from "next";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 
 import { RegularPage } from "../page-components/RegularPage";
 import { SoWPage } from "../page-components/SoWPage";
@@ -31,20 +30,11 @@ const StoryblokPage = (props: StoryblokPageProps) => {
   const pageType = props.story.content.component as PageType;
   const PageComponent = typeToPageComponent[pageType];
   const liveStory = useStoryblok(props.story, props.preview);
-
-  // TODO perhaps move it to page component
-  const {
-    query: { p },
-  } = useRouter();
-
-  // TODO change default in preview mode
-  const pricePerHour = typeof p === "string" ? Number(p) : undefined;
   return (
     <PageComponent
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       story={liveStory}
-      pricePerHour={pricePerHour}
     />
   );
 };

@@ -54,11 +54,6 @@ const LiNodeResolver = (children: ReactNode) => {
   return <li>{children}</li>;
 };
 
-const blokResolvers = {
-  CardSection: (props) => <CardSection {...props} />,
-  CalculatedField: (props) => <CalculatedField {...props} />,
-};
-
 const nodeResolvers = {
   [NODE_IMAGE]: ImageNodeResolver,
   [NODE_UL]: UlNodeResolver,

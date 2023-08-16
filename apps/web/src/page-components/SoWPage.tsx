@@ -9,6 +9,7 @@ import { LogoWrapper } from "@md/ui/src/components/LogoWrapper";
 import { useMapEstimationData } from "@md/ui/src/utils/useMapEstimationData";
 import { Box, Button, Flex } from "native-base";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useRef } from "react";
 import * as R from "remeda";
 
@@ -19,13 +20,20 @@ import styles from "./SoWPage.module.css";
 
 interface SoWPageProps {
   story: SowPageStory;
-  pricePerHour?: number;
 }
 
-export const SoWPage = ({ story, pricePerHour }: SoWPageProps) => {
+export const SoWPage = ({ story }: SoWPageProps) => {
   const { author, date, subTitle, title, body = [] } = story.content;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const {
+    query: { p },
+  } = useRouter();
+
+  // TODO change default in preview mode
+  const pricePerHour = typeof p === "string" ? parseInt(p, 16) : undefined;
+
   const estimation = (
     body.filter((blok) => blok.component === "SoWEstimationSection")[0] as
       | SoWEstimationSectionContent
@@ -33,7 +41,12 @@ export const SoWPage = ({ story, pricePerHour }: SoWPageProps) => {
   ).estimation;
 
   const { sumOfExpectedDays } = useMapEstimationData(estimation);
-  console.log({ pricePerHour, body, sumOfExpectedDays });
+
+  console.log({
+    pricePerHour,
+    body: body[4].text,
+    sumOfExpectedDays,
+  });
 
   const tocEntries: SoWToCEntry[] = R.pipe(
     body as RichTextContentContent[],
