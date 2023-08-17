@@ -23,7 +23,6 @@ import styles from "./SoWPage.module.css";
 
 interface SoWPageProps {
   story: SowPageStory;
-  isPreview: boolean;
 }
 
 export const SoWPage = ({ story }: SoWPageProps) => {

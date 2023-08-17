@@ -1,7 +1,7 @@
 import { RichTextContentContent } from "@md/storyblok-types";
 import { RichTextResolver } from "@md/ui/src/components/RichTextResolver";
 import { Box, Flex, Text } from "native-base";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import {
   NODE_IMAGE,
   NODE_LI,
@@ -9,7 +9,6 @@ import {
   NODE_UL,
 } from "storyblok-rich-text-react-renderer";
 
-import { CalculatedField } from "../calculated-field/CalculatedField";
 import { CardSection } from "../card-section/CardSection";
 
 interface ImageNodeResolverProps {
@@ -54,32 +53,21 @@ const LiNodeResolver = (children: ReactNode) => {
   return <li>{children}</li>;
 };
 
+const blokResolvers = {
+  CardSection: (props) => <CardSection {...props} />,
+};
+
 const nodeResolvers = {
   [NODE_IMAGE]: ImageNodeResolver,
   [NODE_UL]: UlNodeResolver,
   [NODE_LI]: LiNodeResolver,
 };
 
-export const RichTextContent = ({
-  pricePerHour,
-  sumOfExpectedDays,
-  text: richText,
-}: RichTextContentContent) => {
-  const blokResolvers = {
-    CardSection: (props) => <CardSection {...props} />,
-    CalculatedField: (props) => (
-      <CalculatedField
-        {...props}
-        pricePerHour={pricePerHour}
-        sumOfExpectedDays={sumOfExpectedDays}
-      />
-    ),
-  };
-
+export const RichTextContent = (props: RichTextContentContent) => {
   return (
     <Box>
       <RichTextResolver
-        richText={richText}
+        richText={props.text}
         textProps={{ color: "black" }}
         granularTextProps={{ [NODE_PARAGRAPH]: { fontSize: "md", my: "3" } }}
         nodeResolvers={nodeResolvers}
