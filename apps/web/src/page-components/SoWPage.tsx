@@ -12,6 +12,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import * as R from "remeda";
+import { ISbRichtext } from "storyblok-js-client";
 
 import { BlockComponentRenderer } from "../block-components/BlockComponentRenderer";
 import { SoWCover } from "../components/SoWCover";
@@ -55,7 +56,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
         return blok;
       }
 
-      const newContent = [];
+      const newContent /*: ISbRichtext[]*/ = [];
 
       (blok as RichTextContentContent).text?.content.forEach((content, idx) => {
         // TODO handle previous not being a text, handle connecting the next
@@ -86,13 +87,15 @@ export const SoWPage = ({ story }: SoWPageProps) => {
           };
 
           const computedContent = computeField(content.attrs.body[0].content);
+
           newContent.push({
             ...previousContent,
             content: [
               ...previousContent.content.slice(0, -1),
               {
-                ...previousContent.content.slice(-1),
-                text: previousContent.content + computedContent,
+                ...previousContent.content.slice(-1)[0],
+                text:
+                  previousContent.content.slice(-1)[0].text + computedContent,
               },
             ], // ?
             isBlokInjected: true,
