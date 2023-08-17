@@ -10,7 +10,7 @@ import { useMapEstimationData } from "@md/ui/src/utils/useMapEstimationData";
 import { Box, Button, Flex } from "native-base";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as R from "remeda";
 import { ISbRichtext } from "storyblok-js-client";
 
@@ -22,6 +22,7 @@ import styles from "./SoWPage.module.css";
 
 interface SoWPageProps {
   story: SowPageStory;
+  isPreview: boolean;
 }
 
 export const SoWPage = ({ story }: SoWPageProps) => {
@@ -31,10 +32,12 @@ export const SoWPage = ({ story }: SoWPageProps) => {
 
   const {
     query: { p },
+    isReady: isRouterReady,
+    isPreview,
   } = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const pricePerHour = typeof p === "string" ? hexToFloat(p) : "xyz";
+  const pricePerHour = typeof p === "string" ? hexToFloat(p) : 50;
 
   const estimation = (
     body.filter((blok) => blok.component === "SoWEstimationSection")[0] as
@@ -45,9 +48,11 @@ export const SoWPage = ({ story }: SoWPageProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { sumOfExpectedDays: workDays } = useMapEstimationData(estimation);
 
-  // if (pricePerHour === "xyz" || !workDays) {
-  //   throw Error("Price per hour or work days not defined");
-  // }
+  useEffect(() => {
+    if (isRouterReady && !isPreview && (!p || !workDays)) {
+      throw new Error("Price per hour or work days are not defined");
+    }
+  }, [p, workDays, isPreview, isRouterReady]);
 
   const computeField = (content: string) => {
     try {
@@ -57,7 +62,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
       }
       return eval(content);
     } catch {
-      return content.replace("pricePerHour", String(pricePerHour));
+      return content;
     }
   };
 
@@ -169,7 +174,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
     });
   };
 
-  return (
+  return isRouterReady ? (
     <>
       <Head>
         <title>{title}</title>
@@ -213,5 +218,13 @@ export const SoWPage = ({ story }: SoWPageProps) => {
         </div>
       </ContentWrapper>
     </>
+  ) : (
+    <Flex
+      style={{ height: "100vh" }}
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Logo isDark />
+    </Flex>
   );
 };
