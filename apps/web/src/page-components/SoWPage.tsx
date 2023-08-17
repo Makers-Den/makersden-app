@@ -42,12 +42,70 @@ export const SoWPage = ({ story }: SoWPageProps) => {
 
   const { sumOfExpectedDays } = useMapEstimationData(estimation);
 
-  console.log({
-    pricePerHour,
-    body: body[4].text,
-    sumOfExpectedDays,
-  });
+  // console.log({
+  //   pricePerHour,
+  //   body,
+  //   body4: body[4].text,
+  //   sumOfExpectedDays,
+  // });
 
+  const renderRichtextMiddleware = (body) =>
+    body.map((blok) => {
+      if (blok.component !== "RichTextContent") {
+        return blok;
+      }
+
+      const newContent = [];
+
+      (blok as RichTextContentContent).text?.content.forEach((content, idx) => {
+        // TODO handle previous not being a text, handle connecting the next
+
+        const previousContent = newContent.pop();
+        if (previousContent?.isBlokInjected) {
+          newContent.push({
+            ...previousContent,
+            content: [
+              ...previousContent.content.slice(0, -1),
+              {
+                ...previousContent.content.slice(-1),
+                text: previousContent.content + content,
+              },
+            ],
+            isBlokInjected: false,
+          }); // ?
+          // TODO Filter out only CalculatedFields
+          // TODO handle previous not being a text - it can be empty
+        } else if (content.type === "blok") {
+          const computeField = (content) => {
+            try {
+              return eval(content);
+            } catch {
+              // TODO replace with "content" (?)
+              return "Error occurred";
+            }
+          };
+
+          const computedContent = computeField(content.attrs.body[0].content);
+          newContent.push({
+            ...previousContent,
+            content: [
+              ...previousContent.content.slice(0, -1),
+              {
+                ...previousContent.content.slice(-1),
+                text: previousContent.content + computedContent,
+              },
+            ], // ?
+            isBlokInjected: true,
+          });
+        }
+        newContent.push(content);
+      });
+
+      return newContent;
+    });
+
+  const richtext = renderRichtextMiddleware(body);
+  console.log({ richtext, body4: body[4].text, body });
   const tocEntries: SoWToCEntry[] = R.pipe(
     body as RichTextContentContent[],
     R.filter((blok) => blok.component === "RichTextContent"),
