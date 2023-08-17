@@ -17,6 +17,7 @@ import { ISbRichtext } from "storyblok-js-client";
 import { BlockComponentRenderer } from "../block-components/BlockComponentRenderer";
 import { SoWCover } from "../components/SoWCover";
 import { SowToC, SoWToCEntry } from "../components/SowToC";
+import { formatNumber } from "../utils/formatNumber";
 import { hexToFloat } from "../utils/hexToFloat";
 import styles from "./SoWPage.module.css";
 
@@ -56,11 +57,26 @@ export const SoWPage = ({ story }: SoWPageProps) => {
 
   const computeField = (content: string) => {
     try {
-      const evaluatedContent = eval(content).toString();
-      if (evaluatedContent === "NaN") {
-        throw Error();
+      const evaluateContent = (text: string) => {
+        const pipeIndex = text.indexOf("|");
+        if (pipeIndex !== -1) {
+          const number = text.slice(0, pipeIndex).trim();
+          const evaluatedNumber = eval(number);
+          const decimals = Number(text.slice(pipeIndex + 1).trim());
+
+          return decimals
+            ? parseFloat(evaluatedNumber.toFixed(decimals))
+            : parseInt(evaluatedNumber);
+        }
+        const evaluatedNumber = eval(text);
+        return parseInt(evaluatedNumber);
+      };
+
+      const evaluatedContent = evaluateContent(content);
+      if (evaluatedContent.toString() === "NaN") {
+        return content;
       }
-      return eval(content);
+      return formatNumber(evaluatedContent);
     } catch {
       return content;
     }
