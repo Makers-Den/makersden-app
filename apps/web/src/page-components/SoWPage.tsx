@@ -12,6 +12,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import * as R from "remeda";
+import { ISbRichtext } from "storyblok-js-client";
 
 import { BlockComponentRenderer } from "../block-components/BlockComponentRenderer";
 import { SoWCover } from "../components/SoWCover";
@@ -32,6 +33,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
   } = useRouter();
 
   // TODO change default in preview mode
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pricePerHour = typeof p === "string" ? parseInt(p, 16) : undefined;
 
   const estimation = (
@@ -40,6 +42,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
       | undefined
   ).estimation;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { sumOfExpectedDays: workDays } = useMapEstimationData(estimation);
 
   const computeField = (content: string) => {
@@ -51,16 +54,22 @@ export const SoWPage = ({ story }: SoWPageProps) => {
     }
   };
 
-  const processText = (text: string): string => {
-    const regex = /#(.*?)#/g;
+  const processTextWithComputedField = (text: string): string => {
+    const regex = /{(.*?)}/g;
     return text.replace(regex, (match, fieldName) => {
       return computeField(fieldName.trim());
     });
   };
 
-  const allowedTypes = ["paragraph", "heading"];
+  const allowedBlockTypes = [
+    "paragraph",
+    "heading",
+    "bullet_list",
+    "ordered_list",
+    "list_item",
+  ];
 
-  const renderRichtextMiddleware = (
+  const processBody = (
     body: (RichTextContentContent | SoWEstimationSectionContent)[]
   ) =>
     body.map((blok) => {
@@ -68,9 +77,9 @@ export const SoWPage = ({ story }: SoWPageProps) => {
         return blok;
       }
 
-      const textContent = blok.text?.content.map((contentBlock) => {
+      const processBlock = (contentBlock: ISbRichtext) => {
         if (
-          !allowedTypes.includes(contentBlock.type) ||
+          !allowedBlockTypes.includes(contentBlock.type) ||
           !contentBlock.content
         ) {
           return contentBlock;
@@ -79,16 +88,23 @@ export const SoWPage = ({ story }: SoWPageProps) => {
         return {
           ...contentBlock,
           content: contentBlock.content.map((content) => {
-            if (content.type === "text") {
+            if (allowedBlockTypes.includes(content.type)) {
+              return processBlock(content);
+            } else if (content.type === "text") {
               return {
                 ...content,
-                text: processText(content.text),
+                text: processTextWithComputedField(content.text),
               };
+            } else if (content.type === "list_item") {
+              return processBlock(content);
+            } else {
+              return content;
             }
-            return content;
           }),
         };
-      });
+      };
+
+      const textContent = blok.text?.content.map(processBlock);
 
       return {
         ...blok,
@@ -99,8 +115,10 @@ export const SoWPage = ({ story }: SoWPageProps) => {
       };
     });
 
-  const bodyWithComputedFields = renderRichtextMiddleware(body);
-  console.log({ bodyWithComputedFields, body4: body[4].text, body });
+  const processedBody = processBody(
+    body as (RichTextContentContent | SoWEstimationSectionContent)[]
+  );
+
   const tocEntries: SoWToCEntry[] = R.pipe(
     body as RichTextContentContent[],
     R.filter((blok) => blok.component === "RichTextContent"),
@@ -181,7 +199,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
               <SowToC entries={tocEntries} />
             </Box>
 
-            {bodyWithComputedFields.map((blok) => (
+            {processedBody.map((blok) => (
               <BlockComponentRenderer content={blok} key={blok._uid} />
             ))}
           </Box>
