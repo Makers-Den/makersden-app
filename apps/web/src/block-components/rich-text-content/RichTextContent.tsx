@@ -10,6 +10,7 @@ import {
 } from "storyblok-rich-text-react-renderer";
 
 import { CardSection } from "../card-section/CardSection";
+import { PageBreak } from "../page-break/PageBreak";
 
 interface ImageNodeResolverProps {
   alt?: string;
@@ -55,6 +56,7 @@ const LiNodeResolver = (children: ReactNode) => {
 
 const blokResolvers = {
   CardSection: (props) => <CardSection {...props} />,
+  PageBreak: () => <PageBreak />,
 };
 
 const nodeResolvers = {

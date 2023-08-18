@@ -1,6 +1,7 @@
 import { BlockComponent, ComponentBlockType } from "@md/storyblok-types";
 
 import { createBlockComponentRenderer } from "./createBlockComponentRenderer";
+import { PageBreak } from "./page-break/PageBreak";
 import { RichTextContent } from "./rich-text-content/RichTextContent";
 import { SoWEstimationSection } from "./sow-estimation-section/SoWEstimationSection";
 
@@ -12,6 +13,7 @@ const typeToBlockComponent: {
 } = {
   RichTextContent: RichTextContent,
   SoWEstimationSection: SoWEstimationSection,
+  PageBreak: PageBreak,
 };
 
 /** Our default BlockComponentRenderer that corresponds to sections rendered in page body */
