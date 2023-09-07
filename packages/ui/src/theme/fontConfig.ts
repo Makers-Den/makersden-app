@@ -48,13 +48,13 @@ export const fontConfig = {
       normal: "Inter-Regular",
     },
     700: {
-      normal: "Inter-Regular",
+      normal: "Inter-Bold",
     },
     800: {
-      normal: "Inter-Regular",
+      normal: "Inter-Bold",
     },
     900: {
-      normal: "Inter-Regular",
+      normal: "Inter-Bold",
     },
   },
   PPFormula: {

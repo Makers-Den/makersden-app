@@ -18,8 +18,14 @@
 
 @font-face {
   font-family: "Inter";
-  font-weight: 400 900;
+  font-weight: 400 600;
   src: url("/fonts/Inter-Regular.otf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 700 900;
+  src: url("/fonts/Inter-Bold.ttf");
 }
 
 @font-face {
@@ -54,6 +60,11 @@
 @font-face {
   font-family: "Inter-Regular";
   src: url("/fonts/Inter-Regular.otf");
+}
+
+@font-face {
+  font-family: "Inter-Bold";
+  src: url("/fonts/Inter-Bold.ttf");
 }
 
 @font-face {
