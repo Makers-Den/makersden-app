@@ -4,6 +4,7 @@ import { EstimationRowHeader } from "@md/ui/src/components/EstimationRowHeader";
 import { EstimationsSectionHeader } from "@md/ui/src/components/EstimationsSectionHeader";
 import { ImageGallery } from "@md/ui/src/components/web/ImageGallery";
 import { useGallery } from "@md/ui/src/hooks/useGallery";
+import { concatenateImages } from "@md/ui/src/utils/concatenateImages";
 import { useMapEstimationData } from "@md/ui/src/utils/useMapEstimationData";
 import { Box, Divider, Text } from "native-base";
 
@@ -44,7 +45,10 @@ export const SoWEstimationSection = ({
 
               <EstimationRowContent
                 description={row.description}
-                images={row.images}
+                images={concatenateImages(
+                  row.clipboardImages.images,
+                  row.images
+                )}
                 wrapperProps={{
                   px: 4,
                 }}
@@ -52,10 +56,12 @@ export const SoWEstimationSection = ({
                 imageWrapperProps={{ testID: "image-gallery" }}
                 onImageClick={(imageIndex) => {
                   gallery.open(
-                    row.images.map((image) => ({
-                      alt: image.alt,
-                      id: image.id,
-                      url: image.filename,
+                    concatenateImages(
+                      row.clipboardImages.images,
+                      row.images
+                    ).map((image) => ({
+                      ...image,
+                      id: image.url,
                     })),
                     imageIndex
                   );

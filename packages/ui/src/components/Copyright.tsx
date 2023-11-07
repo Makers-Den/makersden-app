@@ -4,7 +4,8 @@ import React from "react";
 export const Copyright = () => {
   return (
     <Text
-      my={"10"}
+      my="24"
+      mr="4"
       display={"flex"}
       justifyContent={"flex-end"}
       flexDirection={"row"}

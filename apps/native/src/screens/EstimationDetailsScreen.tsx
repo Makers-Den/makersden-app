@@ -21,7 +21,7 @@ export const EstimationDetailsScreen = ({
   });
 
   return (
-    <ContentWrapper>
+    <ContentWrapper pb="20">
       <UiEstimationDetailsScreen
         estimation={estimation}
         isLoading={isEstimationLoading}

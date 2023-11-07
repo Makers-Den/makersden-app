@@ -84,7 +84,11 @@ export const RichTextResolver = ({
       blokResolvers,
       markResolvers: {
         [MARK_BOLD]: (children) => (
-          <Text bold display={"inline"} {...combinedTextProps(MARK_BOLD)}>
+          <Text
+            fontFamily={"Inter-Bold"}
+            display={"inline"}
+            {...combinedTextProps(MARK_ITALIC)}
+          >
             {children}
           </Text>
         ),

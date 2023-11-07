@@ -30,7 +30,6 @@ const StoryblokPage = (props: StoryblokPageProps) => {
   const pageType = props.story.content.component as PageType;
   const PageComponent = typeToPageComponent[pageType];
   const liveStory = useStoryblok(props.story, props.preview);
-
   return (
     <PageComponent
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

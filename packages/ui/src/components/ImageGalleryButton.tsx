@@ -1,18 +1,19 @@
-import { Button } from "native-base";
+import { Button, IButtonProps } from "native-base";
 import React, { PropsWithChildren } from "react";
 
-export interface ImageGalleryButtonProps extends PropsWithChildren {
-  text: string;
-  onPress?: () => void;
-}
+export type ImageGalleryButtonProps = PropsWithChildren &
+  IButtonProps & {
+    onPress?: () => void;
+  };
 
 export const ImageGalleryButton = ({
-  text,
+  children,
   onPress,
+  ...props
 }: ImageGalleryButtonProps) => {
   return (
-    <Button width="8" size="sm" onPress={onPress}>
-      {text}
+    <Button width="8" size="sm" onPress={onPress} {...props}>
+      {children}
     </Button>
   );
 };
