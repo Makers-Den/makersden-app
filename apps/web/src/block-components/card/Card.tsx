@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const Card = ({ body, title, subTitle, image }: CardContent) => {
   return (
-    <Flex width="320px" alignItems="center">
+    <Flex width="280px" alignItems="center">
       <Box
         width="150px"
         height="150px"

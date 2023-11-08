@@ -20,6 +20,7 @@ import { SowToC, SoWToCEntry } from "../components/SowToC";
 import { formatNumber } from "../utils/formatNumber";
 import { hexToFloat } from "../utils/hexToFloat";
 import styles from "./SoWPage.module.css";
+import { PageBreak } from "../block-components/page-break/PageBreak";
 
 interface SoWPageProps {
   story: SowPageStory;
@@ -221,7 +222,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
                 title={title}
               />
             </Box>
-
+            <PageBreak />
             <Box mb="20">
               <SowToC entries={tocEntries} />
             </Box>
