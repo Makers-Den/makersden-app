@@ -15,6 +15,7 @@ import * as R from "remeda";
 import { ISbRichtext } from "storyblok-js-client";
 
 import { BlockComponentRenderer } from "../block-components/BlockComponentRenderer";
+import { PageBreak } from "../block-components/page-break/PageBreak";
 import { SoWCover } from "../components/SoWCover";
 import { SowToC, SoWToCEntry } from "../components/SowToC";
 import { formatNumber } from "../utils/formatNumber";
@@ -221,7 +222,7 @@ export const SoWPage = ({ story }: SoWPageProps) => {
                 title={title}
               />
             </Box>
-
+            <PageBreak />
             <Box mb="20">
               <SowToC entries={tocEntries} />
             </Box>
